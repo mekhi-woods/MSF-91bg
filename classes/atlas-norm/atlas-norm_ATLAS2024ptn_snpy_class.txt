@@ -1,6 +1,7 @@
-atlas-norm,ATLAS2024ptn,ATLAS2024ptn,-99999,-99999,-99999,nan,-99999
+atlas-norm,ATLAS2024ptn,ATLAS2024ptn,-99999.0,-99999.0,-99999.0,nan,-99999.0
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-124.0,-124.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

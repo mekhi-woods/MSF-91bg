@@ -56,6 +56,39 @@ def get_chi2(intercept, x, y, sigma, slope):
     b = intercept[0]  # Extract intercept
     model = slope * x + b
     return np.sum(((y - model) / sigma) ** 2)
+def plot_binned_param(axis, path, param_name, bin_num, bin_bounds, p_label, p_color, label_bins: bool = True):
+    # Open data
+    tb = utils.default_open(path, True)
+    param = np.array(tb[param_name])
+    resid = np.array(tb['mu'] - utils.current_cosmo().distmod(tb['z_cmb']).value)
+
+    ## Bin Dust & Residuals with STD of residuals
+    param_bins = np.linspace(bin_bounds[0], bin_bounds[1], bin_num)
+    binned_vals = scipy.stats.binned_statistic(param, resid, bins=param_bins, statistic=np.std).statistic
+    binned_errs = scipy.stats.binned_statistic(param, resid, bins=param_bins, statistic=bootstrap_errs).statistic
+    param_bins_adj = (param_bins[:-1] + param_bins[1:]) / 2.
+
+    # Remove points with <1
+    x_color, y_resid, y_resid_err = np.array([]), np.array([]), np.array([])
+    for i in range(len(param_bins) - 1):
+        if len(resid[(param > param_bins[i]) & (param < param_bins[i + 1])]) > 1:
+            x_color = np.append(x_color, param_bins_adj[i])
+            y_resid = np.append(y_resid, binned_vals[i])
+            y_resid_err = np.append(y_resid_err, binned_errs[i])
+
+    ## Plot binned dust w/ scatter
+    axis.errorbar(x_color, y_resid, yerr=y_resid_err, fmt='o-', color=p_color,
+                    label=p_label + f"{len(param)}")
+
+    ## Label number of points in bin
+    if label_bins:
+        for i in range(len(param_bins) - 1):
+            if np.isnan(binned_vals[i]): continue
+            if len(resid[(param > param_bins[i]) & (param < param_bins[i + 1])]) <= 1: continue
+            axis.text(param_bins_adj[i], binned_vals[i],
+                        len(resid[(param > param_bins[i]) & (param < param_bins[i + 1])]),
+                        ha='left', va='bottom', size='small')
+    return
 
 # WIP Functions =======================================================================================================
 def resid_v_mass_dust(path_91bg: str = 'merged_params_cut.txt',
@@ -222,6 +255,60 @@ def resid_v_mass_dust(path_91bg: str = 'merged_params_cut.txt',
     if len(save_loc) != 0:
         print('Saved figure to... ', save_loc)
         plt.savefig(save_loc)
+    plt.show()
+    return
+def dust_mass_step():
+    fig, axs = plt.subplots(2, 2, figsize=(18, 10), gridspec_kw={'width_ratios': [10, 1]}, constrained_layout=True)
+    plt.style.use('tableau-colorblind10')
+    all_resid, all_mass = [], []
+    c_norm, c_norm_mass = 'C2', 'C3'
+    c_91bg, c_91bg_mass = 'C8', 'C1'
+
+    tb_91bg = utils.default_open('results/old/merged_params_cut.txt', True)
+    tb_norm = utils.default_open('results/old/aaronDo_salt2_params_cut.txt', True)
+    tb_dust = utils.default_open('results/old/global_dust_params.txt', True)
+
+    # Fix dust tables
+    tb_91bg.add_column(name='av_50', col=np.nan)
+    for n in tb_dust['objname']:
+        if n in tb_91bg['objname']:
+            tb_91bg['av_50'][tb_91bg['objname'] == n] = tb_dust['av_50'][tb_dust['objname'] == n]
+    tb_91bg = tb_91bg[~np.isnan(tb_91bg['av_50'])]
+
+    for tb, axis in zip([tb_91bg, tb_91bg], axs):
+        resid, resid_err = tb['mu'] - utils.current_cosmo().distmod(tb['z_cmb']).value, tb['mu_err']
+        mass, mass_err = tb['hostMass'], tb['hostMass_err']
+
+        # axis[0].errorbar(mass[tb['av_50']], resid, xerr=mass_err, yerr=resid_err, fmt='o')
+
+
+
+
+    ## Adjust Axises
+    # tol = 0.1
+    # x_min = np.min(np.hstack([tb_norm['hostMass'], tb_91bg['hostMass']])) - tol
+    # x_max = np.max(np.hstack([tb_norm['hostMass'], tb_91bg['hostMass']])) + tol
+    # y_min = np.min(np.hstack([tb_norm['resid_mu'], tb_91bg['resid_mu']])) - tol
+    # y_max = np.max(np.hstack([tb_norm['resid_mu'], tb_91bg['resid_mu']])) + tol
+    # axs[0,0].set(xlim=(x_min, x_max), ylim=(y_min, y_max))
+    # axs[1,0].set(xlim=(x_min, x_max), ylim=(y_min, y_max))
+    # axs[0,1].set(ylim=(y_min, y_max))
+    # axs[1,1].set(ylim=(y_min, y_max))
+    axs[0,0].tick_params(labelbottom=False)
+    axs[0,1].tick_params(labelleft=False, labelbottom=False)
+    axs[1,1].tick_params(labelleft=False, labelbottom=False)
+
+    ## Labels
+    axs[0,0].set_ylabel('Hubble Residual (mag)', size=16)
+    axs[1,0].set_ylabel('Hubble Residual (mag)', size=16)
+    axs[1,0].set_xlabel("Host Stellar Mass ($\log M_{*}[M_{\odot}]$)", size=16)
+    axs[0,0].legend(loc='lower left')
+    axs[1,0].legend(loc='lower left')
+
+    # Saving Figure
+    # if len(save_loc) != 0:
+    #     print('Saved figure to... ', save_loc)
+    #     plt.savefig(save_loc)
     plt.show()
     return
 
@@ -855,11 +942,11 @@ def dust_hist(path_91bg: str = 'salt_params_cov_cut.txt',
         plt.savefig(save_loc, dpi=300)
     plt.show()
     return
-def abs_mag_v_dust(path_91bg: str = 'salt_params_cov_cut.txt',
-                   path_red_norm: str = 'redNormSNe_salt.txt',
-                   path_dust: str = 'global_dust_params.txt',
-                   save_loc: str = '', label: bool = False):
-    fig, ax = plt.subplots(1, 2, figsize=(21, 7), constrained_layout=True)
+def abs_mag_v_color(path_91bg: str = 'salt_params_cov_cut.txt',
+                    path_red_norm: str = 'redNormSNe_salt.txt',
+                    path_dust: str = 'global_dust_params.txt',
+                    save_loc: str = '', label: bool = False):
+    fig, ax = plt.subplots(1, 1, figsize=(14, 6), constrained_layout=True)
     plt.style.use('tableau-colorblind10')
     c_norm, c_norm_line = 'C2', 'C3'
     c_91bg, c_91bg_line = 'C8', 'C1'
@@ -918,14 +1005,12 @@ def abs_mag_v_dust(path_91bg: str = 'salt_params_cov_cut.txt',
             av_err.append(np.array([low[i], up[i]]))
         av_err = np.array(av_err).T
 
-        print(list(tb_combined['objname']))
-
-        ax[0].errorbar(x=tb_combined['av'][tb_combined['source'] == s],
-                       y=tb_combined['absmB'][tb_combined['source'] == s],
-                       xerr=av_err,
-                       yerr=tb_combined['absmB_err'][tb_combined['source'] == s],
-                       **fmt_dict)
-        ax[1].errorbar(x=tb_combined['c'][tb_combined['source'] == s],
+        # ax[0].errorbar(x=tb_combined['av'][tb_combined['source'] == s],
+        #                y=tb_combined['absmB'][tb_combined['source'] == s],
+        #                xerr=av_err,
+        #                yerr=tb_combined['absmB_err'][tb_combined['source'] == s],
+        #                **fmt_dict)
+        ax.errorbar(x=tb_combined['c'][tb_combined['source'] == s],
                        y=tb_combined['absmB'][tb_combined['source'] == s],
                        xerr=tb_combined['c_err'][tb_combined['source'] == s],
                        yerr=tb_combined['absmB_err'][tb_combined['source'] == s],
@@ -934,25 +1019,17 @@ def abs_mag_v_dust(path_91bg: str = 'salt_params_cov_cut.txt',
         # Fit Lines
         a, b = np.polyfit(tb_combined['c'][tb_combined['source'] == s],
                           tb_combined['absmB'][tb_combined['source'] == s], 1)
-        ax[1].axline((0, b), slope=a, color=ln_cl, zorder=5) # label=f'{round(a, 2)}',
-
-    # # Correlation Coeffficients
-    # print(f"Red Normal Ia SNe [{len(tb_combined['av'][tb_combined['source'] == 'norm'])}]")
-    # print(np.corrcoef(tb_combined['av'][tb_combined['source'] == 'norm'],
-    #                   tb_combined['absmB'][tb_combined['source'] == 'norm']))
-    # print(f"1991bg-like Ia SNe [{len(tb_combined['av'][tb_combined['source'] == '91bg'])}]")
-    # print(np.corrcoef(tb_combined['av'][tb_combined['source'] == '91bg'],
-    #                   tb_combined['absmB'][tb_combined['source'] == '91bg']))
-
-    # Set labels
-    ax[0].set_ylabel('$m_{B} - \mu$', size=16)
-    ax[0].set_xlabel('$A_{V=50}$', size=16)
-    ax[1].set_xlabel('$c$', size=16)
+        ax.axline((0, b), slope=a, color=ln_cl, zorder=5) # label=f'{round(a, 2)}',
 
     # Formatting
-    ax[0].invert_yaxis(); ax[1].invert_yaxis()
-    ax[0].legend(loc='upper right'); ax[1].legend(loc='upper right')
-    ax[1].tick_params(labelleft=False)
+    ax.set_ylabel('Absolute Magnitude, $M = m_{B} - \mu$ (mag)', size=16)
+    # ax[0].set_xlabel('$A_{V=50}$', size=16)
+    # ax[0].invert_yaxis()
+    # ax[0].legend(loc='upper right')
+    ax.legend(loc='upper right')
+    ax.set_xlabel('SALT3 color, $c$', size=16)
+    ax.invert_yaxis()
+    ax.tick_params(labelleft=False)
 
     if len(save_loc) > 0:
         print(f"Saved figure to...  {save_loc}")
@@ -1068,67 +1145,172 @@ def color_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.txt
         plt.savefig(save_loc)
     plt.show()
     return
-def dust_v_scatter(path_91bg: str = 'combiend__snpy_params_cut.txt',
-                   path_dust: str = 'global_dust_params.txt',
-                   bin_num: int = 5, bin_bounds: list = [0, 10], label: bool = False,
-                   save_loc: str = ''):
-    """
-    :param path_91bg: File path to 1991bg-like SNe data.
-    :param path_dust: File path to Normals SNe data.
-    :param bin_num: Number of bins
-    :param bin_bounds: Upper/Lower bounds of bin array
-    :param label: Whether or not to label amount in each bin on the plot.
-    :param save_loc: File path to save PNG of plot.
-    :return: None
-    """
-    fig, axs = plt.subplots(1, 1, figsize=(14, 6), constrained_layout=True)
+def params_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.txt',
+                     path_salt_91bg: str = 'results/combiend__salt_params_cut.txt',
+                     path_snpy_norm: str = 'results/output/norm_snpy_params_cut.txt',
+                     path_salt_norm: str = 'results/aaronDo_salt2_params_cut.txt',
+                     bin_nums: list = [[40, 40], [40, 40], [40, 40], [40, 40]],
+                     bin_bounds: list = [[-1, 1], [-1, 1], [-1, 1], [-1, 1]],
+                     label: bool = False, save_loc: str = ''):
+    fig, axs = plt.subplots(2, 2, figsize=(32, 10), constrained_layout=True)
     plt.style.use('tableau-colorblind10')
-    c_91bg = 'C8'
+    c_91bg, c_norm = 'C8', 'C2'
+
+    # Statisitcs
+    tb_1 = utils.default_open(path_snpy_91bg, True)
+    tb_2 = utils.default_open(path_salt_91bg, True)
+    tb_3 = utils.default_open(path_snpy_norm, True)
+    tb_4 = utils.default_open(path_salt_norm, True)
+    print(f"sBV: 1991bg-like = [{round(np.min(tb_1['st'])-0.1, 3)}, {round(np.max(tb_1['st'])+0.1, 3)}], "
+          f"{len(tb_1['st'])}, Avg. {np.average(tb_1['st'])}, Med. {np.median(tb_1['st'])} | "
+          f"Normals = [{round(np.min(tb_3['st'])-0.1, 3)}, {round(np.max(tb_3['st'])+0.1, 3)}], "
+          f"{len(tb_3['st'])}, Avg. {np.average(tb_3['st'])}, Med. {np.median(tb_3['st'])}")
+    print(f"E(B-V): 1991bg-like = [{round(np.min(tb_1['EBVhost']) - 0.1, 3)}, {round(np.max(tb_1['EBVhost']) + 0.1, 3)}], "
+          f"{len(tb_1['EBVhost'])}, Avg. {np.average(tb_1['EBVhost'])}, Med. {np.median(tb_1['EBVhost'])} | "
+          f"Normals = [{round(np.min(tb_3['EBVhost']) - 0.1, 3)}, {round(np.max(tb_3['EBVhost']) + 0.1, 3)}], "
+          f"{len(tb_3['EBVhost'])}, Avg. {np.average(tb_3['EBVhost'])}, Med. {np.median(tb_3['EBVhost'])}")
+    print(f"x1: 1991bg-like = [{round(np.min(tb_2['x1']) - 0.1, 3)}, {round(np.max(tb_2['x1']) + 0.1, 3)}], "
+          f"{len(tb_2['x1'])}, Avg. {np.average(tb_2['x1'])}, Med. {np.median(tb_2['x1'])} | "
+          f"Normals = [{round(np.min(tb_4['x1']) - 0.1, 3)}, {round(np.max(tb_4['x1']) + 0.1, 3)}], "
+          f"{len(tb_4['x1'])}, Avg. {np.average(tb_4['x1'])}, Med. {np.median(tb_4['x1'])}")
+    print(f"c: 1991bg-like = [{round(np.min(tb_2['c']) - 0.1, 3)}, {round(np.max(tb_2['c']) + 0.1, 3)}], "
+          f"{len(tb_2['c'])}, Avg. {np.average(tb_2['c'])}, Med. {np.median(tb_2['c'])} | "
+          f"Normals = [{round(np.min(tb_4['c']) - 0.1, 3)}, {round(np.max(tb_4['c']) + 0.1, 3)}], "
+          f"{len(tb_4['c'])}, Avg. {np.average(tb_4['c'])}, Med. {np.median(tb_4['c'])}")
+
+    # Top Panels: SNooPy ===============================================================================================
+    ## Top-Left s_BV ===================================================================================================
+    for path, bin_num, p_label, p_color in zip([path_snpy_91bg, path_snpy_norm],
+                                               [bin_nums[0][0], bin_nums[0][1]],
+                                               ["1991bg-like SNe Ia, $N_{SNe}$ = ", "Normal SNe Ia, $N_{SNe}$ = "],
+                                               [c_91bg, c_norm]):
+        plot_binned_param(axis=axs[0, 0], path=path, param_name='st',
+                          bin_num=bin_num, bin_bounds=bin_bounds[0],
+                          p_label=p_label, p_color=p_color)
+
+    ## Top-Right E(B-V) ================================================================================================
+    for path, bin_num, p_label, p_color in zip([path_snpy_91bg, path_snpy_norm],
+                                               [bin_nums[1][0], bin_nums[1][1]],
+                                               ["1991bg-like SNe Ia, $N_{SNe}$ = ", "Normal SNe Ia, $N_{SNe}$ = "],
+                                               [c_91bg, c_norm]):
+        plot_binned_param(axis=axs[0, 1], path=path, param_name='EBVhost',
+                          bin_num=bin_num, bin_bounds=bin_bounds[1],
+                          p_label=p_label, p_color=p_color)
+    # Bottom Panels: SALT3 =============================================================================================
+    ## Bottom-Left x_1 =================================================================================================
+    for path, bin_num, p_label, p_color in zip([path_salt_91bg, path_salt_norm],
+                                               [bin_nums[2][0], bin_nums[2][1]],
+                                               ["1991bg-like SNe Ia, $N_{SNe}$ = ", "Normal SNe Ia, $N_{SNe}$ = "],
+                                               [c_91bg, c_norm]):
+        plot_binned_param(axis=axs[1, 0], path=path, param_name='x1',
+                          bin_num=bin_num, bin_bounds=bin_bounds[2],
+                          p_label=p_label, p_color=p_color)
+    ## Bottom-Right c ==================================================================================================
+    for path, bin_num, p_label, p_color in zip([path_salt_91bg, path_salt_norm],
+                                               [bin_nums[3][0], bin_nums[3][1]],
+                                               ["1991bg-like SNe Ia, $N_{SNe}$ = ", "Normal SNe Ia, $N_{SNe}$ = "],
+                                               [c_91bg, c_norm]):
+        plot_binned_param(axis=axs[1, 1], path=path, param_name='c',
+                          bin_num=bin_num, bin_bounds=bin_bounds[3],
+                          p_label=p_label, p_color=p_color)
+
+    # Formatting ======================================================================================================
+    axs[0, 0].set_ylabel('SNooPy\n Hubble Residual Scatter, $\sigma$', size=16)
+    axs[0, 0].set_xlabel('Binned SNooPy $s_{BV}$', size=16)
+    axs[0, 1].set_xlabel('Binned SNooPy $E(B-V)_{host}$', size=16)
+    axs[1, 0].set_ylabel('SALT3\n Hubble Residual Scatter, $\sigma$', size=16)
+    axs[1, 0].set_xlabel('Binned SALT3 $x_1$', size=16)
+    axs[1, 1].set_xlabel('Binned SALT3 $c$', size=16)
+    axs[0, 0].legend(loc='upper left')
+    axs[0, 1].legend(loc='upper left')
+    axs[1, 0].legend(loc='upper left')
+    axs[1, 1].legend(loc='upper left')
+    axs[0, 0].set_ylim(0, 0.3)
+    axs[0, 1].set_ylim(0, 0.3)
+    axs[1, 0].set_ylim(0, 0.3)
+    axs[1, 1].set_ylim(0, 0.3)
+    axs[0, 1].tick_params(labelleft=False)
+    axs[1, 1].tick_params(labelleft=False)
+
+    # Saving Figure
+    if len(save_loc) != 0:
+        print('Saved figure to... ', save_loc)
+        plt.savefig(save_loc)
+    plt.show()
+    return
+def dust_v_scatter(path_91bg: str = 'results/old/merged_params_cut.txt',
+                   path_norm: str = 'results/old/redNormSNe.txt',
+                   path_dust: str = 'results/old/global_dust_params.txt',
+                   bin_num: int = 20, bin_bounds: list = [0.1, 6.3], hist_bins: int = 20,
+                   label: bool = True, save_loc: str = ''):
+    fig, axs = plt.subplots(2, 1, figsize=(16, 9), constrained_layout=True, height_ratios=[10, 2])
+    plt.style.use('tableau-colorblind10')
+    c_91bg, c_norm = 'C8', 'C2'
 
     # Open data
     tb_91bg = utils.default_open(path_91bg, True)
+    tb_red_norm = utils.default_open(path_norm, True)
     tb_dust = utils.default_open(path_dust, True)
 
-    # Get associated dust values
-    dust = np.array([])
-    for name in tb_91bg['objname']:
-        if name in list(tb_dust['objname']):
-            dust = np.append(dust, tb_dust['av_50'][tb_dust['objname'] == name].value[0])
-        else:
-            tb_91bg.remove_row(list(tb_91bg['objname']).index(name))  # Removes if no dust value found
-    resid = np.array(tb_91bg['mu'] - utils.current_cosmo().distmod(tb_91bg['z_cmb']).value)
+    for tb, lb, cl in zip([tb_91bg, tb_red_norm],
+                          ["1991bg-like SNe Ia", "Normal SNe (c > 0.15)"],
+                          [c_91bg, c_norm]):
+        # Get associated dust values
+        dust = np.array([])
+        for name in tb['objname']:
+            if name in list(tb_dust['objname']):
+                dust = np.append(dust, tb_dust['av_50'][tb_dust['objname'] == name].value[0])
+            else:
+                tb.remove_row(list(tb['objname']).index(name))  # Removes if no dust value found
+        resid = np.array(tb['mu'] - utils.current_cosmo().distmod(tb['z_cmb']).value)
 
-    # Bin Dust & Residuals with STD of residuals
-    dust_bins = np.linspace(0, 7, bin_num)
-    binned_vals = scipy.stats.binned_statistic(dust, resid, bins=dust_bins, statistic=np.std).statistic
-    binned_errs = scipy.stats.binned_statistic(dust, resid, bins=dust_bins, statistic=bootstrap_errs).statistic
-    dust_bins_adj = (dust_bins[:-1] + dust_bins[1:]) / 2.
+        # Bin Dust & Residuals with STD of residuals
+        dust_bins = np.linspace(bin_bounds[0], bin_bounds[1], bin_num)
+        binned_vals = scipy.stats.binned_statistic(dust, resid, bins=dust_bins, statistic=np.std).statistic
+        binned_errs = scipy.stats.binned_statistic(dust, resid, bins=dust_bins, statistic=bootstrap_errs).statistic
+        dust_bins_adj = (dust_bins[:-1] + dust_bins[1:]) / 2.
 
-    # Remove points with <1
-    x_dust, y_resid, y_resid_err = np.array([]), np.array([]), np.array([])
-    for i in range(len(dust_bins) - 1):
-        if len(resid[(dust > dust_bins[i]) & (dust < dust_bins[i + 1])]) > 1:
-            x_dust = np.append(x_dust, dust_bins_adj[i])
-            y_resid = np.append(y_resid, binned_vals[i])
-            y_resid_err = np.append(y_resid_err, binned_errs[i])
+        # Remove points with <1
+        y_resid, y_resid_err, x_dust = np.array([]), np.array([]), np.array([])
+        for i in range(len(dust_bins) - 1):
+            if len(resid[(dust > dust_bins[i]) & (dust < dust_bins[i + 1])]) > 1:
+                x_dust = np.append(x_dust, dust_bins_adj[i])
+                y_resid = np.append(y_resid, binned_vals[i])
+                y_resid_err = np.append(y_resid_err, binned_errs[i])
 
-    # Plot binned dust w/ scatter
-    plt.errorbar(x_dust, y_resid, yerr=y_resid_err, fmt='o-', color=c_91bg,
-                 label="1991bg-like SNe Ia, $N_{SNe}$ = " + f"{len(dust)}")
+        # Plot binned dust w/ scatter
+        axs[0].errorbar(x_dust, y_resid, xerr=y_resid_err, fmt='o', color=cl,
+                     label=lb+", $N_{SNe}$ = " + f"{len(dust)}")
 
-    # Label number of points in bin
-    if label:
-        for i in range(len(dust_bins)-1):
-            if np.isnan(binned_vals[i]): continue
-            if len(resid[(dust > dust_bins[i]) & (dust < dust_bins[i + 1])]) <= 1: continue
-            axs.text(dust_bins_adj[i], binned_vals[i],
-                     len(resid[(dust > dust_bins[i]) & (dust < dust_bins[i+1])]),
-                     ha='left', va='bottom', size='small')
+        # Plot histogram to side
+        axs[1].hist(dust, bins=hist_bins, color=cl)
+
+        # Plot median line
+        axs[0].axvline(np.median(dust), label=lb+f' Median: {round(np.median(dust), 3)}',
+                       color=cl, linestyle='--')
+        axs[1].axvline(np.median(dust), color=cl, linestyle='--')
+
+        # Label number of points in bin
+        if label:
+            for i in range(len(dust_bins)-1):
+                if np.isnan(binned_vals[i]): continue
+                if len(resid[(dust > dust_bins[i]) & (dust < dust_bins[i + 1])]) <= 1: continue
+                axs[0].text(dust_bins_adj[i], binned_vals[i],
+                         len(resid[(dust > dust_bins[i]) & (dust < dust_bins[i+1])]),
+                         ha='left', va='bottom', size='small')
+
+    # STD of entire data set
+    axs[0].axhline(np.std(resid),
+                   label=f'Total Hubble Residual Scatter, $\sigma$ = {round(np.std(resid), 3)}',
+                   color='C3')
 
     # Formatting
-    axs.set_xlabel('Binned Dust Parameter, $A_{V=50}$', size=16)
-    axs.set_ylabel('Hubble Residual Scatter, $\sigma$', size=16)
-    axs.legend(loc='upper left')
+    axs[0].set_ylabel('Hubble Residual Scatter, $\sigma$', size=16)
+    axs[1].set_xlabel('Binned Dust Parameter, $A_{V}$', size=16)
+    axs[0].legend(loc='upper right')
+    axs[0].tick_params(labelbottom=False)
+    axs[0].set_xlim(np.min(x_dust)-0.1, np.max(x_dust)+0.1)
+    axs[1].set_xlim(np.min(x_dust)-0.1, np.max(x_dust)+0.1)
 
     # Saving Figure
     if len(save_loc) != 0:

@@ -1,6 +1,7 @@
-atlas-91bg,2024ulb,ATLAS2024ulb,20.9540199,-15.7102499,0.044,nan,60554.277009999845
+atlas-91bg,2024ulb,ATLAS2024ulb,20.9540199,-15.7102499,0.044,0.04355377977537333,60554.277009999845
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-404.0,-404.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

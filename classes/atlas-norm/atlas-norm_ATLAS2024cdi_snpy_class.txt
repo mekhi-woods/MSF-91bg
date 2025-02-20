@@ -1,6 +1,7 @@
-atlas-norm,2005mc,ATLAS2024cdi,126.7765,21.646,0.0252,nan,53727.0
+atlas-norm,2005mc,ATLAS2024cdi,126.7765,21.646,0.0252,0.025657773714809186,53727.0
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-124.0,-124.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

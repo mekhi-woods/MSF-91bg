@@ -6,8 +6,10 @@ import time
 import glob
 import utils  # Import of utils.py
 import requests
+import numpy as np
 import pandas as pd
 from astropy import units as u
+from astropy.table import Table
 from astropy.coordinates import SkyCoord
 
 # WIP Functions =======================================================================================================
@@ -25,6 +27,16 @@ def retrive_objname_ra_dec(path: str):
         ra.append(c.ra.deg)
         dec.append(c.dec.deg)
         names.append(n_line[hdr.index('Name')].split('SN ')[-1])
+    return names, ra, dec
+def retrive_objname_ra_dec_combined_tarlist(path: str):
+    names, ra, dec = [], [], []
+    tarlist = np.genfromtxt(path, delimiter=',', dtype=str, skip_header=1)
+    tb = Table(names=tarlist[0], data=tarlist[1:])
+    for i, row in enumerate(tb[tb['Source'] == 'ATLAS']):
+        names.append(row['Name'].split('SN ')[-1])
+        c = SkyCoord(row['RA'], row['DEC'], frame='icrs', unit=(u.hourangle, u.deg))
+        ra.append(c.ra.deg)
+        dec.append(c.dec.deg)
     return names, ra, dec
 def initate_download(ra: str, dec: str, headers: dict[str, str]):
     task_url = None
@@ -84,9 +96,12 @@ def save_download(result_url: str, headers: dict[str, str], save_path: str):
     return
 
 # Main Call ===========================================================================================================
-def download(tar_list: str, save_loc: str):
+def download(tar_list: str, save_loc: str, combined_tarlist: bool = False):
     # Get TNS CSV of RA/DEC Information
-    objnames, ra, dec = retrive_objname_ra_dec(tar_list)
+    if combined_tarlist:
+        objnames, ra, dec = retrive_objname_ra_dec_combined_tarlist(tar_list)
+    else:
+        objnames, ra, dec = retrive_objname_ra_dec(tar_list)
 
     # Create TNS Header
     headers = {'Authorization': f'Token {utils.get_apikeys()["atlas_key"]}', 'Accept': 'application/json'}
@@ -97,6 +112,7 @@ def download(tar_list: str, save_loc: str):
         known_names.append(k.split('/')[-1].split('ATLAS')[-1].split('.txt')[0])
 
     # Download light curves for each set of coordinates
+    failed_names = []
     for i, n in enumerate(zip(objnames, ra, dec)):
         hdr = f"[{i+1} / {len(objnames)}] Downloading {n[0]} ({round(n[1], 3)}, {round(n[2],3)})... ==================="
         csr = f"{'='*len(hdr)}"
@@ -113,12 +129,19 @@ def download(tar_list: str, save_loc: str):
         result_url = check_download(task_url, headers)
         if result_url is None:
             print(f"[!!!] Result unavailable! Skipping...\n{csr}")
+            failed_names.append(n[0])
             continue
 
         # Successful Download
         print("[+++] ", end='')
         save_download(result_url, headers, f'{save_loc}ATLAS{n[0]}.txt')
         print(csr)
+
+    # Report failed downloads
+    print(f"[~~~] The following resulting in errors...\n[", end='')
+    for n in failed_names:
+        print(f"{n}", end=', ')
+    print(']\n')
 
 
 if __name__ == "__main__":

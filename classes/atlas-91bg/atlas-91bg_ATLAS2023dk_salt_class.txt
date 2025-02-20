@@ -1,6 +1,7 @@
-atlas-91bg,2023dk,ATLAS2023dk,77.776333,-1.0803,0.02844,nan,59952.90434999997
+atlas-91bg,2023dk,ATLAS2023dk,77.776333,-1.0803,0.02844,0.028159923966870035,59952.90434999997
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-404.0,-404.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

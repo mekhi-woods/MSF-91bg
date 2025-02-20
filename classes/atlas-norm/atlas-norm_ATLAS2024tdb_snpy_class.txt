@@ -1,6 +1,7 @@
-atlas-norm,2024tdb,ATLAS2024tdb,82.7265981636,8.97570645561,0.04,nan,60549.5855200002
+atlas-norm,2024tdb,ATLAS2024tdb,82.7265981636,8.97570645561,0.04,0.03919947897613661,60549.5855200002
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-124.0,-124.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

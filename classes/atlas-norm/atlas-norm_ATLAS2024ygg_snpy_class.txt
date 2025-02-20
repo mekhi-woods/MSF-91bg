@@ -1,6 +1,7 @@
-atlas-norm,2024ygg,ATLAS2024ygg,49.4141749969,28.0263427469,0.04,nan,60598.50855999999
+atlas-norm,2024ygg,ATLAS2024ygg,49.4141749969,28.0263427469,0.04,0.037802222281922086,60598.50855999999
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-124.0,-124.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

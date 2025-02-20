@@ -1,6 +1,7 @@
-atlas-91bg,2020abmg,ATLAS2020abmg,123.852270875,-6.957704925,0.04,nan,59186.53299999982
+atlas-91bg,2020abmg,ATLAS2020abmg,123.852270875,-6.957704925,0.04,0.041157380028621085,59186.53299999982
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-404.0,-404.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

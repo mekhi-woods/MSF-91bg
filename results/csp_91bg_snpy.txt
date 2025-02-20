@@ -1,2 +1,0 @@
-# Created by M.D. Woods -- 2025-02-10 15:03:43.975583 -- NUM TARGETS: 13
-# WARNING: For files with SNPY & SALT, the 'stretch' and 'color' are NOT identical.

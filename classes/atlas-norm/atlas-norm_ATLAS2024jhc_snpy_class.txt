@@ -1,6 +1,7 @@
-atlas-norm,2024jhc,ATLAS2024jhc,196.6483875,-29.73233,0.075,nan,60455.86924999999
+atlas-norm,2024jhc,ATLAS2024jhc,196.6483875,-29.73233,0.075,0.07603609958715789,60455.86924999999
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-124.0,-124.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

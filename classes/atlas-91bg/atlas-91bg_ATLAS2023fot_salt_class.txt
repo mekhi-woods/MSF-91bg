@@ -1,6 +1,7 @@
-atlas-91bg,2023fot,ATLAS2023fot,185.448153902,10.5914186734,0.026467,nan,60048.15253000008
+atlas-91bg,2023fot,ATLAS2023fot,185.448153902,10.5914186734,0.026467,0.02616774971683759,60048.15253000008
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-404.0,-404.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

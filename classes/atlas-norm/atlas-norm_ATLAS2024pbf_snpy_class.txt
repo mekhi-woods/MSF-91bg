@@ -1,6 +1,7 @@
-atlas-norm,2024pbf,ATLAS2024pbf,62.4823854215,-1.3738359594,0.0244,nan,60499.422410000116
+atlas-norm,2024pbf,ATLAS2024pbf,62.4823854215,-1.3738359594,0.0244,0.02437549502266043,60499.422410000116
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-124.0,-124.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

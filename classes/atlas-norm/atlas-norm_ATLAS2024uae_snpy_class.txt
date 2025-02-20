@@ -1,6 +1,7 @@
-atlas-norm,2024uae,ATLAS2024uae,76.1802591555,-31.9328276918,0.08,nan,60553.09748
+atlas-norm,2024uae,ATLAS2024uae,76.1802591555,-31.9328276918,0.08,0.0799942995698275,60553.09748
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-124.0,-124.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

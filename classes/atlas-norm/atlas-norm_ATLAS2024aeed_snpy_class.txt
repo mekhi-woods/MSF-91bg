@@ -1,10 +1,11 @@
-atlas-norm,2024aeed,ATLAS2024aeed,212.095319945,16.9284563029,0.032,nan,60661.62172000017
+atlas-norm,2024aeed,ATLAS2024aeed,212.095319945,16.9284563029,0.032,0.03158477210265804,60661.62172000017
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,39.26860955117317,0.25495066470620387
 st,1.235961467289196,0.12690732442368838
 Tmax,60698.940147300425,0.0005919933382027315
 EBVhost,0.10036390561274462,0.17969526707277259
 chisquare,57.30360618224482,0.7958834191978448
+hostMass,9.498305814965704,0.0029451936615648698
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

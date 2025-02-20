@@ -1,6 +1,7 @@
-atlas-91bg,2021zsz,ATLAS2021zsz,92.63880328,-14.53887968,0.035746,nan,59484.61100000003
+atlas-91bg,2021zsz,ATLAS2021zsz,92.63880328,-14.53887968,0.035746,0.035856817385185036,59484.61100000003
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-404.0,-404.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

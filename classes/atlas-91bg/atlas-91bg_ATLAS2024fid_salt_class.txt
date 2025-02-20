@@ -1,6 +1,7 @@
-atlas-91bg,2024fid,ATLAS2024fid,186.078586571,10.4462249059,0.06,nan,60398.0
+atlas-91bg,2024fid,ATLAS2024fid,186.078586571,10.4462249059,0.06,0.06146324960082463,60398.0
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 mu,-404.0,-404.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan
