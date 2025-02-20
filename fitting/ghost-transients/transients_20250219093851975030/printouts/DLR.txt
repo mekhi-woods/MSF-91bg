@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024zjo
+offset/DLR = \
+{468684001: 30.72, 468684004: 8.14}
+candidate semi-major axis = \
+{468684001: 2.04, 468684004: 3.88}
+No host chosen! r/DLR > 5.0.

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024jck
+offset/DLR = \
+{'ESO 352- G 030': 1.02, 'WISEA J011606.02-322929.0': 11.03, 'WISEA J011532.91-321915.0': 130.53}
+candidate semi-major axis = \
+{'ESO 352- G 030': 24.9, 'WISEA J011606.02-322929.0': 22.77, 'WISEA J011532.91-321915.0': 8.07}
+Selecting GLADE host: ESO 352- G 030

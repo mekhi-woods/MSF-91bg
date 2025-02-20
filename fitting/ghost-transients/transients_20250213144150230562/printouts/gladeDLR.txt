@@ -1,0 +1,8 @@
+
+ transient = \
+SN2007hj
+offset/DLR = \
+{'NGC 7461': 0.83}
+candidate semi-major axis = \
+{'NGC 7461': 19.32}
+Selecting GLADE host: NGC 7461

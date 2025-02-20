@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024gdb
+offset/DLR = \
+{'IC 3611': 21.53, 'VCC 1806': 52.67}
+candidate semi-major axis = \
+{'IC 3611': 30.63, 'VCC 1806': 13.41}
+No host chosen! r/DLR > 5.0.

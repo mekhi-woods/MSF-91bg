@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020ecn
+offset/DLR = \
+{'ESO 572- G 033': 56.27, 'ESO 572- G 035': 1.04}
+candidate semi-major axis = \
+{'ESO 572- G 033': 17.25, 'ESO 572- G 035': 22.2}
+Selecting GLADE host: ESO 572- G 035

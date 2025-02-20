@@ -1,0 +1,8 @@
+
+ transient = \
+SN2007bm
+offset/DLR = \
+{'NGC 3672': 0.13}
+candidate semi-major axis = \
+{'NGC 3672': 82.47}
+Selecting GLADE host: NGC 3672

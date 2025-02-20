@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024abla
+offset/DLR = \
+{502820726: 6.09, 502820727: 5.77, 502820733: 27.58}
+candidate semi-major axis = \
+{502820726: 1.75, 502820727: 2.97, 502820733: 2.56}
+No host chosen! r/DLR > 5.0.

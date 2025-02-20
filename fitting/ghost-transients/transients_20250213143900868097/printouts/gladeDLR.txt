@@ -1,0 +1,8 @@
+
+ transient = \
+SN2007ca
+offset/DLR = \
+{'2MASS J13310420-1506048': 0.78, 'WISEA J133122.51-150654.1': 15.28}
+candidate semi-major axis = \
+{'2MASS J13310420-1506048': 31.35, 'WISEA J133122.51-150654.1': 17.25}
+Selecting GLADE host: 2MASS J13310420-1506048

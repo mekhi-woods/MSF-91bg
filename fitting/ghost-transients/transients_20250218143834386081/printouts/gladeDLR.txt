@@ -1,0 +1,8 @@
+
+ transient = \
+SN2005bo
+offset/DLR = \
+{'NGC 4708': 0.53}
+candidate semi-major axis = \
+{'NGC 4708': 26.1}
+Selecting GLADE host: NGC 4708
