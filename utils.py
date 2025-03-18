@@ -1,8 +1,12 @@
 import os
+import json
+import time
 import requests
 import numpy as np
 from astropy.table import Table
+from collections import OrderedDict
 from astropy.cosmology import FlatLambdaCDM
+
 
 def get_apikeys(apikeys_loc: str = 'txts/api_keys.txt') -> dict:
     """
@@ -90,6 +94,90 @@ def append_tnskey(ra: float, dec: float, objname: str, z: float, discdate: float
     with open(tnskey_loc, 'a') as f:
         f.write(f"{ra}, {dec}, {objname}, {z}, {discdate}\n")
     return
+def query_tns(coords: list or None = None, objname: str or None = None, search_radius: str = '2') -> dict:
+    """
+    :param coords: [Right Ascension in degrees, Declination in degrees] or None when not in use
+    :param objname: Name of object or None when not in use
+    :param search_radius: Radius to search out for in arcseconds
+    :return: dict of TNS details
+    """
+    # Set up keys and default arguments
+    APIKEY = get_apikeys()
+    tns_bot_id, tns_bot_name, tns_bot_api_key = APIKEY['tns_bot_id'], APIKEY['tns_bot_name'], APIKEY[
+        'tns_bot_api_key']
+    tns_marker = (
+        f'tns_marker{{"tns_id": "{int(tns_bot_id)}",'
+        f'"type": "bot", "name": "{tns_bot_name}"}}'
+    )
+    headers = {"User-Agent": tns_marker}
+
+    # Check mode
+    ## if coords == None, then use objname
+    if type(objname) == str:
+        # search_obj = [
+        #     ("ra", ""),
+        #     ("dec", ""),
+        #     ("radius", str(search_radius)),
+        #     ("units", "arcsec"),
+        #     ("objname", str(objname)),
+        #     ("objname_exact_match", 1),
+        #     ("internal_name", ""),
+        #     ("internal_name_exact_match ", 0),
+        #     ("objid", ""),
+        #     ("public_timestamp", ""),
+        # ]
+        search_obj = [
+            ("radius", str(search_radius)),
+            ("units", "arcsec"),
+            ("objname", str(objname)),
+            ("objname_exact_match", 1),
+        ]
+    elif type(coords) == list:
+        # search_obj = [
+        #     ("ra", str(coords[0])),
+        #     ("dec", str(coords[1])),
+        #     ("radius", str(search_radius)),
+        #     ("units", "arcsec"),
+        #     ("objname", ""),
+        #     ("objname_exact_match", 0),
+        #     ("internal_name", ""),
+        #     ("internal_name_exact_match ", 0),
+        #     ("objid", ""),
+        #     ("public_timestamp", ""),
+        # ]
+        search_obj = [
+            ("ra", str(coords[0])),
+            ("dec", str(coords[1])),
+            ("radius", str(search_radius)),
+            ("units", "arcsec"),
+        ]
+    else:
+        print("[!!!] Invalid selection! Enter objname as str {'objname'} or coordinates as list {['ra', 'dec']}...")
+        return {}
+
+    # Query TNS
+    search_data = {"api_key": tns_bot_api_key, "data": json.dumps(OrderedDict(search_obj))}
+    response = requests.post("https://www.wis-tns.org/api/get/search", headers=headers, data=search_data)
+    response = json.loads(response.text)
+    transients = response["data"]
+    if transients == 'Too Many Requests':
+        print('\nToo Many Requests... pausing for 30 seconds: ', end='')
+        for i in range(10):
+            print(' - ', end='')
+            time.sleep(3)
+        print('\n')
+        transients = response["data"]
+    get_obj = [
+        ("objname", transients[0]["objname"]),
+        ("objid", transients[0]["objid"]),
+        ("photometry", "0"),
+        ("spectra", "0"),
+    ]
+    get_data = {"api_key": tns_bot_api_key, "data": json.dumps(OrderedDict(get_obj))}
+    response = requests.post("https://www.wis-tns.org/api/get/object", headers=headers, data=get_data)
+    response = json.loads(response.text)
+    details = response["data"]
+    return details
 def check_mass_key(objname: str, mode: str, hostMass: float = np.nan, hostMassErr: float = np.nan,
                    mass_key_loc: str = 'txts/mass_key.txt') -> (float, float):
     """
@@ -121,19 +209,28 @@ def default_open(path: str, table_mode: bool = False, delimiter: str = ', '):
     :return: (list, np.array[str]) | astropy.table.Table.
     """
     data = np.genfromtxt(path, dtype='str', delimiter=delimiter)
-    hdr, data = data[0, :], data[1:, :]
-    for i in range(len(hdr)):
-        if hdr[i] in ['objname', 'origin', 'algo', 'subtype', 'hostMass', 'hostMass_err']: continue
-        data[:, i] = data[:, i].astype(float)
-    if table_mode:
-        var_table = Table()
-        hdr = hdr.tolist()
-        for h in hdr:
-            try: var_table[h] = data[:, hdr.index(h)].astype(float)
-            except ValueError: var_table[h] = data[:, hdr.index(h)]
-        return var_table
+
+    # Check if file empty
+    if len(data.shape) == 1:
+        hdr, data = data, np.array([])
+        if table_mode:
+            return Table(names=hdr, dtype=[str]*len(hdr))
+        else:
+            return hdr.tolist(), data
     else:
-        return hdr.tolist(), data
+        hdr, data = data[0, :], data[1:, :]
+        for i in range(len(hdr)):
+            if hdr[i] in ['objname', 'origin', 'algo', 'subtype', 'hostMass', 'hostMass_err']: continue
+            data[:, i] = data[:, i].astype(float)
+        if table_mode:
+            var_table = Table()
+            hdr = hdr.tolist()
+            for h in hdr:
+                try: var_table[h] = data[:, hdr.index(h)].astype(float)
+                except ValueError: var_table[h] = data[:, hdr.index(h)]
+            return var_table
+        else:
+            return hdr.tolist(), data
 def get_twomass():
     if not os.path.exists('twomass++_velocity_LH11.npy'):
         raise FileNotFoundError('[!!!] TwoMass velocities file "twomass++_velocity_LH11.npy" not found! '
@@ -151,31 +248,26 @@ def verify_downloads(combined_tarlist_path: str, source: str, subtype: str):
     print(f"[+++] Verifying downloaded '{source}' '{subtype}' files via {combined_tarlist_path}...")
     tarlist = np.genfromtxt(combined_tarlist_path, delimiter=',', dtype=str, skip_header=1)
     tb = Table(names=tarlist[0], data=tarlist[1:])
-    num_missing = 0
-    for i, row in enumerate(tb[tb['Source'] == source]):
-        n = row['Name'].split(' ')[-1]
-
+    list_sne = []
+    for i, row in enumerate(tb):
+        n = row['Name'][3:]
         # Path verification
         if subtype.lower() not in ['91bg', 'norm']:
             print(f"[!!!] '{subtype}' is an invalid 'subtype' selection!")
             return
-        if source.lower() == 'csp':
-            path = f"data/CSP-{subtype.lower()}/SN{n}_snpy.txt"
-        elif source.lower() == 'atlas':
-            path = f"data/ATLAS-{subtype.lower()}/ATLAS{n}.txt"
-        elif source.lower() == 'ztf' and subtype.lower() == '91bg':
-            path = f"data/ZTF-91bg/ZTF{n}.txt"
-        else:
-            print(f"[!!!] '{source}' is an invalid 'source' selection!")
-            return
+        path = f"data/{source.upper()}-{subtype.lower()}/{source.upper()}{n}.txt"
 
         # Check path
-        if os.path.exists(path) == False:
-            num_missing += 1
-            print(f"[{num_missing}] {n} has not been downloaded!")
-    if num_missing > 0:
-        print(f"[~~~] Missing '{num_missing}' files, it is recommended to download them.")
-    return
+        if os.path.exists(path):
+            list_sne.append(n)
+            # print(f"[{len(list_sne)}] {n} exists in {source} download path!")
+    if len(list_sne) > 0:
+        print(f"      {len(list_sne)} '{source}' files identified out of {len(tb)} '{subtype}' files in target list. "
+              f"({len(list_sne)} / {len(tb)})")
+        return True
+    else:
+        print(f"[!!!] Missing data for '{source}' '{subtype}'!")
+        return False
 def verifiy_overlap():
     tarlist_91bg = np.genfromtxt('txts/target_files/tarlist_CSP-ATLAS-ZTF_91bg.csv',
                                  delimiter=',', skip_header=1, dtype=str)

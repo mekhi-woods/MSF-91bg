@@ -1,25 +1,25 @@
 import os
 import json
 import glob
+import time
 import utils  # Import of utils.py
 import getVpec # Import of getVpec.py
 import astropy
 import requests
 import warnings
+import datetime
 import numpy as np
 import time as systime
 import snpy as snoopyfit
 import sncosmo as salt3fit
 import matplotlib.pyplot as plt
+from astropy import units as u
 from astropy.table import Table
 from astroquery.sdss import SDSS
 from collections import OrderedDict
 from astropy.time import Time as astrotime
 from astropy.coordinates import SkyCoord, Galactic
 from astro_ghost.ghostHelperFunctions import getTransientHosts, getGHOST
-
-from astropy import units as u
-import pandas as pd
 
 class sneObj:
     # Construction Functions ----------------------------------------------------------------------------------------- #
@@ -31,20 +31,36 @@ class sneObj:
         elif source == 'class' and os.path.exists(path):
             print('[+++] Creating SNe object from class file...')
             self.load_class(path)
-        elif (source in ['atlas-91bg','atlas-norm', 'csp-91bg', 'csp-norm', 'ztf-91bg', 'ztf-norm', 'atlas-ztf-91bg']
+        elif (source in ['csp-91bg', 'atlas-91bg', 'ztf-91bg', 'combined_91bg',
+                         'csp-norm', 'atlas-norm', 'ztf-norm', 'combined_norm']
               and os.path.exists(path)):
             print(f"[+++] Creating '{source}' SNe object using '{path}'...")
 
             # Extra details
+            self.z_cmb = np.nan
             self.origin = source
             self.originalname = path.split('/')[-1].split('.')[0]
+            self.objname = (self.originalname.replace('CSP', '').
+                            replace('ATLAS', '').
+                            replace('ZTF', ''))
             self.path = f"classes/{source}/{source}_{self.originalname}_{algo}_class.txt"
 
             # Load and clean data
             var_tbl = self.make_objTbl(source, path)
-            self.coords = [np.average(var_tbl['ra']), np.average(var_tbl['dec'])]
             var_tbl = self.clean_objTbl(var_tbl)
-            self.get_details(self.coords[0], self.coords[1])
+            self.coords = [np.average(var_tbl['ra']), np.average(var_tbl['dec'])]
+            # if 'z' in var_tbl.colnames:
+            #     self.z = np.average(var_tbl['z'][~np.isnan(var_tbl['z'])])
+            # self.get_details()
+            self.check_tarlist(source)
+
+            # # Fix offset peak light
+            # if source == 'combined_91bg':
+            #     var_tbl = self.adjust_time_scale(var_tbl)
+
+            # Adjust ztf time scale
+            if source == 'ztf-91bg' or source == 'combined_91bg' or source == 'combined_norm':
+                var_tbl = var_tbl[(var_tbl['mjd'] > self.discdate - 30) & (var_tbl['mjd'] < self.discdate + 120)]
 
             # Set arrays
             self.mjd = np.array(var_tbl['mjd'])
@@ -59,6 +75,8 @@ class sneObj:
 
             # Save class file
             self.save_class()
+        else:
+            print(f"[!!!] Unknown source/algo/path '{source}'/'{algo}'/'{path}'...")
         return
     def __str__(self):
         return (f"{self.objname}, {self.origin} @ {self.path}\n"
@@ -78,10 +96,12 @@ class sneObj:
 
             # Add parity with CSP & ZTF
             var_table.remove_columns(['err', 'chi/N', 'x', 'y', 'maj', 'min', 'phi', 'apfit', 'mag5sig', 'Sky', 'Obs'])
-            var_table['zp'] = np.full(len(var_table), np.nan)
             for h_old, h_new in zip(['JD', 'm', 'dm', 'uJy', 'duJy', 'F', 'RA', 'Dec'],
                                     ['mjd', 'mag', 'dmag', 'flux', 'dflux', 'filter', 'ra', 'dec']):
                 var_table[h_old].name = h_new
+
+            # Recreate Zero-Points using ZP = m + 2.5log_10(flux)
+            var_table['zp'] = var_table['mag'] + (2.5*np.log10(var_table['flux']))
         elif source == 'csp-91bg' or source == 'csp-norm':
             var_table = Table(names=['filter', 'zp', 'z', 'ra', 'dec', 'mjd', 'mag', 'dmag', 'flux', 'dflux'],
                               dtype=[str, float, float, float, float, float, float, float, float, float])
@@ -142,7 +162,7 @@ class sneObj:
             for h_old, h_new in zip(['zpdiff', 'jd', 'forcediffimflux', 'forcediffimfluxunc'],
                                     ['zp', 'mjd', 'flux', 'dflux']):
                 var_table[h_old].name = h_new
-        elif source == 'atlas-ztf-91bg':
+        elif source == 'combined_91bg' or source == 'combined_norm':
             # Load data
             with open(path, 'r') as f:
                 f.readline() # Skip header
@@ -157,8 +177,9 @@ class sneObj:
                 except ValueError:
                     var_table[h] = data[:, hdr.index(h)]
 
+            print(f"[~~~] Making class using combined dataset... {np.unique(np.array(var_table['source']))}")
         else:
-            raise ValueError(f'[!!!] Unknown source, {source}! Must be [atlas-91bg/atlas-norm/csp/ztf]...')
+            raise ValueError(f'[!!!] Unknown source, {source}! Must be (csp/atlas/ztf/combined)-(91bg/norm)...')
         return var_table
     def clean_objTbl(self, tbl: Table) -> Table:
         # Remove '>' from ATLAS mags
@@ -169,55 +190,182 @@ class sneObj:
         for col in ['mag', 'dmag', 'flux', 'dflux']:
             tbl = tbl[~np.isnan(np.array(tbl[col]).astype(float))]
 
-        # Make cuts on magnitude errors
-        mag_err_lim = float(utils.get_constants()['mag_err_lim'])
-        if mag_err_lim > 0:
-            tbl = tbl[np.array(tbl['dmag']).astype(float) < mag_err_lim]
+        # Remove non-detections (negative/zero magnitudes/fluxes)
+        tbl = tbl[tbl['mag'].astype(float) > 0]
+        tbl = tbl[tbl['flux'].astype(float) > 0]
+
+        # Remove unresonable dmag/dflux
+        for col, lim in zip(['dmag', 'dflux'],
+                            [float(utils.get_constants()['mag_err_lim']),
+                             float(utils.get_constants()['flux_err_lim'])]):
+            if lim > 0:
+                tbl = tbl[tbl[col].astype(float) < lim]
+                tbl = tbl[tbl[col].astype(float) != 0]
 
         return tbl
-    def get_details(self, ra: float, dec: float, check_key: bool = True):
-        success, r = False, 2
-
+    def get_details(self, search_radius: float = 2, check_tnskey: bool = True):
         # Check TNS key first
-        TNS_key_tb = utils.check_tnskey(ra, dec)
-        if TNS_key_tb is not None and len(TNS_key_tb) == 1:
-            print(f"[+++] Info found in TNS key! Pulling...")
-            self.z_cmb = np.nan
-            self.objname = TNS_key_tb['objname'][0]
-            self.z = TNS_key_tb['z'][0]
-            self.coords = [TNS_key_tb['ra'][0], TNS_key_tb['dec'][0]]
-            self.discdate = TNS_key_tb['discoverydate'][0]
-            return
+        if check_tnskey:
+            TNS_key_tb = utils.check_tnskey(self.coords[0], self.coords[1])
+            if TNS_key_tb is not None and len(TNS_key_tb) == 1:
+                print(f"[+++] Info found in TNS key! Pulling...")
+                self.objname = TNS_key_tb['objname'][0]
+                self.z = TNS_key_tb['z'][0]
+                self.coords = [TNS_key_tb['ra'][0], TNS_key_tb['dec'][0]]
+                self.discdate = TNS_key_tb['discoverydate'][0]
+                return
 
-        print(f"[+++] Querying TNS @ ({ra}, {dec}), with radius={r}...")
-        while not success:
+        # Query TNS parameters
+        objname = (self.originalname.
+                   replace('CSP', '').
+                   replace('ATLAS', '').
+                   replace('ZTF', ''))
+        self.objname = objname
+        self.discdate = -99999
+
+        # Query using object name
+        print(f"[+++] Querying TNS @ {objname}, with radius={search_radius}...")
+        for t in range(10):
             try:
-                details = get_TNSDetails(ra, dec, radius=r)
+                details = utils.query_tns(objname=self.objname, search_radius=search_radius)
+                break
+            except Exception as e:
+                print(f"[~~~] Warning: TNS found no targets @ ({objname}), with radius={search_radius}... "
+                      f"Raising to search_radius={search_radius + 1}")
+                search_radius += 1
 
-                # Special case for CSP since CSP-I didn't report all SNe redshifts to TNS
-                if details['redshift'] is None and self.origin.split('-')[0] == 'csp':
-                    print(f'[~~~] Speical CSP case: Keeping CSP heliocentric redshift {self.z}')
-                    self.z = self.z
-                else:
-                    self.z = details['redshift']
+        # If objname fails, use ra & dec
+        if self.discdate < 0:
+            print(f"[+++] Querying TNS @ RA, DEC = ({self.coords[0]}, {self.coords[1]}), with radius={search_radius}...")
+            for t in range(10):
+                try:
+                    details = utils.query_tns(coords=[self.coords[0], self.coords[1]], search_radius=search_radius)
+                    break
+                except Exception as e:
+                    print(f"[~~~] Warning: TNS found no targets @ ({self.coords[0]}, {self.coords[1]}), with radius={search_radius}... "
+                          f"Raising to search_radius={search_radius + 1}")
+                    search_radius += 1
 
-                self.objname = details['objname']
-                self.z_cmb = np.nan
-                self.coords = [details['radeg'], details['decdeg']]
-                self.discdate = float(astrotime(details['discoverydate'], format='iso').jd) - 2400000.5  # JD to MJD
-                success = True
-            except:
-                print(f"[~~~] Warning: TNS found no targets @ ({ra}, {dec}), with radius={r}... Raising to r={r+1}")
-                r += 1
-            if r == 10:
-                # raise RuntimeError('[!!!!!] TNS could not find transient!')
-                print("[!!!!!] TNS could not find transient!")
-                self.z_cmb = np.nan
-                self.objname = self.originalname
-                self.z = -99999
-                self.discdate = -99999
-                return None
+        # Save TNS details
+        ## Special case for CSP since CSP-I didn't report all SNe redshifts to TNS
+        if details['redshift'] is None or self.origin.split('-')[0] == 'csp':
+            print(f'[~~~] Speical CSP case: Keeping CSP heliocentric redshift {self.z}')
+            self.z = self.z
+        else:
+            self.z = details['redshift']
+        self.discdate = float(astrotime(details['discoverydate'], format='iso').jd) - 2400000.5  # JD to MJD
         return
+
+        # success = False
+        # while not success:
+        #     try:
+        #         details = utils.query_tns(objname=self.objname, search_radius=search_radius)
+        #
+        #         # Special case for CSP since CSP-I didn't report all SNe redshifts to TNS
+        #         if details['redshift'] is None and self.origin.split('-')[0] == 'csp':
+        #             print(f'[~~~] Speical CSP case: Keeping CSP heliocentric redshift {self.z}')
+        #             self.z = self.z
+        #         else:
+        #             self.z = details['redshift']
+        #
+        #         self.discdate = float(astrotime(details['discoverydate'], format='iso').jd) - 2400000.5  # JD to MJD
+        #         success = True
+        #     except:
+        #         print(f"[~~~] Warning: TNS found no targets @ ({objname}), with radius={r}... Raising to r={r+1}")
+        #         r += 1
+        #     if r == 10:
+        #         # raise RuntimeError('[!!!!!] TNS could not find transient!')
+        #         print("[!!!!!] TNS could not find transient!")
+        #         self.z_cmb = np.nan
+        #         self.objname = self.originalname
+        #         self.z = -99999
+        #         self.discdate = -99999
+        #         return None
+        # print(f"[+++] Querying TNS @ ({ra}, {dec}), with radius={r}...")
+        # self.coords[0], self.coords[1]
+        # # r = utils.query_tns(coords=["174.61858", "20.52622"])
+        # # r = utils.query_tns(objname="2006bd")
+        # objname = (self.originalname.
+        #            replace('CSP', '').
+        #            replace('ATLAS', '').
+        #            replace('ZTF', ''))
+        #
+        #
+        # success = False
+        # while not success:
+        #     try:
+        #         details = get_TNSDetails(ra, dec, radius=r)
+        #
+        #         # Special case for CSP since CSP-I didn't report all SNe redshifts to TNS
+        #         if details['redshift'] is None and self.origin.split('-')[0] == 'csp':
+        #             print(f'[~~~] Speical CSP case: Keeping CSP heliocentric redshift {self.z}')
+        #             self.z = self.z
+        #         else:
+        #             self.z = details['redshift']
+        #
+        #         self.objname = details['objname']
+        #         self.z_cmb = np.nan
+        #         self.coords = [details['radeg'], details['decdeg']]
+        #         self.discdate = float(astrotime(details['discoverydate'], format='iso').jd) - 2400000.5  # JD to MJD
+        #         success = True
+        #     except:
+        #         print(f"[~~~] Warning: TNS found no targets @ ({ra}, {dec}), with radius={r}... Raising to r={r+1}")
+        #         r += 1
+        #     if r == 10:
+        #         # raise RuntimeError('[!!!!!] TNS could not find transient!')
+        #         print("[!!!!!] TNS could not find transient!")
+        #         self.z_cmb = np.nan
+        #         self.objname = self.originalname
+        #         self.z = -99999
+        #         self.discdate = -99999
+        #         return None
+    def check_tarlist(self, source: str):
+        # Select target file based on source
+        if '91bg' in source:
+            tarlist_path = 'txts/target_files/sn1991bglike_tarlist.csv'
+        elif 'norm' in source:
+            tarlist_path = 'txts/target_files/normal_tarlist.csv'
+
+        # Load data
+        data = np.genfromtxt(tarlist_path, delimiter=',', dtype=str, skip_header=1)
+        tb = Table(names=data[0, :], data=data[1:, :])
+        selc_tb = tb[tb['Name'] == f"SN {self.objname}"].copy()
+
+        # Set redshift
+        self.z = float(selc_tb['Redshift'][0])
+
+        # Convert and set discovery date
+        discdata_utc = selc_tb['Discovery Date (UT)'][0].split(' ')[0].split('-')
+        discdata_utc_datetime = datetime.datetime(int(discdata_utc[0]), int(discdata_utc[1]), int(discdata_utc[2]))
+        discdata_mjd = astrotime(discdata_utc_datetime, format='datetime', scale='utc').mjd
+        self.discdate = float(discdata_mjd)
+        return
+    def adjust_time_scale(self, tbl: Table):
+        # # Find difference between ATLAS and ZTF peaks
+        # atlas_peaks, ztf_peaks = [], []
+        # for peaks, s_filters in zip([atlas_peaks, ztf_peaks],
+        #                             [['o', 'c'], ['ZTF_g', 'ZTF_r', 'ZTF_i']]):
+        #     for f in s_filters:
+        #         if f in tbl['filter'] and len(tbl[tbl['filter'] == f]) > 3:
+        #             f_tbl = tbl[tbl['filter'] == f]
+        #             f_tbl_fmax = np.max(f_tbl['flux'])
+        #             f_tbl_tmax = f_tbl['mjd'][f_tbl['flux'] == f_tbl_fmax][0]
+        #             peaks.append(f_tbl_tmax)
+        # if len(atlas_peaks) > 0 or len(ztf_peaks) > 0:
+        #     # Calculate difference
+        #     atlas_peak = np.average(atlas_peaks)
+        #     ztf_peak = np.average(ztf_peaks)
+        #     peak_diff = ztf_peak - atlas_peak
+        #
+        #     # Adjust ATLAS for difference
+        #     for f in ['o', 'c']:
+        #         if f in tbl['filter'] and len(tbl[tbl['filter'] == f]) > 3:
+        #             tbl['mjd'][tbl['filter'] == f] = tbl['mjd'][tbl['filter'] == f] + peak_diff
+
+        # # Adjust bounds of ZTF data
+        # tbl = tbl[(tbl['mjd'] > self.discdate-15) & (tbl['mjd'] < self.discdate+60)]
+
+        return tbl
     def save_class(self):
         print(f"[+++] Saving {self.objname} class to {self.path}...")
         with open(self.path, 'w') as f:
@@ -313,7 +461,7 @@ class sneObj:
         plt.legend()
         plt.show()
         return
-    def plot(self, y_type: str = 'mag', save_loc: str = ''):
+    def plot(self, y_type: str = 'mag', fmt: str = 'o', save_loc: str = ''):
         print(f"[+++] Plotting LC of '{self.objname}' ({y_type})...")
         filter_dict = {'u': 'teal', 'g': 'green', 'r': 'red', 'i': 'indigo', 'B': 'blue',
                        'V0': 'violet', 'V1': 'purple', 'V': 'red', 'Y': 'goldenrod', 'Hdw': 'tomato', 'H': 'salmon',
@@ -329,7 +477,7 @@ class sneObj:
         for f in np.unique(self.filter):
             axs.errorbar(self.mjd[self.filter == f].astype(float), y_axis[self.filter == f].astype(float),
                          yerr=y_axis_err[self.filter == f].astype(float),
-                         color = filter_dict[f], fmt='o', ms=3)
+                         color = filter_dict[f], label=f, fmt=fmt, ms=3)
 
         # Lines
         axs.axvline(self.discdate, color='black', linestyle='--', label='Discovery Date')
@@ -394,9 +542,9 @@ class sneObj:
                 print('[~~~] Speical CSP case: Removing ' + class_filter + '...')
                 del n_s.data[class_filter]
 
-        # Fit with SNooPy -- gives 5 tries before failing
-        for i in range(5):
-            print(f"[{i+1}/5] Attempting to fit '{self.objname}' with {list(n_s.data.keys())} =======================")
+        # Fit with SNooPy -- gives 20 tries before failing
+        for i in range(20):
+            print(f"[{i+1}/20] Attempting to fit '{self.objname}' with {list(n_s.data.keys())} =======================")
             try:
                 ##### I care recall why we did this in the first place ####
                 # if self.origin.split('-')[0] == 'csp':
@@ -479,12 +627,19 @@ class sneObj:
             data = Table([salt_time, salt_filters, salt_flux, salt_dflux, salt_zp, np.full(len(salt_time), 'ab')],
                          names=('time', 'band', 'flux', 'fluxerr', 'zp', 'zpsys'))
 
-            # Create Model
-            model = salt3fit.Model(source='salt3')
+            if len(np.unique(data['band'])) < 2:
+                print(f"[!!!] Not enough filters to fit! ({len(np.unique(data['band']))})")
+                self.params.update({'mu': {'value': -124.0, 'err': -124.0}})
+                return
 
-            # Fit data to model
+            # Create and fit data to model
+            model = salt3fit.Model(source='salt3')
+            # model.set(z=self.z)  # set the model's redshift.
             model.set(z=self.z, t0=self.discdate)  # set the model's redshift.
-            result, fitted_model = salt3fit.fit_lc(data, model, ['t0', 'x0', 'x1', 'c'], bounds={'x1': (-5, 5)})
+            result, fitted_model = salt3fit.fit_lc(data, model,
+                                                   ['t0', 'x0', 'x1', 'c'],
+                                                   bounds={'x1': (-5, 5)},
+                                                   minsnr=1)
 
             # Save Parameters
             param_names = ['t0', 'x0', 'x1', 'c']
@@ -515,9 +670,105 @@ class sneObj:
             self.save_class()
             print(f'[+++] Successfully fit {self.objname}!')
         except Exception as error:
+            print(f"[!!!] Error: {str(error)}")
             if 'result is NaN for' in str(error):
                 print(f"[!!!] SALT3 couldn't fit with current parameter selection! Returning nan for {self.objname}...")
                 self.params.update({'mu': {'value': -107.0, 'err': -107.0}})
+            elif 'No data points with S/N > 5.0. Initial guessing failed.' in str(error):
+                self.params.update({'mu': {'value': -434.0, 'err': -434.0}})
+            else:
+                print(error)
+                print(f'[---] Could not fit {self.objname}!')
+                self.params.update({'mu': {'value': -404.0, 'err': -404.0}})
+            self.save_class()
+            return
+        return
+    def test_salt_fit(self):
+        show_plot = True
+        plot_path = f"fitting/salt-plots/{self.objname}_lc.png"
+
+        CONSTANTS = utils.get_constants()
+        alpha, beta = float(CONSTANTS['salt_alpha']), float(CONSTANTS['salt_beta'])
+        mB_const, M0 = float(CONSTANTS['salt_mB_const']), float(CONSTANTS['salt_absolute_mag'])
+        try:
+            # Make sure more than one filter
+            if len(np.unique(self.filter)) < 1:
+                self.params.update({'mu': {'value': -124.0, 'err': -124.0}})
+                self.save_class()
+                print(f"[!!!] Too few filters! Can not fit {self.objname}! {np.unique(self.filter)}")
+                return
+
+            # Fix filters
+            filter_dict = {'u': 'cspu', 'g': 'cspg', 'r': 'cspr', 'i': 'cspi', 'B': 'cspB',
+                           'V0': 'cspv3014', 'V1': 'cspv3009', 'V': 'cspv9844', 'Y': 'cspys',
+                           'J': 'cspjs', 'Jrc2': 'cspjd', 'Jdw': 'cspjd', 'Ydw': 'cspyd', 'Hdw': 'csphd', 'H': 'csphs',
+                           'c': 'atlasc', 'o': 'atlaso', 'ZTF_g': 'ztfg', 'ZTF_r': 'ztfr', 'ZTF_i': 'ztfi'}
+            salt_time, salt_filters, salt_flux = np.array([]), np.array([]), np.array([])
+            salt_dflux, salt_zp = np.array([]), np.array([])
+
+            for i in range(len(self.filter)):
+                if self.origin.split('-')[0] == 'csp' and self.filter[i] in ['u', 'Y', 'J', 'H', 'Jrc2', 'Ydw']:
+                    continue
+                salt_time = np.append(salt_time, self.mjd[i])
+                salt_filters = np.append(salt_filters, filter_dict[self.filter[i]])
+                salt_flux = np.append(salt_flux, self.flux[i])
+                salt_dflux = np.append(salt_dflux, self.dflux[i])
+                salt_zp = np.append(salt_zp, self.zp[i])
+            print('[~~~]', np.unique(self.filter), '->', np.unique(salt_filters))
+
+            data = Table([salt_time, salt_filters, salt_flux, salt_dflux, salt_zp, np.full(len(salt_time), 'ab')],
+                         names=('time', 'band', 'flux', 'fluxerr', 'zp', 'zpsys'))
+
+            if len(np.unique(data['band'])) < 2:
+                print(f"[!!!] Not enough filters to fit! ({len(np.unique(data['band']))})")
+                self.params.update({'mu': {'value': -124.0, 'err': -124.0}})
+                return
+
+
+            # Create and fit data to model
+            model = salt3fit.Model(source='salt3')
+            model.set(z=self.z, t0=self.discdate)  # set the model's redshift.
+            result, fitted_model = salt3fit.fit_lc(data, model,
+                                                   ['t0', 'x0', 'x1', 'c'],
+                                                   bounds={'x1': (-5, 5)},
+                                                   minsnr=1)
+
+
+            # Save Parameters
+            param_names = ['t0', 'x0', 'x1', 'c']
+            for i in range(len(param_names)):
+                self.params.update({param_names[i]: {'value': result.parameters[i+1],
+                                                     'err': result.errors[param_names[i]]}})
+
+            # Save Covariance
+            self.covariance = result['covariance']
+
+            # Calculate
+            pho_mB = -2.5 * np.log10(self.params['x0']['value']) + mB_const
+            pho_mB_err = np.abs(-2.5 * (self.params['x0']['err'] / (self.params['x0']['value'] * np.log(10))))
+
+            mu = pho_mB + (alpha * self.params['x1']['value']) - (beta * self.params['c']['value']) - M0
+            mu_err = np.sqrt(pho_mB_err ** 2 + (np.abs(alpha) * self.params['x1']['err']) ** 2 + (np.abs(beta) * self.params['c']['err']) ** 2)
+
+            self.params.update({'mu': {'value': mu, 'err': mu_err}})
+
+            # Plot data with fit
+            salt3fit.plot_lc(data, model=fitted_model, errors=result.errors)
+            plt.savefig(plot_path)
+            if show_plot:
+                plt.show()
+                systime.sleep(2)
+            plt.close()
+
+            self.save_class()
+            print(f'[+++] Successfully fit {self.objname}!')
+        except Exception as error:
+            print(f"[!!!] Error: {str(error)}")
+            if 'result is NaN for' in str(error):
+                print(f"[!!!] SALT3 couldn't fit with current parameter selection! Returning nan for {self.objname}...")
+                self.params.update({'mu': {'value': -107.0, 'err': -107.0}})
+            elif 'No data points with S/N > 5.0. Initial guessing failed.' in str(error):
+                self.params.update({'mu': {'value': -434.0, 'err': -434.0}})
             else:
                 print(error)
                 print(f'[---] Could not fit {self.objname}!')
@@ -547,9 +798,9 @@ class sneObj:
         vpec, vpec_sys = getVpec.main(self.coords[0], self.coords[1], self.z_cmb)
         self.z_cmb += vpec / 3e5
         return
-    def get_hostMass(self, use_key: bool = True):
+    def get_hostMass(self):
         # Check Mass Key
-        if use_key:
+        if utils.get_constants()['use_mass_key'] == "True":
             hostMass, hostMassErr = utils.check_mass_key(objname=self.objname, mode='read')
             if ~np.isnan(hostMass) and ~np.isnan(hostMass):
                 print("[+++] Host mass found in key! Pulling...")
@@ -589,11 +840,41 @@ class sneObj:
                 print(f"[+++] The host galaxy of {self.objname} has a stellar mass of: {hostMass} +/- {hostMassErr} "
                       f"log10(M*/M_sun)])")
             elif np.isnan(hosts.loc[0, 'gKronMag']):
-                print("[+++] GHOST 'gKronMag' returned null! Unable to calculate mass...")
+                print("[!!!] GHOST 'gKronMag' returned null! Unable to calculate mass...")
                 hostMass, hostMassErr = -333, -333
             elif np.isnan(hosts.loc[0, 'iKronMag']):
-                print("[+++] GHOST 'iKronMag' returned null! Unable to calculate mass...")
+                print("[!!!] GHOST 'iKronMag' returned null! Unable to calculate mass...")
                 hostMass, hostMassErr = -333, -333
+
+        # If GHOST fails, look manually through SDSS
+        if hostMass == -333 or hostMass == np.nan:
+            print(f"[~~~] Could not find mass using GHOST, searching SDSS...")
+            result = SDSS.query_crossid(SkyCoord(self.coords[0] * u.deg, self.coords[1] * u.deg, frame='icrs'),
+                                        photoobj_fields=['modelMag_g', 'modelMagErr_g', 'modelMag_i', 'modelMagErr_i'])
+            if result is None:
+                print('[!!!] GHOST & SDSS failed to find mass, returning null mass...')
+                hostMass, hostMassErr = -333, -333
+            else:
+                if ~np.isnan(result['modelMag_g'].value[0]) and ~np.isnan(result['modelMag_i'].value[0]):
+                    # Pull values
+                    gMag, iMag, iAbsMag = (result['modelMag_g'].value[0], result['modelMag_i'].value[0],
+                                           result['modelMag_i'].value[0] - utils.current_cosmo().distmod(self.z).value)
+                    gMagErr, iMagErr, iAbsMagErr = (result['modelMagErr_g'].value[0],
+                                                    result['modelMagErr_i'].value[0], result['modelMagErr_i'].value[0])
+                    # Mass Calculation -- Taylor et al. 2011 -- eq. 8
+                    hostMass = (1.15 + (0.7 * (gMag - iMag)) - (0.4 * iAbsMag))
+                    # Error Propagation
+                    giMagErr = np.sqrt((gMagErr ** 2) + (iMagErr ** 2))
+                    hostMassErr = np.sqrt(((0.7 ** 2) * (giMagErr ** 2)) + ((0.4 ** 2) * (iAbsMagErr ** 2)))
+                    print(
+                        f"[+++] The host galaxy of {self.objname} has a stellar mass of: {hostMass} +/- {hostMassErr} "
+                        f"log10(M*/M_sun)])")
+                elif np.isnan(result['modelMag_g'].value[0]):
+                    print("[!!!] SDSS 'modelMag_g' returned null! Unable to calculate mass...")
+                    hostMass, hostMassErr = -333, -333
+                elif np.isnan(result['modelMag_i'].value[0]):
+                    print("[!!!] SDSS 'modelMag_i' returned null! Unable to calculate mass...")
+                    hostMass, hostMassErr = -333, -333
 
         # Save Mass
         if 'hostMass' in self.params.keys():
@@ -602,7 +883,7 @@ class sneObj:
             self.params.update({'hostMass': {'value': hostMass, 'err': hostMassErr}})
 
         # Saving mass to key
-        if use_key:
+        if utils.get_constants()['use_mass_key'] == "True":
             utils.check_mass_key(objname=self.objname, mode='write', hostMass=hostMass, hostMassErr=hostMassErr)
 
         return
@@ -636,6 +917,13 @@ def get_TNSDetails(ra: str, dec: str, radius: str = '2'):
     response = requests.post("https://www.wis-tns.org/api/get/search", headers=headers, data=search_data)
     response = json.loads(response.text)
     transients =  response["data"]
+    if transients == 'Too Many Requests':
+        print('\nToo Many Requests... pausing for 30 seconds: ', end='')
+        for i in range(10):
+            print(' - ', end='')
+            time.sleep(3)
+        print('\n')
+        transients = response["data"]
     get_obj = [
         ("objname", transients[0]["objname"]),
         ("objid", transients[0]["objid"]),
@@ -647,7 +935,7 @@ def get_TNSDetails(ra: str, dec: str, radius: str = '2'):
     response = json.loads(response.text)
     details = response["data"]
     return details
-def error_reporting(sne: list[sneObj], print_out: bool = True):
+def error_reporting(sne: list[sneObj], source: str, print_out: bool = True, make_report: bool = True):
     """
     :param sne: list of sneObjs
     :param print_out: whether or not to print out error messages
@@ -659,6 +947,7 @@ def error_reporting(sne: list[sneObj], print_out: bool = True):
         "TNS Faliure! Needs manual TNS": [],
         "Not enough filters to fit!": [],
         "SALT3 couldn't fit with current parameter selection!": [],
+        "SALT3: No data points with S/N > 5.0!": [],
         "GHOST failed to intiate!": [],
         "GHOST failed to find mass!": [],
         "Unknown fitting error!": []
@@ -670,6 +959,8 @@ def error_reporting(sne: list[sneObj], print_out: bool = True):
             fail_reasons["Not enough filters to fit!"].append(sn.objname)
         elif sn.params['mu']['value'] == -107.0:
             fail_reasons["SALT3 couldn't fit with current parameter selection!"].append(sn.objname)
+        elif sn.params['mu']['value'] == -434.0:
+            fail_reasons["SALT3: No data points with S/N > 5.0!"].append(sn.objname)
         elif 'hostMass' not in sn.params:
             fail_reasons["GHOST failed to intiate!"].append(sn.objname)
         elif np.isnan(sn.params['hostMass']['value']) or sn.params['hostMass']['value'] == -333:
@@ -679,19 +970,60 @@ def error_reporting(sne: list[sneObj], print_out: bool = True):
         else:
             valid_sne.append(sn)
 
-    # Print out SNe and erros
-    if print_out and len(valid_sne) != len(sne):
-        readme_mode = True
-        print("[~~~] The following SNe failed fitting/hostMass for the following reasons...")
-        for reason in fail_reasons.keys():
-            print(f"{reason}: ", end='')
-            for i, n in enumerate(fail_reasons[reason]):
-                if readme_mode and (i + 1) % 5 == 0:
-                    print(f"SN{n}", end=',<br/> ')
-                else:
-                    print(f"SN{n}", end=', ')
-            print('\n')
+    # # Print out SNe and erros
+    # if print_out and len(valid_sne) != len(sne):
+    #     readme_mode = True
+    #     print("[~~~] The following SNe failed fitting/hostMass for the following reasons...")
+    #     for reason in fail_reasons.keys():
+    #         print(f"{reason}: ", end='')
+    #         for i, n in enumerate(fail_reasons[reason]):
+    #             if readme_mode and (i + 1) % 5 == 0:
+    #                 print(f"SN{n}", end=',<br/> ')
+    #             else:
+    #                 print(f"SN{n}", end=', ')
+    #         print('\n')
+
+    # Update error report txt
+    if make_report:
+        error_codes, report_tbl = error_report_builder(fail_reasons, source)
+
     return valid_sne
+def error_report_builder(fail_reasons: dict, source: str, report_loc: str = 'txts/error_report.txt'):
+    error_codes = {
+        "TNS Faliure! Needs manual TNS": "99999",
+        "Not enough filters to fit!": "124",
+        "SALT3 couldn't fit with current parameter selection!": "107",
+        "SALT3: No data points with S/N > 5.0!": "434",
+        "GHOST failed to intiate!": "222",
+        "GHOST failed to find mass!": "333",
+        "Unknown fitting error!": "404"
+    }
+    # Read current report
+    data = np.genfromtxt(report_loc, skip_header=7, dtype=str, delimiter=';')
+    report_tbl = Table(names=data[0, :], data=data[1:, :], dtype=[str, list, list, list, list, list, list, list])
+
+    # Update report
+    for k in fail_reasons.keys():
+        report_tbl[error_codes[k]][np.where(report_tbl['source'] == source)[0][0]] = fail_reasons[k]
+
+    # Print out report
+    for k in error_codes.keys():
+        print(f"{error_codes[k]} : {k}")
+    print(report_tbl[report_tbl['source'] == source])  # Prints report
+
+    # Save new report
+    with open(report_loc, 'w') as f:
+        for k in error_codes.keys():
+            print(f"# {error_codes[k]}: {k}", file=f)
+        hdr = (str(list(error_codes.values()))[1:-1].replace("'", "").
+               replace(" ", "").replace(",", ";"))
+        print(f"source;{hdr}", file=f)
+        for row in report_tbl:
+            print(row[0], end='', file=f)
+            for n in range(1, len(row)):
+                print(f";{row[n]}", end='', file=f)
+            print('\n', file=f)
+    return error_codes, report_tbl
 def fit_subprocess(dataset: str, path: str, algo: str, rewrite: bool = False):
     """
     :param dataset: Data set to pull light curves from
@@ -748,12 +1080,26 @@ def fit(data_loc: str, algo: str, rewrite: bool = False) -> list[sneObj]:
     :param rewrite: Even if data is already procced, it will act as if its the not
     :return: sneObj object or list of sneObj objects
     """
+    # Check arguments
     paths = glob.glob(data_loc)
+    if len(paths) == 0:
+        print(f"[!!!] No data found in {data_loc}")
+        return []
     dataset = paths[0].split('/')[-2].lower()
 
+    # Adjust for 'combined_91bg' dataset
+    if dataset == 'combined_91bg':
+        if 'CSP' in paths[0]: dataset = 'csp-91bg'
+        elif 'ATLAS' in paths[0]: dataset = 'atlas-91bg'
+        elif 'ZTF' in paths[0]: dataset = 'ztf-91bg'
+    elif dataset == 'combined_norm':
+        if 'CSP' in paths[0]: dataset = 'csp-norm'
+        elif 'ATLAS' in paths[0]: dataset = 'atlas-norm'
+        elif 'ZTF' in paths[0]: dataset = 'ztf-norm'
+
     # Verify proper dataset & proper algorithm
-    if 'unique' in dataset: dataset = dataset[:-7]
-    valid_datasets = ['csp-91bg', 'csp-norm', 'atlas-91bg','atlas-norm', 'ztf-91bg', 'ztf-norm', 'atlas-ztf-91bg']
+    valid_datasets = ['csp-91bg', 'atlas-91bg', 'ztf-91bg', 'combined_91bg',
+                      'csp-norm', 'atlas-norm', 'ztf-norm', 'combined_norm']
     valid_algorithms = ['snpy', 'salt']
     if dataset not in valid_datasets: raise ValueError(f"[!!!] Dataset, '{dataset}', not recognized! {valid_datasets}")
     elif algo not in valid_algorithms: raise ValueError(f"[!!!] Algorithm, '{algo}', not recognized! {valid_algorithms}")
@@ -771,10 +1117,22 @@ def fit(data_loc: str, algo: str, rewrite: bool = False) -> list[sneObj]:
         for i, path in enumerate(paths):
             print(f'[{i + 1} / {len(paths)}] ================================================================')
             sn = fit_subprocess(dataset, path, algo, rewrite)
+            if (('mu' in sn.params) and ('hostMass' in sn.params) and
+                (sn.params['mu']['value'] > 0) and (sn.params['hostMass']['value'] > 0) and (sn.discdate > 0)):
+                print(f"\t********************************\n"
+                      f"\t{sn.objname}: {sn.params['mu']['value']} +/- {sn.params['mu']['err']}\n"
+                      f"\t{' '*len(sn.objname)}: {sn.params['hostMass']['value']} +/- {sn.params['hostMass']['err']}\n"
+                      f"\t********************************")
+            else:
+                print(f"\t---------------[!]--------------\n"
+                      f"\t{sn.objname}: Failed to fit!\n"
+                      f"\t---------------[!]--------------")
             sne.append(sn)
 
         # Check errors
-        good_sne = error_reporting(sne, print_out=True)
+        if '_' in dataset: s, t = dataset.split('_')
+        else: s, t = dataset.split('-')
+        good_sne = error_reporting(sne, f"{algo.upper()}_{t.upper()}_{s.upper()}", print_out=True)
 
         print(f"[+++++] Successfuly fit {len(good_sne)} / {len(sne)} SNe!")
 

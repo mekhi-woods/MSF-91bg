@@ -6,6 +6,7 @@ import shutil
 import tarfile
 import requests
 import numpy as np
+from astropy.table import Table
 
 def download(save_loc: str):
     """
@@ -40,23 +41,24 @@ def download(save_loc: str):
         with tarfile.open(path, "r:gz") as tar:
             tar.extractall(extract_path)
     return
-def seperate_data(tar_list: str, data_loc: str, save_loc: str):
+def separate_data(subtype: str, data_loc: str, save_loc: str):
     """
     :param tar_list: List of target names to seperate
     :param data_loc:
     :param save_loc:
     :return:
     """
-    targets = np.genfromtxt(tar_list, delimiter=',', skip_header=1, dtype=str)
-    hdr = list(targets[0])
-    all_names = list(targets[:, hdr.index('Name')])[1:]
+    targets = np.genfromtxt('txts/DR3_subtypes.csv', delimiter=',', skip_header=1, dtype=str)
+    hdr, targets = targets[0], targets[1:]
+    tb_targets = Table(names=hdr, data=targets)
+    target_names = tb_targets[tb_targets['Subtype'] == subtype]['Name'].tolist()
 
     # Sort through data
-    print(f"[+++] Relocating 1991bg-like SNe from '{data_loc+'DR3/'}' to '{save_loc}'...")
-    for path in glob.glob(data_loc+'DR3/*.txt'):
-        name = 'SN ' + path.split('/')[-1].split('_')[0][2:]
-        if name in all_names:
-            shutil.copy(path, save_loc)
+    print(f"[+++] Relocating '{subtype}' SNe from '{data_loc}' to '{save_loc}'...")
+    for path in glob.glob(data_loc+'*.txt'):
+        name = 'CSP' + path.split('/')[-1][2:-9]
+        if f"SN {name[3:]}" in target_names:
+            shutil.copy(path, save_loc+name+'.txt')
     return
 
 

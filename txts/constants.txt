@@ -1,6 +1,7 @@
 ### FITTING CUTS ###
-mag_err_lim, 1
-flux_err_lim, 1
+mag_err_lim, 10
+flux_err_lim, 300
+use_mass_key, True
 
 ### CONSTANTS ###
 # ================================================ #

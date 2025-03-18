@@ -1,11 +1,7 @@
 atlas-norm,2024aezl,ATLAS2024aezl,135.727129993,17.115244102,0.11,0.11093996073928122,60670.484370000195
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-mu,38.66086742678245,0.49402296481971
-st,1.2673697042878744,0.3635878247497039
-Tmax,60710.49005401465,4.0126049705011315
-EBVhost,0.6884342549879694,0.3734832062679923
-chisquare,35.52859020916172,0.6021794950705376
-hostMass,9.171092021508358,0.06993522231107933
+mu,-404.0,-404.0
+hostMass,nan,nan
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

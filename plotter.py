@@ -8,6 +8,7 @@ from scipy.stats import bootstrap
 from scipy.optimize import minimize
 from matplotlib.gridspec import GridSpec
 from astropy.cosmology import FlatLambdaCDM
+from astropy.stats import sigma_clip, sigma_clipped_stats
 
 # Utility Functions ===================================================================================================
 def bootstrap_errs(x):
@@ -325,6 +326,10 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
     c_norm, c_norm_mass = 'C2', 'C3'
     c_91bg, c_91bg_mass = 'C8', 'C1'
 
+    # Get median of 91bg-like
+    tb_91bg = utils.default_open(path_91bg, True, delimiter=', ')
+    median_91bg_mass = round(np.median(tb_91bg['hostMass']), 3)
+
     # Plot Normals
     # -----------------------------------------------------------------------------------------------------------------
     tb_norm = utils.default_open(path_norm, True)
@@ -352,7 +357,7 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
 
     # Plot 10dex & Median Mass Lines
     tol = 1
-    for cut, ls, cl in zip([10, 10.55], ['-', '--'], [c_norm_mass, c_norm_mass]):
+    for cut, ls, cl in zip([10, median_91bg_mass], ['-', '--'], [c_norm_mass, c_norm_mass]):
         if cut == 'median': cut = np.median(tb_norm['hostMass'])
         lin_details = {'linestyle': ls, 'linewidth': 3, 'color': cl, 'zorder': 5}
         mass_step_dict, resid_dict = mass_step_calc(tb_norm['mu'], tb_norm['mu_err'], tb_norm['resid_mu'],
@@ -366,7 +371,7 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
 
     # Plot 91bg-like
     # -----------------------------------------------------------------------------------------------------------------
-    tb_91bg = utils.default_open(path_91bg, True)
+    tb_91bg = utils.default_open(path_91bg, True, delimiter=', ')
 
     ## Calculate Hubble Residual
     tb_91bg['resid_mu'] = tb_91bg['mu'] - utils.current_cosmo().distmod(tb_91bg['z_cmb']).value
@@ -377,6 +382,9 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
 
     # Adding 0.1 mag in quadrature (taylor+11)
     tb_91bg['hostMass_err'] = np.sqrt(tb_91bg['hostMass_err'] ** 2.0 + 0.1 ** 2.0)  # intrinsic dispersion added in quadrature
+
+    # Subtracting off Average Hubble Residual
+    tb_91bg['resid_mu'] -= np.average(tb_91bg['resid_mu'][~np.isnan(tb_91bg['resid_mu'])])
 
     ## Scatter plot & histogram
     axs[1, 0].errorbar(x=tb_91bg['hostMass'][tb_91bg['algo'] == 'SNPY'],
@@ -398,7 +406,7 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
 
     # # Plot 10dex & Median Mass Lines
     tol = 1
-    for cut, ls, cl in zip([10, 10.55], ['-', '--'], [c_91bg_mass, c_91bg_mass]):
+    for cut, ls, cl in zip([10, median_91bg_mass], ['-', '--'], [c_91bg_mass, c_91bg_mass]):
         if cut == 'median': cut = np.median(tb_91bg['hostMass'])
         lin_details = {'linestyle': ls, 'linewidth': 3, 'color': cl, 'zorder': 5}
         mass_step_dict, resid_dict = mass_step_calc(tb_91bg['mu'], tb_91bg['mu_err'], tb_91bg['resid_mu'],
@@ -411,7 +419,7 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
                                 f"${round(mass_step_dict['value'], 3)} \pm {round(mass_step_dict['err'], 3)}$ mag")
 
     # Brount, Scolnic 2021 Dust Prediction
-    axs[1, 0].hlines(y=np.average(tb_91bg['resid_mu'][tb_91bg['hostMass'] < 10]) - 0.25,
+    axs[1, 0].hlines(y=np.average(tb_91bg['resid_mu'][tb_91bg['hostMass'] < 10]) - 0.4297,
                      xmin=10, xmax=np.max(tb_91bg['hostMass']) + tol,
                      label='Brout et al. 2021 (c = 0.2)', linestyle=':', linewidth=3, color='C0', zorder=5)
 
@@ -464,16 +472,20 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
     # Formatting
     # -----------------------------------------------------------------------------------------------------------------
     ## Label number of SNe and Scatter
+    norm_mn, norm_md, norm_std = sigma_clipped_stats(tb_norm['resid_mu'])
+    sn91bg_mn, sn91bg_md, sn91bg_std = sigma_clipped_stats(tb_91bg['resid_mu'])
     axs[0,0].text(0.04, 0.96,
-                   "Normal SNe Ia\n"+
-                   "$N_{SNe}$ = "+f"{len(tb_norm)}\n"+
-                   "$\sigma$ = "+f"{round(np.std(tb_norm['resid_mu']),3)} mag",
-                   transform=axs[0, 0].transAxes, ha='left', va='top', fontsize=12)
+                  "Normal SNe Ia\n"+
+                  "$N_{SNe}$ = "+f"{len(tb_norm)}\n"+
+                  "$\sigma$ = "+f"{round(norm_std,3)} mag\n"+
+                  "SNR = " + f"{round(len(tb_norm)/ np.sqrt(norm_std), 3)}",
+                  transform=axs[0, 0].transAxes, ha='left', va='top', fontsize=12)
     axs[1,0].text(0.04, 0.96,
-                   "1991bg-like SNe Ia\n" +
-                   "$N_{SNe}$ = " + f"{len(tb_91bg)}\n" +
-                   "$\sigma$ = " + f"{round(np.std(tb_91bg['resid_mu']), 3)} mag",
-                   transform=axs[1, 0].transAxes, ha='left', va='top', fontsize=12)
+                  "1991bg-like SNe Ia\n" +
+                  "$N_{SNe}$ = " + f"{len(tb_91bg)}\n" +
+                  "$\sigma$ = " + f"{round(sn91bg_std, 3)} mag\n"+
+                  "SNR = " + f"{round(len(tb_91bg) / np.sqrt(sn91bg_std), 3)}",
+                  transform=axs[1, 0].transAxes, ha='left', va='top', fontsize=12)
 
     ## Adjust Axises
     tol = 0.1
@@ -650,9 +662,12 @@ def alpha_beta(path_91bg: str = 'salt_params_cov_cut.txt',
     # Scatter Plot for 91bg-like
     fmt_dict_91bg = {'fmt': 'o', 'marker': 's', 'alpha': 1.0, 'label': '$M_{1991bg\\text{-}like}$', 'color': c_91bg}
     hdr, data = utils.default_open(path_91bg)
-    x0_91bg, x0_err_91bg = data[:, hdr.index('x0')].astype(float), data[:, hdr.index('x0_err')].astype(float)
-    x1_91bg, x1_err_91bg = data[:, hdr.index('x1')].astype(float), data[:, hdr.index('x1_err')].astype(float)
-    c_91bg, c_err_91bg = data[:, hdr.index('c')].astype(float), data[:, hdr.index('c_err')].astype(float)
+    if len(data) == 0:
+        print(f"[!!!] Missing SALT data! Read as empty...")
+        return
+    x0_91bg, x0_err_91bg = data[:, hdr.index('amplitude')].astype(float), data[:, hdr.index('amplitude_err')].astype(float)
+    x1_91bg, x1_err_91bg = data[:, hdr.index('stretch')].astype(float), data[:, hdr.index('stretch_err')].astype(float)
+    c_91bg, c_err_91bg = data[:, hdr.index('color')].astype(float), data[:, hdr.index('color_err')].astype(float)
     z_91bg = data[:, hdr.index('z_cmb')].astype(float)
     mu_91bg = utils.current_cosmo().distmod(z_91bg).value
     mB_91bg, mB_err_91bg = ((-2.5 * np.log10(x0_91bg)) + 10.635), np.sqrt((2.5 * (x0_err_91bg / (x0_91bg * np.log(10)))) ** 2.0 + 0.1 ** 2.0)
@@ -663,9 +678,9 @@ def alpha_beta(path_91bg: str = 'salt_params_cov_cut.txt',
     # Scatter Plot for Normals
     fmt_dict_norm = {'fmt': 'o', 'marker': 'o', 'alpha': 0.2, 'label': '$M_{Normal\\text{ }SNIa}$', 'color': c_norm}
     hdr, data = utils.default_open(path_norm)
-    x0_norm, x0_err_norm = data[:, hdr.index('x0')].astype(float), data[:, hdr.index('x0_err')].astype(float)
-    x1_norm, x1_err_norm = data[:, hdr.index('x1')].astype(float), data[:, hdr.index('x1_err')].astype(float)
-    c_norm, c_err_norm = data[:, hdr.index('c')].astype(float), data[:, hdr.index('c_err')].astype(float)
+    x0_norm, x0_err_norm = data[:, hdr.index('amplitude')].astype(float), data[:, hdr.index('amplitude_err')].astype(float)
+    x1_norm, x1_err_norm = data[:, hdr.index('stretch')].astype(float), data[:, hdr.index('stretch_err')].astype(float)
+    c_norm, c_err_norm = data[:, hdr.index('color')].astype(float), data[:, hdr.index('color_err')].astype(float)
     z_norm = data[:, hdr.index('z_cmb')].astype(float)
     mu_norm = utils.current_cosmo().distmod(z_norm).value
     mB_norm, mB_err_norm = ((-2.5 * np.log10(x0_norm)) + 10.635), np.sqrt((2.5 * (x0_err_norm / (x0_norm * np.log(10)))) ** 2.0 + 0.1 ** 2.0)
@@ -723,130 +738,131 @@ def param_hist(snpy_91bg_path: str, salt_91bg_path: str, snpy_norm_path: str, sa
     if False:
         # print('=====')
         print(f"s_BV: "
-              f"{round(min(tb_snpy_91bg['st']), 3)} < "
-              f"{round(np.median(tb_snpy_91bg['st']), 3)} < "
-              f"{round(max(tb_snpy_91bg['st']), 3)}")
+              f"{round(min(tb_snpy_91bg['stretch']), 3)} < "
+              f"{round(np.median(tb_snpy_91bg['stretch']), 3)} < "
+              f"{round(max(tb_snpy_91bg['stretch']), 3)}")
         print(f"E(B-V): "
-              f"{round(min(tb_snpy_91bg['EBVhost']), 3)} < "
-              f"{round(np.median(tb_snpy_91bg['EBVhost']), 3)} < "
-              f"{round(max(tb_snpy_91bg['EBVhost']), 3)}")
+              f"{round(min(tb_snpy_91bg['color']), 3)} < "
+              f"{round(np.median(tb_snpy_91bg['color']), 3)} < "
+              f"{round(max(tb_snpy_91bg['color']), 3)}")
         print(f"x_1: "
-              f"{round(min(tb_salt_91bg['x1']), 3)} < "
-              f"{round(np.median(tb_salt_91bg['x1']), 3)} < "
-              f"{round(max(tb_salt_91bg['x1']), 3)}")
+              f"{round(min(tb_salt_91bg['stretch']), 3)} < "
+              f"{round(np.median(tb_salt_91bg['stretch']), 3)} < "
+              f"{round(max(tb_salt_91bg['stretch']), 3)}")
         print(f"c: "
-              f"{round(min(tb_salt_91bg['c']), 3)} < "
-              f"{round(np.median(tb_salt_91bg['c']), 3)} < "
-              f"{round(max(tb_salt_91bg['c']), 3)}")
+              f"{round(min(tb_salt_91bg['color']), 3)} < "
+              f"{round(np.median(tb_salt_91bg['color']), 3)} < "
+              f"{round(max(tb_salt_91bg['color']), 3)}")
 
     fig, axs = plt.subplots(2, 2, figsize=(20, 8), constrained_layout=True)
     plt.style.use('tableau-colorblind10')
 
     # Plot data
-    axs[0, 0].hist(tb_snpy_norm['st'], label="$s_{BV, Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
-                   bins=get_bin_num(tb_snpy_norm['st']))
-    axs[0, 0].hist(tb_snpy_91bg['st'], label="$s_{BV, 1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
-                   bins=get_bin_num(tb_snpy_91bg['st']))
+    bin_num = 20
+    axs[0, 0].hist(tb_snpy_norm['stretch'], label="$s_{BV, Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
+                   bins=bin_num)
+    axs[0, 0].hist(tb_snpy_91bg['stretch'], label="$s_{BV, 1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
+                   bins=bin_num)
 
-    axs[0, 1].hist(tb_snpy_norm['EBVhost'], label="$E(B-V)_{Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
-                   bins=get_bin_num(tb_snpy_norm['EBVhost']))
-    axs[0, 1].hist(tb_snpy_91bg['EBVhost'], label="$E(B-V)_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
-                   bins=get_bin_num(tb_snpy_91bg['EBVhost']))
+    axs[0, 1].hist(tb_snpy_norm['color'], label="$E(B-V)_{Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
+                   bins=bin_num)
+    axs[0, 1].hist(tb_snpy_91bg['color'], label="$E(B-V)_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
+                   bins=bin_num)
 
-    axs[1, 0].hist(tb_salt_norm['x1'], label="$x_{1, Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
-                   bins=get_bin_num(tb_salt_norm['x1']))
-    axs[1, 0].hist(tb_salt_91bg['x1'], label="$x_{1, 1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
-                   bins=get_bin_num(tb_salt_91bg['x1']))
+    axs[1, 0].hist(tb_salt_norm['stretch'], label="$x_{1, Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
+                   bins=bin_num)
+    axs[1, 0].hist(tb_salt_91bg['stretch'], label="$x_{1, 1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
+                   bins=bin_num)
 
-    axs[1, 1].hist(tb_salt_norm['c'], label="$c_{Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
-                   bins=get_bin_num(tb_salt_norm['c']))
-    axs[1, 1].hist(tb_salt_91bg['c'], label="$c_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
-                   bins=get_bin_num(tb_salt_91bg['c']))
+    axs[1, 1].hist(tb_salt_norm['color'], label="$c_{Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
+                   bins=bin_num)
+    axs[1, 1].hist(tb_salt_91bg['color'], label="$c_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
+                   bins=bin_num)
 
     # Plot median/average lines
     if line_type == 'median':
         line_type = line_type[0].upper() + line_type[1:]
 
-        axs[0, 0].axvline(np.median(tb_snpy_norm['st']), color=c_norm_line, linestyle='--', linewidth=3,
+        axs[0, 0].axvline(np.median(tb_snpy_norm['stretch']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.median(tb_snpy_norm['st']), 3)}$")
-        axs[0, 0].axvline(np.median(tb_snpy_91bg['st']), color=c_91bg_line, linestyle=':', linewidth=3,
+                                f" = ${round(np.median(tb_snpy_norm['stretch']), 3)}$")
+        axs[0, 0].axvline(np.median(tb_snpy_91bg['stretch']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.median(tb_snpy_91bg['st']), 3)}$")
+                                f" = ${round(np.median(tb_snpy_91bg['stretch']), 3)}$")
 
-        axs[0, 1].axvline(np.median(tb_snpy_norm['EBVhost']), color=c_norm_line, linestyle='--', linewidth=3,
+        axs[0, 1].axvline(np.median(tb_snpy_norm['color']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.median(tb_snpy_norm['EBVhost']), 3)}$")
-        axs[0, 1].axvline(np.median(tb_snpy_91bg['EBVhost']), color=c_91bg_line, linestyle=':', linewidth=3,
+                                f" = ${round(np.median(tb_snpy_norm['color']), 3)}$")
+        axs[0, 1].axvline(np.median(tb_snpy_91bg['color']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.median(tb_snpy_91bg['EBVhost']), 3)}$")
+                                f" = ${round(np.median(tb_snpy_91bg['color']), 3)}$")
 
-        axs[1, 0].axvline(np.median(tb_salt_norm['x1']), color=c_norm_line, linestyle='--', linewidth=3,
+        axs[1, 0].axvline(np.median(tb_salt_norm['stretch']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.median(tb_salt_norm['x1']), 3)}$")
-        axs[1, 0].axvline(np.median(tb_salt_91bg['x1']), color=c_91bg_line, linestyle=':', linewidth=3,
+                                f" = ${round(np.median(tb_salt_norm['stretch']), 3)}$")
+        axs[1, 0].axvline(np.median(tb_salt_91bg['stretch']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.median(tb_salt_91bg['x1']), 3)}$")
+                                f" = ${round(np.median(tb_salt_91bg['stretch']), 3)}$")
 
-        axs[1, 1].axvline(np.median(tb_salt_norm['c']), color=c_norm_line, linestyle='--', linewidth=3,
+        axs[1, 1].axvline(np.median(tb_salt_norm['color']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.median(tb_salt_norm['c']), 3)}$")
-        axs[1, 1].axvline(np.median(tb_salt_91bg['c']), color=c_91bg_line, linestyle=':', linewidth=3,
+                                f" = ${round(np.median(tb_salt_norm['color']), 3)}$")
+        axs[1, 1].axvline(np.median(tb_salt_91bg['color']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.median(tb_salt_91bg['c']), 3)}$")
+                                f" = ${round(np.median(tb_salt_91bg['color']), 3)}$")
     elif line_type == 'average':
         line_type = line_type[0].upper() + line_type[1:]
 
-        axs[0, 0].axvline(np.average(tb_snpy_norm['st']), color=c_norm_line, linestyle='--', linewidth=3,
+        axs[0, 0].axvline(np.average(tb_snpy_norm['stretch']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.average(tb_snpy_norm['st']), 3)}$"+
+                                f" = ${round(np.average(tb_snpy_norm['stretch']), 3)}$"+
                                 f" $\pm {round(np.average(tb_snpy_norm['st_err']), 3)}$")
-        axs[0, 0].axvline(np.average(tb_snpy_91bg['st']), color=c_91bg_line, linestyle=':', linewidth=3,
+        axs[0, 0].axvline(np.average(tb_snpy_91bg['stretch']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.average(tb_snpy_91bg['st']), 3)}$" +
+                                f" = ${round(np.average(tb_snpy_91bg['stretch']), 3)}$" +
                                 f" $\pm {round(np.average(tb_snpy_91bg['st_err']), 3)}$")
 
-        axs[0, 1].axvline(np.average(tb_snpy_norm['EBVhost']), color=c_norm_line, linestyle='--', linewidth=3,
+        axs[0, 1].axvline(np.average(tb_snpy_norm['color']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.average(tb_snpy_norm['EBVhost']), 3)}$"+
+                                f" = ${round(np.average(tb_snpy_norm['color']), 3)}$"+
                                 f" $\pm {round(np.average(tb_snpy_norm['EBVhost_err']), 3)}$")
-        axs[0, 1].axvline(np.average(tb_snpy_91bg['EBVhost']), color=c_91bg_line, linestyle=':', linewidth=3,
+        axs[0, 1].axvline(np.average(tb_snpy_91bg['color']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.average(tb_snpy_91bg['EBVhost']), 3)}$" +
+                                f" = ${round(np.average(tb_snpy_91bg['color']), 3)}$" +
                                 f" $\pm {round(np.average(tb_snpy_91bg['EBVhost_err']), 3)}$")
 
-        axs[1, 0].axvline(np.average(tb_salt_norm['x1']), color=c_norm_line, linestyle='--', linewidth=3,
+        axs[1, 0].axvline(np.average(tb_salt_norm['stretch']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.average(tb_salt_norm['x1']), 3)}$"+
+                                f" = ${round(np.average(tb_salt_norm['stretch']), 3)}$"+
                                 f" $\pm {round(np.average(tb_salt_norm['x1_err']), 3)}$")
-        axs[1, 0].axvline(np.average(tb_salt_91bg['x1']), color=c_91bg_line, linestyle=':', linewidth=3,
+        axs[1, 0].axvline(np.average(tb_salt_91bg['stretch']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.average(tb_salt_91bg['x1']), 3)}$" +
+                                f" = ${round(np.average(tb_salt_91bg['stretch']), 3)}$" +
                                 f" $\pm {round(np.average(tb_salt_91bg['x1_err']), 3)}$")
 
-        axs[1, 1].axvline(np.average(tb_salt_norm['c']), color=c_norm_line, linestyle='--', linewidth=3,
+        axs[1, 1].axvline(np.average(tb_salt_norm['color']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.average(tb_salt_norm['c']), 3)}$"+
+                                f" = ${round(np.average(tb_salt_norm['color']), 3)}$"+
                                 f" $\pm {round(np.average(tb_salt_norm['c_err']), 3)}$")
-        axs[1, 1].axvline(np.average(tb_salt_91bg['c']), color=c_91bg_line, linestyle=':', linewidth=3,
+        axs[1, 1].axvline(np.average(tb_salt_91bg['color']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.average(tb_salt_91bg['c']), 3)}$" +
+                                f" = ${round(np.average(tb_salt_91bg['color']), 3)}$" +
                                 f" $\pm {round(np.average(tb_salt_91bg['c_err']), 3)}$")
 
     # Enable legends
@@ -867,14 +883,14 @@ def param_hist(snpy_91bg_path: str, salt_91bg_path: str, snpy_norm_path: str, sa
 
     # Adjust bounds
     tol = 0.3
-    axs[0, 0].set_xlim(-1 * np.max(np.hstack([tb_snpy_norm['st'], tb_snpy_91bg['st']])) + 1 - tol,
-                       np.max(np.hstack([tb_snpy_norm['st'], tb_snpy_91bg['st']])) + 1 + tol)
-    axs[1, 0].set_xlim(-1 * np.max(np.hstack([tb_salt_norm['x1'], tb_salt_91bg['x1']])) - tol,
-                       np.max(np.hstack([tb_salt_norm['x1'], tb_salt_91bg['x1']])) + tol)
-    axs[0, 1].set_xlim(-1*np.max(np.hstack([tb_snpy_norm['EBVhost'], tb_snpy_91bg['EBVhost']])) - tol,
-                       np.max(np.hstack([tb_snpy_norm['EBVhost'], tb_snpy_91bg['EBVhost']])) + tol)
-    axs[1, 1].set_xlim(-1*np.max(np.hstack([tb_salt_norm['c'], tb_salt_91bg['c']])) - tol,
-                       np.max(np.hstack([tb_salt_norm['c'], tb_salt_91bg['c']])) + tol)
+    axs[0, 0].set_xlim(-1 * np.max(np.hstack([tb_snpy_norm['stretch'], tb_snpy_91bg['stretch']])) + 1 - tol,
+                       np.max(np.hstack([tb_snpy_norm['stretch'], tb_snpy_91bg['stretch']])) + 1 + tol)
+    axs[1, 0].set_xlim(-1 * np.max(np.hstack([tb_salt_norm['stretch'], tb_salt_91bg['stretch']])) - tol,
+                       np.max(np.hstack([tb_salt_norm['stretch'], tb_salt_91bg['stretch']])) + tol)
+    axs[0, 1].set_xlim(-1*np.max(np.hstack([tb_snpy_norm['color'], tb_snpy_91bg['color']])) - tol,
+                       np.max(np.hstack([tb_snpy_norm['color'], tb_snpy_91bg['color']])) + tol)
+    axs[1, 1].set_xlim(-1*np.max(np.hstack([tb_salt_norm['color'], tb_salt_91bg['color']])) - tol,
+                       np.max(np.hstack([tb_salt_norm['color'], tb_salt_91bg['color']])) + tol)
 
     if len(save_loc) > 0:
         print(f"Saved figure to...  {save_loc}")
@@ -943,7 +959,7 @@ def dust_hist(path_91bg: str = 'salt_params_cov_cut.txt',
     plt.show()
     return
 def abs_mag_v_color(path_91bg: str = 'salt_params_cov_cut.txt',
-                    path_red_norm: str = 'redNormSNe_salt.txt',
+                    path_norm: str = 'redNormSNe_salt.txt',
                     path_dust: str = 'global_dust_params.txt',
                     save_loc: str = '', label: bool = False):
     fig, ax = plt.subplots(1, 1, figsize=(14, 6), constrained_layout=True)
@@ -953,7 +969,7 @@ def abs_mag_v_color(path_91bg: str = 'salt_params_cov_cut.txt',
 
     # Open data
     tb_91bg = utils.default_open(path_91bg, True)
-    tb_red_norm = utils.default_open(path_red_norm, True)
+    tb_norm = utils.default_open(path_norm, True)
     tb_dust = utils.default_open(path_dust, True)
     tb_combined = Table(
         names=('objname', 'source', 'av', 'av_upper', 'av_lower', 'mu', 'mu_err', 'absmB', 'absmB_err', 'c', 'c_err'),
@@ -964,18 +980,18 @@ def abs_mag_v_color(path_91bg: str = 'salt_params_cov_cut.txt',
             source = '91bg'
             mu = tb_91bg[tb_91bg['objname'] == n]['mu'].value[0]
             mu_err = tb_91bg[tb_91bg['objname'] == n]['mu_err'].value[0]
-            x0 = tb_91bg[tb_91bg['objname'] == n]['x0'].value[0]
-            x0_err = tb_91bg[tb_91bg['objname'] == n]['x0_err'].value[0]
-            c = tb_91bg[tb_91bg['objname'] == n]['c'].value[0]
-            c_err = tb_91bg[tb_91bg['objname'] == n]['c_err'].value[0]
+            amplitude = tb_91bg[tb_91bg['objname'] == n]['amplitude'].value[0]
+            amplitude_err = tb_91bg[tb_91bg['objname'] == n]['amplitude_err'].value[0]
+            c = tb_91bg[tb_91bg['objname'] == n]['color'].value[0]
+            c_err = tb_91bg[tb_91bg['objname'] == n]['color_err'].value[0]
         # Get Normal Data
-        elif len(tb_red_norm[tb_red_norm['objname'] == n]) > 0:
+        elif len(tb_norm[tb_norm['objname'] == n]) > 0:
             source = 'norm'
-            mu = tb_red_norm[tb_red_norm['objname'] == n]['mu'].value[0]
-            x0 = tb_red_norm[tb_red_norm['objname'] == n]['x0'].value[0]
-            x0_err = tb_red_norm[tb_red_norm['objname'] == n]['x0_err'].value[0]
-            c = tb_red_norm[tb_red_norm['objname'] == n]['c'].value[0]
-            c_err = tb_red_norm[tb_red_norm['objname'] == n]['c_err'].value[0]
+            mu = tb_norm[tb_norm['objname'] == n]['mu'].value[0]
+            amplitude = tb_norm[tb_norm['objname'] == n]['amplitude'].value[0]
+            amplitude_err = tb_norm[tb_norm['objname'] == n]['amplitude_err'].value[0]
+            c = tb_norm[tb_norm['objname'] == n]['color'].value[0]
+            c_err = tb_norm[tb_norm['objname'] == n]['color_err'].value[0]
 
         # Get Dust E(B-V)
         av = tb_dust[tb_dust['objname'] == n]['av_50'].value[0]
@@ -985,8 +1001,8 @@ def abs_mag_v_color(path_91bg: str = 'salt_params_cov_cut.txt',
                     tb_dust[tb_dust['objname'] == n]['av_16'].value[0])
 
         # Calculate Absolute Mag
-        mB = ((-2.5 * np.log10(x0)) + 10.635)
-        mB_err = np.sqrt((2.5 * (x0_err / (x0 * np.log(10)))) ** 2.0 + 0.1 ** 2.0)
+        mB = ((-2.5 * np.log10(amplitude)) + 10.635)
+        mB_err = np.sqrt((2.5 * (amplitude_err / (amplitude * np.log(10)))) ** 2.0 + 0.1 ** 2.0)
         absmB = mB - mu
         absmB_err = np.copy(mB_err)
 
@@ -1064,7 +1080,7 @@ def color_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.txt
                                                [c_91bg, c_norm]):
         ## Open data
         tb = utils.default_open(path, True)
-        colors = np.array(tb['EBVhost'])
+        colors = np.array(tb['color'])
         resid = np.array(tb['mu'] - utils.current_cosmo().distmod(tb['z_cmb']).value)
 
         ## Bin Dust & Residuals with STD of residuals
@@ -1101,7 +1117,7 @@ def color_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.txt
                                                [c_91bg, c_norm]):
         ## Open data
         tb = utils.default_open(path, True)
-        colors = np.array(tb['c'])
+        colors = np.array(tb['color'])
         resid = np.array(tb['mu'] - utils.current_cosmo().distmod(tb['z_cmb']).value)
 
         ## Bin Dust & Residuals with STD of residuals
@@ -1161,22 +1177,22 @@ def params_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.tx
     tb_2 = utils.default_open(path_salt_91bg, True)
     tb_3 = utils.default_open(path_snpy_norm, True)
     tb_4 = utils.default_open(path_salt_norm, True)
-    print(f"sBV: 1991bg-like = [{round(np.min(tb_1['st'])-0.1, 3)}, {round(np.max(tb_1['st'])+0.1, 3)}], "
-          f"{len(tb_1['st'])}, Avg. {np.average(tb_1['st'])}, Med. {np.median(tb_1['st'])} | "
-          f"Normals = [{round(np.min(tb_3['st'])-0.1, 3)}, {round(np.max(tb_3['st'])+0.1, 3)}], "
-          f"{len(tb_3['st'])}, Avg. {np.average(tb_3['st'])}, Med. {np.median(tb_3['st'])}")
-    print(f"E(B-V): 1991bg-like = [{round(np.min(tb_1['EBVhost']) - 0.1, 3)}, {round(np.max(tb_1['EBVhost']) + 0.1, 3)}], "
-          f"{len(tb_1['EBVhost'])}, Avg. {np.average(tb_1['EBVhost'])}, Med. {np.median(tb_1['EBVhost'])} | "
-          f"Normals = [{round(np.min(tb_3['EBVhost']) - 0.1, 3)}, {round(np.max(tb_3['EBVhost']) + 0.1, 3)}], "
-          f"{len(tb_3['EBVhost'])}, Avg. {np.average(tb_3['EBVhost'])}, Med. {np.median(tb_3['EBVhost'])}")
-    print(f"x1: 1991bg-like = [{round(np.min(tb_2['x1']) - 0.1, 3)}, {round(np.max(tb_2['x1']) + 0.1, 3)}], "
-          f"{len(tb_2['x1'])}, Avg. {np.average(tb_2['x1'])}, Med. {np.median(tb_2['x1'])} | "
-          f"Normals = [{round(np.min(tb_4['x1']) - 0.1, 3)}, {round(np.max(tb_4['x1']) + 0.1, 3)}], "
-          f"{len(tb_4['x1'])}, Avg. {np.average(tb_4['x1'])}, Med. {np.median(tb_4['x1'])}")
-    print(f"c: 1991bg-like = [{round(np.min(tb_2['c']) - 0.1, 3)}, {round(np.max(tb_2['c']) + 0.1, 3)}], "
-          f"{len(tb_2['c'])}, Avg. {np.average(tb_2['c'])}, Med. {np.median(tb_2['c'])} | "
-          f"Normals = [{round(np.min(tb_4['c']) - 0.1, 3)}, {round(np.max(tb_4['c']) + 0.1, 3)}], "
-          f"{len(tb_4['c'])}, Avg. {np.average(tb_4['c'])}, Med. {np.median(tb_4['c'])}")
+    print(f"sBV: 1991bg-like = [{round(np.min(tb_1['stretch'])-0.1, 3)}, {round(np.max(tb_1['stretch'])+0.1, 3)}], "
+          f"{len(tb_1['stretch'])}, Avg. {np.average(tb_1['stretch'])}, Med. {np.median(tb_1['stretch'])} | "
+          f"Normals = [{round(np.min(tb_3['stretch'])-0.1, 3)}, {round(np.max(tb_3['stretch'])+0.1, 3)}], "
+          f"{len(tb_3['stretch'])}, Avg. {np.average(tb_3['stretch'])}, Med. {np.median(tb_3['stretch'])}")
+    print(f"E(B-V): 1991bg-like = [{round(np.min(tb_1['color']) - 0.1, 3)}, {round(np.max(tb_1['color']) + 0.1, 3)}], "
+          f"{len(tb_1['color'])}, Avg. {np.average(tb_1['color'])}, Med. {np.median(tb_1['color'])} | "
+          f"Normals = [{round(np.min(tb_3['color']) - 0.1, 3)}, {round(np.max(tb_3['color']) + 0.1, 3)}], "
+          f"{len(tb_3['color'])}, Avg. {np.average(tb_3['color'])}, Med. {np.median(tb_3['color'])}")
+    print(f"x1: 1991bg-like = [{round(np.min(tb_2['stretch']) - 0.1, 3)}, {round(np.max(tb_2['stretch']) + 0.1, 3)}], "
+          f"{len(tb_2['stretch'])}, Avg. {np.average(tb_2['stretch'])}, Med. {np.median(tb_2['stretch'])} | "
+          f"Normals = [{round(np.min(tb_4['stretch']) - 0.1, 3)}, {round(np.max(tb_4['stretch']) + 0.1, 3)}], "
+          f"{len(tb_4['stretch'])}, Avg. {np.average(tb_4['stretch'])}, Med. {np.median(tb_4['stretch'])}")
+    print(f"c: 1991bg-like = [{round(np.min(tb_2['color']) - 0.1, 3)}, {round(np.max(tb_2['color']) + 0.1, 3)}], "
+          f"{len(tb_2['color'])}, Avg. {np.average(tb_2['color'])}, Med. {np.median(tb_2['color'])} | "
+          f"Normals = [{round(np.min(tb_4['color']) - 0.1, 3)}, {round(np.max(tb_4['color']) + 0.1, 3)}], "
+          f"{len(tb_4['color'])}, Avg. {np.average(tb_4['color'])}, Med. {np.median(tb_4['color'])}")
 
     # Top Panels: SNooPy ===============================================================================================
     ## Top-Left s_BV ===================================================================================================
@@ -1184,7 +1200,7 @@ def params_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.tx
                                                [bin_nums[0][0], bin_nums[0][1]],
                                                ["1991bg-like SNe Ia, $N_{SNe}$ = ", "Normal SNe Ia, $N_{SNe}$ = "],
                                                [c_91bg, c_norm]):
-        plot_binned_param(axis=axs[0, 0], path=path, param_name='st',
+        plot_binned_param(axis=axs[0, 0], path=path, param_name='stretch',
                           bin_num=bin_num, bin_bounds=bin_bounds[0],
                           p_label=p_label, p_color=p_color)
 
@@ -1193,7 +1209,7 @@ def params_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.tx
                                                [bin_nums[1][0], bin_nums[1][1]],
                                                ["1991bg-like SNe Ia, $N_{SNe}$ = ", "Normal SNe Ia, $N_{SNe}$ = "],
                                                [c_91bg, c_norm]):
-        plot_binned_param(axis=axs[0, 1], path=path, param_name='EBVhost',
+        plot_binned_param(axis=axs[0, 1], path=path, param_name='color',
                           bin_num=bin_num, bin_bounds=bin_bounds[1],
                           p_label=p_label, p_color=p_color)
     # Bottom Panels: SALT3 =============================================================================================
@@ -1202,15 +1218,15 @@ def params_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.tx
                                                [bin_nums[2][0], bin_nums[2][1]],
                                                ["1991bg-like SNe Ia, $N_{SNe}$ = ", "Normal SNe Ia, $N_{SNe}$ = "],
                                                [c_91bg, c_norm]):
-        plot_binned_param(axis=axs[1, 0], path=path, param_name='x1',
+        plot_binned_param(axis=axs[1, 0], path=path, param_name='stretch',
                           bin_num=bin_num, bin_bounds=bin_bounds[2],
                           p_label=p_label, p_color=p_color)
-    ## Bottom-Right c ==================================================================================================
+    ## Bottom-Right color ==================================================================================================
     for path, bin_num, p_label, p_color in zip([path_salt_91bg, path_salt_norm],
                                                [bin_nums[3][0], bin_nums[3][1]],
                                                ["1991bg-like SNe Ia, $N_{SNe}$ = ", "Normal SNe Ia, $N_{SNe}$ = "],
                                                [c_91bg, c_norm]):
-        plot_binned_param(axis=axs[1, 1], path=path, param_name='c',
+        plot_binned_param(axis=axs[1, 1], path=path, param_name='color',
                           bin_num=bin_num, bin_bounds=bin_bounds[3],
                           p_label=p_label, p_color=p_color)
 
@@ -1225,10 +1241,10 @@ def params_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.tx
     axs[0, 1].legend(loc='upper left')
     axs[1, 0].legend(loc='upper left')
     axs[1, 1].legend(loc='upper left')
-    axs[0, 0].set_ylim(0, 0.3)
-    axs[0, 1].set_ylim(0, 0.3)
-    axs[1, 0].set_ylim(0, 0.3)
-    axs[1, 1].set_ylim(0, 0.3)
+    # axs[0, 0].set_ylim(0, 0.3)
+    # axs[0, 1].set_ylim(0, 0.3)
+    # axs[1, 0].set_ylim(0, 0.3)
+    # axs[1, 1].set_ylim(0, 0.3)
     axs[0, 1].tick_params(labelleft=False)
     axs[1, 1].tick_params(labelleft=False)
 
@@ -1249,8 +1265,9 @@ def dust_v_scatter(path_91bg: str = 'results/old/merged_params_cut.txt',
 
     # Open data
     tb_91bg = utils.default_open(path_91bg, True)
-    tb_red_norm = utils.default_open(path_norm, True)
+    tb_norm = utils.default_open(path_norm, True)
     tb_dust = utils.default_open(path_dust, True)
+    tb_red_norm = tb_norm[tb_norm['color'] > 0.15]
 
     for tb, lb, cl in zip([tb_91bg, tb_red_norm],
                           ["1991bg-like SNe Ia", "Normal SNe (c > 0.15)"],
