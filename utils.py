@@ -160,6 +160,8 @@ def query_tns(coords: list or None = None, objname: str or None = None, search_r
     response = requests.post("https://www.wis-tns.org/api/get/search", headers=headers, data=search_data)
     response = json.loads(response.text)
     transients = response["data"]
+    if len(transients) > 1:
+        print("[~~~] WARNING: More than one transient object found! Returning first one...")
     if transients == 'Too Many Requests':
         print('\nToo Many Requests... pausing for 30 seconds: ', end='')
         for i in range(10):

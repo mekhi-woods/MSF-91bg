@@ -1,5 +1,5 @@
-"# Soruce: CSP, ATLAS; Date: 2004-2009, 2024-2025; Object Type: normal SNe Ia; Number SNe: 501",,,,,
-Name,RA,DEC,Redshift,Discovery Date,Source
+# Object Type: Normal SNe Ia; Date: 2004 to 2025; Number SNe: 500; CSP: ~ | ATLAS: ~ | ZTF: ~ | ATLAS+ZTF: ~
+Name,RA,DEC,Redshift,Discovery Date (UT),Data Source(s)
 SN 2004dt,02:02:12.77,-00:05:51.5,0.0197,Unknown,CSP
 SN 2004ef,22:42:10.02,+19:59:40.4,0.0310,Unknown,CSP
 SN 2004eo,20:32:54.19,+09:55:42.7,0.0157,Unknown,CSP

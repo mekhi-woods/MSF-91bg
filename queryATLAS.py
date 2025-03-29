@@ -125,19 +125,19 @@ def download(tar_list: str, save_loc: str):
         #######################
         print(hdr)
 
-        # # Check if already downloaded
-        # if n[0] in known_names:
-        #     print(f'[---] Already downloaded! Skipping...\n{csr}')
-        #     continue
-
-        # Known issue target
-        known_not_in_atlas = ("SN 2009F SN 2008bt SN 2008bi SN 2008bd SN 2007N SN 2007ba SN 2007ax SN 2007al SN 2006mr "
-                              "SN 2006gt SN 2006bd SN 2005ke SN 2005bl SN 2025nn SN 2023sps SN 2023ex SN 2022zvu "
-                              "SN 2021zqs SN 2021afur SN 2020yo SN 2020vae SN 2020ecn SN 2018lph SN 2018baz SN 2018ast "
-                              "SN 2017fzw SN 2016iuh SN 2016ije SN 2016brx").replace("SN ", "").split(" ")
-        if n[0] in known_not_in_atlas:
-            print(f'[---] Known to not be in ATLAS! Skipping...\n{csr}')
+        # Check if already downloaded
+        if n[0] in known_names:
+            print(f'[---] Already downloaded! Skipping...\n{csr}')
             continue
+
+        # # Known issue target
+        # known_not_in_atlas = ("SN 2009F SN 2008bt SN 2008bi SN 2008bd SN 2007N SN 2007ba SN 2007ax SN 2007al SN 2006mr "
+        #                       "SN 2006gt SN 2006bd SN 2005ke SN 2005bl SN 2025nn SN 2023sps SN 2023ex SN 2022zvu "
+        #                       "SN 2021zqs SN 2021afur SN 2020yo SN 2020vae SN 2020ecn SN 2018lph SN 2018baz SN 2018ast "
+        #                       "SN 2017fzw SN 2016iuh SN 2016ije SN 2016brx").replace("SN ", "").split(" ")
+        # if n[0] in known_not_in_atlas:
+        #     print(f'[---] Known to not be in ATLAS! Skipping...\n{csr}')
+        #     continue
 
         # Attempt download
         task_url = initate_download(n[1], n[2], n[3], headers)

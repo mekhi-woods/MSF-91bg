@@ -375,9 +375,9 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
 
     ## Calculate Hubble Residual
     tb_91bg['resid_mu'] = tb_91bg['mu'] - utils.current_cosmo().distmod(tb_91bg['z_cmb']).value
-    tb_91bg['resid_mu'] -= np.average(
-        tb_91bg['resid_mu'][~np.isnan(tb_91bg['resid_mu'])])  # Centering around average
-    tb_91bg['mu_err'] = np.sqrt(tb_91bg['mu_err'] ** 2.0 + 0.1 ** 2.0)  # intrinsic dispersion added in quadrature
+
+    # Adding 0.1 mag in quadrature for intrinsic dispersion
+    tb_91bg['mu_err'] = np.sqrt(tb_91bg['mu_err'] ** 2.0 + 0.1 ** 2.0)
     tb_91bg['resid_mu_err'] = np.copy(tb_91bg['mu_err'])
 
     # Adding 0.1 mag in quadrature (taylor+11)
@@ -422,7 +422,6 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
     axs[1, 0].hlines(y=np.average(tb_91bg['resid_mu'][tb_91bg['hostMass'] < 10]) - 0.4297,
                      xmin=10, xmax=np.max(tb_91bg['hostMass']) + tol,
                      label='Brout et al. 2021 (c = 0.2)', linestyle=':', linewidth=3, color='C0', zorder=5)
-
 
     # # Plot 10dex & Median Mass Lines -- with fill
     # tol = 0.3
@@ -477,14 +476,12 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
     axs[0,0].text(0.04, 0.96,
                   "Normal SNe Ia\n"+
                   "$N_{SNe}$ = "+f"{len(tb_norm)}\n"+
-                  "$\sigma$ = "+f"{round(norm_std,3)} mag\n"+
-                  "SNR = " + f"{round(len(tb_norm)/ np.sqrt(norm_std), 3)}",
+                  "$\sigma$ = "+f"{round(norm_std,3)} mag\n",
                   transform=axs[0, 0].transAxes, ha='left', va='top', fontsize=12)
     axs[1,0].text(0.04, 0.96,
                   "1991bg-like SNe Ia\n" +
                   "$N_{SNe}$ = " + f"{len(tb_91bg)}\n" +
-                  "$\sigma$ = " + f"{round(sn91bg_std, 3)} mag\n"+
-                  "SNR = " + f"{round(len(tb_91bg) / np.sqrt(sn91bg_std), 3)}",
+                  "$\sigma$ = " + f"{round(sn91bg_std, 3)} mag\n",
                   transform=axs[1, 0].transAxes, ha='left', va='top', fontsize=12)
 
     ## Adjust Axises
@@ -898,9 +895,9 @@ def param_hist(snpy_91bg_path: str, salt_91bg_path: str, snpy_norm_path: str, sa
     plt.show()
     return
 def dust_hist(path_91bg: str = 'salt_params_cov_cut.txt',
-                       path_red_norm: str = 'redNormSNe_salt.txt',
-                       path_dust: str = 'global_dust_params.txt',
-                       save_loc: str = '', label: bool = False):
+              path_red_norm: str = 'redNormSNe_salt.txt',
+              path_dust: str = 'global_dust_params.txt',
+              save_loc: str = '', label: bool = False):
     fig, ax = plt.subplots(1, 1, figsize=(12, 6), constrained_layout=True)
     plt.style.use('tableau-colorblind10')
 
@@ -922,6 +919,8 @@ def dust_hist(path_91bg: str = 'salt_params_cov_cut.txt',
         # Get Normal Data
         elif len(tb_red_norm[tb_red_norm['objname'] == n]) > 0:
             source = 'norm'
+        else:
+            continue  # Skip values with no dust value
         # Get Dust E(B-V)
         av = tb_dust[tb_dust['objname'] == n]['av_50'].value[0]
         av_upper = (tb_dust[tb_dust['objname'] == n]['av_84'].value[0] -
@@ -992,6 +991,8 @@ def abs_mag_v_color(path_91bg: str = 'salt_params_cov_cut.txt',
             amplitude_err = tb_norm[tb_norm['objname'] == n]['amplitude_err'].value[0]
             c = tb_norm[tb_norm['objname'] == n]['color'].value[0]
             c_err = tb_norm[tb_norm['objname'] == n]['color_err'].value[0]
+        else:
+            continue  # Skip values that don't have dust values
 
         # Get Dust E(B-V)
         av = tb_dust[tb_dust['objname'] == n]['av_50'].value[0]

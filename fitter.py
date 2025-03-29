@@ -46,6 +46,7 @@ class sneObj:
             self.path = f"classes/{source}/{source}_{self.originalname}_{algo}_class.txt"
 
             # Load and clean data
+
             var_tbl = self.make_objTbl(source, path)
             var_tbl = self.clean_objTbl(var_tbl)
             self.coords = [np.average(var_tbl['ra']), np.average(var_tbl['dec'])]
@@ -122,6 +123,25 @@ class sneObj:
                                            csp_mag, csp_dmag, csp_flux, csp_dflux])
             self.z = var_table['z'][0]  # Special case for CSP since CSP-I didn't report all SNe redshifts to TNS
         elif source == 'ztf-91bg' or source == 'ztf-norm':
+            # # Load ZTF data from file
+            # ztf_data = np.genfromtxt(path, delimiter=',', dtype=str)
+            # ztf_hdr, ztf_data = list(ztf_data[0, :]), ztf_data[1:, :]
+            # ztf_ra = ztf_data[:, ztf_hdr.index('ra')].astype(float)
+            # ztf_dec = ztf_data[:, ztf_hdr.index('dec')].astype(float)
+            # ztf_filter = ztf_data[:, ztf_hdr.index('filtercode')]
+            # ztf_mjd = ztf_data[:, ztf_hdr.index('mjd')].astype(float)
+            # ztf_mag = ztf_data[:, ztf_hdr.index('mag')].astype(float)
+            # ztf_dmag = ztf_data[:, ztf_hdr.index('magerr')].astype(float)
+            # ztf_zp = ztf_data[:, ztf_hdr.index('magzp')].astype(float)
+            #
+            # # Calculate ZTF flux values
+            # ztf_flux = 10 ** ((ztf_mag.astype(float) - ztf_zp.astype(float)) / (-2.5))
+            # ztf_dflux = np.abs(ztf_flux) * (1 / 2.5) * np.log(10) * ztf_dmag.astype(float)
+            #
+            # # Make table of combined data
+            # var_table = Table(names=['ra', 'dec', 'filter', 'mjd', 'mag', 'dmag', 'flux', 'dflux', 'zp'],
+            #                   data=[ztf_ra, ztf_dec, ztf_filter, ztf_mjd, ztf_mag, ztf_dmag, ztf_flux, ztf_dflux,
+            #                         ztf_zp])
             # Load hdr & data
             with open(path, 'r') as f:
                 for i in range(3): f.readline()
@@ -151,6 +171,12 @@ class sneObj:
             var_table['dmag'] = np.abs(-1.08573620476 * (np.array(var_table['forcediffimfluxunc']).astype(float)
                                                          / np.array(var_table['forcediffimflux']).astype(float)))
 
+            # ATLAS Pairty flux
+            new_flux = var_table['forcediffimflux'].astype(float) * 10 ** (-0.4 * (23.9 - var_table['zpdiff'].astype(float)))
+            new_dflux = np.abs((new_flux * -0.4 * (23.9-var_table['zpdiff'].astype(float)) * var_table['forcediffimfluxunc'].astype(float)) / (var_table['forcediffimflux'].astype(float)))
+            var_table['forcediffimflux'] = new_flux
+            var_table['forcediffimfluxunc'] = new_dflux
+
             # Add parity with CSP & ATLAS
             var_table.remove_columns(['index', 'field', 'ccdid', 'qid', 'pid', 'infobitssci', 'sciinpseeing',
                                       'scibckgnd', 'scisigpix', 'zpmaginpsci', 'zpmaginpsciunc', 'zpmaginpscirms',
@@ -162,6 +188,148 @@ class sneObj:
             for h_old, h_new in zip(['zpdiff', 'jd', 'forcediffimflux', 'forcediffimfluxunc'],
                                     ['zp', 'mjd', 'flux', 'dflux']):
                 var_table[h_old].name = h_new
+        elif source == 'combined_91bg' or source == 'combined_norm':
+            # Load data
+            with open(path, 'r') as f:
+                f.readline() # Skip header
+                hdr = f.readline().rstrip('\n').split(', ')
+            data = np.genfromtxt(path, dtype='str', delimiter=', ', skip_header=2)
+
+            # Make table
+            var_table = Table()
+            for h in hdr:
+                try:
+                    var_table[h] = data[:, hdr.index(h)].astype(float)
+                except ValueError:
+                    var_table[h] = data[:, hdr.index(h)]
+
+            print(f"[~~~] Making class using combined dataset... {np.unique(np.array(var_table['source']))}")
+        else:
+            raise ValueError(f'[!!!] Unknown source, {source}! Must be (csp/atlas/ztf/combined)-(91bg/norm)...')
+        return var_table
+    def new_make_objTbl(self, source: str, path: str) -> Table:
+        # Load data and make intial table
+        if source == 'atlas-91bg' or source == 'atlas-norm':
+            # Load data from file
+            atlas_data = np.genfromtxt(path, delimiter=', ', dtype=str)
+            atlas_hdr, atlas_data = list(atlas_data[0, :]), atlas_data[1:, :]
+            atlas_ra = atlas_data[:, atlas_hdr.index('RA')]
+            atlas_dec = atlas_data[:, atlas_hdr.index('Dec')]
+            atlas_filter = atlas_data[:, atlas_hdr.index('F')]
+            atlas_mjd = atlas_data[:, atlas_hdr.index('MJD')]
+            atlas_mag = atlas_data[:, atlas_hdr.index('m')]
+            atlas_dmag = atlas_data[:, atlas_hdr.index('dm')]
+            atlas_flux = atlas_data[:, atlas_hdr.index('uJy')]
+            atlas_dflux = atlas_data[:, atlas_hdr.index('duJy')]
+
+            # Calculate zeropoints
+            atlas_zp = -2.5 * np.log10(atlas_flux.astype(float)) + 23.9
+
+            # Make ATLAS table
+            var_table = Table(names=['ra', 'dec', 'filter', 'mjd', 'mag', 'dmag', 'flux', 'dflux', 'zp'],
+                              data=[atlas_ra, atlas_dec, atlas_filter, atlas_mjd, atlas_mag, atlas_dmag, atlas_flux,
+                                    atlas_dflux, atlas_zp],
+                              dtype=[float, float, str, float, float, float, float, float, float])
+            # # Load data
+            # with open(path, 'r') as f: hdr = f.readline()[1:-1].split(',')
+            # data = np.genfromtxt(path, dtype='str', delimiter=',', skip_header=1)
+            #
+            # # Make table
+            # var_table = Table()
+            # for h in hdr:
+            #     try: var_table[h] = data[:, hdr.index(h)].astype(float)
+            #     except ValueError: var_table[h] = data[:, hdr.index(h)]
+            #
+            # # Add parity with CSP & ZTF
+            # var_table.remove_columns(['err', 'chi/N', 'x', 'y', 'maj', 'min', 'phi', 'apfit', 'mag5sig', 'Sky', 'Obs'])
+            # for h_old, h_new in zip(['JD', 'm', 'dm', 'uJy', 'duJy', 'F', 'RA', 'Dec'],
+            #                         ['mjd', 'mag', 'dmag', 'flux', 'dflux', 'filter', 'ra', 'dec']):
+            #     var_table[h_old].name = h_new
+            #
+            # # Recreate Zero-Points using ZP = m + 2.5log_10(flux)
+            # var_table['zp'] = var_table['mag'] + (2.5*np.log10(var_table['flux']))
+        elif source == 'csp-91bg' or source == 'csp-norm':
+            var_table = Table(names=['filter', 'zp', 'z', 'ra', 'dec', 'mjd', 'mag', 'dmag', 'flux', 'dflux'],
+                              dtype=[str, float, float, float, float, float, float, float, float, float])
+            with open(path, 'r') as f:
+                csp_objname, csp_z, csp_ra, csp_dec = f.readline()[2:-1].split(' ')
+                for l in f.readlines():
+                    l = l.split(' ')
+                    # Filter line
+                    if len(l) == 2:
+                        csp_filter = str(l[1][:-1])
+                        csp_zp = float(utils.get_constants()['csp_zpts_'+csp_filter])
+                    else:
+                        csp_mjd, csp_mag, csp_dmag = float(l[-3])+53000, float(l[-2]), float(l[-1])
+                        csp_flux = 10 ** ((csp_mag - csp_zp) / -2.5)
+                        csp_dflux = np.abs(csp_flux) * np.log(10) * ((1 / 2.5) * csp_dmag)
+
+                        var_table.add_row([csp_filter, csp_zp, csp_z, csp_ra, csp_dec, csp_mjd,
+                                           csp_mag, csp_dmag, csp_flux, csp_dflux])
+            self.z = var_table['z'][0]  # Special case for CSP since CSP-I didn't report all SNe redshifts to TNS
+        elif source == 'ztf-91bg' or source == 'ztf-norm':
+            # Load data from file
+            ztf_data = np.genfromtxt(path, delimiter=', ', dtype=str)
+
+            ztf_hdr, ztf_data = list(ztf_data[0, :]), ztf_data[1:, :]
+            ztf_ra = ztf_data[:, ztf_hdr.index('ra')]
+            ztf_dec = ztf_data[:, ztf_hdr.index('dec')]
+            ztf_filter = ztf_data[:, ztf_hdr.index('filtercode')]
+            ztf_mjd = ztf_data[:, ztf_hdr.index('mjd')]
+            ztf_mag = ztf_data[:, ztf_hdr.index('mag')]
+            ztf_dmag = ztf_data[:, ztf_hdr.index('magerr')]
+            ztf_zp = ztf_data[:, ztf_hdr.index('magzp')]
+
+
+
+            # Calculate flux values
+            ztf_flux = 10 ** ((ztf_mag.astype(float) - ztf_zp.astype(float)) / (-2.5))
+            ztf_dflux = np.abs(ztf_flux) * (1 / 2.5) * np.log(10) * ztf_dmag.astype(float)
+
+            # Make ZTF table
+            var_table = Table(names=['ra', 'dec', 'filter', 'mjd', 'mag', 'dmag', 'flux', 'dflux', 'zp'],
+                              data=[ztf_ra, ztf_dec, ztf_filter, ztf_mjd, ztf_mag, ztf_dmag, ztf_flux, ztf_dflux, ztf_zp],
+                              dtype=[float, float, str, float, float, float, float, float, float])
+            # # Load hdr & data
+            # with open(path, 'r') as f:
+            #     for i in range(3): f.readline()
+            #     ztf_ra = float(f.readline().split(' ')[-2])
+            #     ztf_dec = float(f.readline().split(' ')[-2])
+            # data = np.genfromtxt(path, delimiter=' ', dtype=str, skip_header=54)
+            # hdr, data = list(data[0]), data[1:]
+            # for i in range(len(hdr)): hdr[i] = hdr[i][:-1]
+            #
+            # # Make table
+            # var_table = Table()
+            # for h in hdr:
+            #     try:
+            #         var_table[h] = data[:, hdr.index(h)].astype(float)
+            #     except ValueError:
+            #         var_table[h] = data[:, hdr.index(h)]
+            #
+            # # Add RA & DEC
+            # var_table['ra'] = np.full(len(var_table), ztf_ra)
+            # var_table['dec'] = np.full(len(var_table), ztf_dec)
+            #
+            # # Fix time, JD to MJD
+            # var_table['jd'] = np.array(var_table['jd']).astype(float) - 2400000.5
+            # var_table['forcediffimflux'][var_table['forcediffimflux'] == 'null'] = 'nan'
+            # var_table['forcediffimfluxunc'][var_table['forcediffimfluxunc'] == 'null'] = 'nan'
+            # var_table['mag'] = (-2.5 * np.log10(np.array(var_table['forcediffimflux']).astype(float))) + var_table['zpdiff']
+            # var_table['dmag'] = np.abs(-1.08573620476 * (np.array(var_table['forcediffimfluxunc']).astype(float)
+            #                                              / np.array(var_table['forcediffimflux']).astype(float)))
+            #
+            # # Add parity with CSP & ATLAS
+            # var_table.remove_columns(['index', 'field', 'ccdid', 'qid', 'pid', 'infobitssci', 'sciinpseeing',
+            #                           'scibckgnd', 'scisigpix', 'zpmaginpsci', 'zpmaginpsciunc', 'zpmaginpscirms',
+            #                           'clrcoeff', 'clrcoeffunc', 'ncalmatches', 'exptime', 'adpctdif1', 'adpctdif2',
+            #                           'diffmaglim', 'programid', 'rfid', 'forcediffimsnr', 'forcediffimchisq',
+            #                           'forcediffimfluxap', 'forcediffimfluxuncap', 'forcediffimsnrap', 'aperturecorr',
+            #                           'dnearestrefsrc', 'nearestrefmag', 'nearestrefmagunc', 'nearestrefchi',
+            #                           'nearestrefsharp', 'refjdstart', 'refjdend', 'procstatu'])
+            # for h_old, h_new in zip(['zpdiff', 'jd', 'forcediffimflux', 'forcediffimfluxunc'],
+            #                         ['zp', 'mjd', 'flux', 'dflux']):
+            #     var_table[h_old].name = h_new
         elif source == 'combined_91bg' or source == 'combined_norm':
             # Load data
             with open(path, 'r') as f:
@@ -324,21 +492,29 @@ class sneObj:
         if '91bg' in source:
             tarlist_path = 'txts/target_files/sn1991bglike_tarlist.csv'
         elif 'norm' in source:
-            tarlist_path = 'txts/target_files/normal_tarlist.csv'
+            tarlist_path = 'txts/target_files/normal_tarlist_new.csv'
 
         # Load data
         data = np.genfromtxt(tarlist_path, delimiter=',', dtype=str, skip_header=1)
         tb = Table(names=data[0, :], data=data[1:, :])
         selc_tb = tb[tb['Name'] == f"SN {self.objname}"].copy()
 
-        # Set redshift
-        self.z = float(selc_tb['Redshift'][0])
+        if len(selc_tb) >= 1:
+            # Set redshift, convert and set discovery date
+            self.z = float(selc_tb['Redshift'][0])
 
-        # Convert and set discovery date
-        discdata_utc = selc_tb['Discovery Date (UT)'][0].split(' ')[0].split('-')
-        discdata_utc_datetime = datetime.datetime(int(discdata_utc[0]), int(discdata_utc[1]), int(discdata_utc[2]))
-        discdata_mjd = astrotime(discdata_utc_datetime, format='datetime', scale='utc').mjd
-        self.discdate = float(discdata_mjd)
+            if selc_tb['Discovery Date (UT)'][0] == "Unknown":
+                self.discdate = None
+                return
+            else:
+                discdata_utc = selc_tb['Discovery Date (UT)'][0].split(' ')[0].split('-')
+                discdata_utc_datetime = datetime.datetime(int(discdata_utc[0]), int(discdata_utc[1]), int(discdata_utc[2]))
+                discdata_mjd = astrotime(discdata_utc_datetime, format='datetime', scale='utc').mjd
+                self.discdate = float(discdata_mjd)
+        else:
+            self.z = -99999
+            self.discdate = -99999
+
         return
     def adjust_time_scale(self, tbl: Table):
         # # Find difference between ATLAS and ZTF peaks
@@ -466,18 +642,33 @@ class sneObj:
         filter_dict = {'u': 'teal', 'g': 'green', 'r': 'red', 'i': 'indigo', 'B': 'blue',
                        'V0': 'violet', 'V1': 'purple', 'V': 'red', 'Y': 'goldenrod', 'Hdw': 'tomato', 'H': 'salmon',
                        'J': 'aquamarine', 'Jrc2': 'cadetblue', 'Jdw': 'turquoise', 'Ydw': 'olive',
-                       'c': 'cyan', 'o': 'orange', 'ZTF_g': 'green', 'ZTF_r': 'red', 'ZTF_i': 'indigo'}
+                       'c': 'cyan', 'o': 'orange', 'ZTF_g': 'green', 'ZTF_r': 'red', 'ZTF_i': 'indigo',
+                       'zg': 'green', 'zr': 'red', 'zi': 'indigo'}
 
-        # Select y-axis element
-        y_axis = self.mag if y_type == 'mag' else self.flux
-        y_axis_err = self.dmag if y_type == 'mag' else self.dflux
+        # # Select y-axis element
+        # y_axis = self.mag if y_type == 'mag' else self.flux
+        # y_axis_err = self.dmag if y_type == 'mag' else self.dflux
+        #
+        # # Plot
+        # fig, axs = plt.subplots(1, 1, figsize=(12, 6), constrained_layout=True)
+        # for f in np.unique(self.filter):
+        #     axs.errorbar(self.mjd[self.filter == f].astype(float), y_axis[self.filter == f].astype(float),
+        #                  yerr=y_axis_err[self.filter == f].astype(float),
+        #                  color = filter_dict[f], label=f, fmt=fmt, ms=3)
 
         # Plot
         fig, axs = plt.subplots(1, 1, figsize=(12, 6), constrained_layout=True)
         for f in np.unique(self.filter):
-            axs.errorbar(self.mjd[self.filter == f].astype(float), y_axis[self.filter == f].astype(float),
-                         yerr=y_axis_err[self.filter == f].astype(float),
-                         color = filter_dict[f], label=f, fmt=fmt, ms=3)
+            if y_type == 'mag':
+                axs.errorbar(self.mjd[self.filter == f].astype(float),
+                             self.mag[self.filter == f].astype(float) - abs(self.mag[self.filter == f].astype(float) - self.zp[self.filter == f].astype(float)),
+                             yerr=self.dmag[self.filter == f].astype(float),
+                             color=filter_dict[f], label=f, fmt=fmt, ms=3)
+            elif y_type == 'flux':
+                axs.errorbar(self.mjd[self.filter == f].astype(float),
+                             self.flux[self.filter == f].astype(float),
+                             yerr=self.dflux[self.filter == f].astype(float),
+                             color=filter_dict[f], label=f, fmt=fmt, ms=3)
 
         # Lines
         axs.axvline(self.discdate, color='black', linestyle='--', label='Discovery Date')
@@ -500,6 +691,7 @@ class sneObj:
     def write_snpy_ascii(self, save_loc: str):
         filter_dict = {'o': 'ATri', 'c': 'ATgr', 't': 'ATri2',
                        'ZTF_g': 'g', 'ZTF_r': 'r', 'ZTF_i': 'i',
+                       'zg': 'g', 'zr': 'r', 'zi': 'i',
                        'B': 'B', 'H': 'H', 'J': 'J', 'Jrc2': 'Jrc2', 'V': 'V', 'V0': 'V0', 'Y': 'Y', 'Ydw': 'Ydw',
                        'g': 'g', 'i': 'i', 'r': 'r', 'u': 'u'}
         with open(save_loc, 'w') as f:
@@ -610,7 +802,8 @@ class sneObj:
             filter_dict = {'u': 'cspu', 'g': 'cspg', 'r': 'cspr', 'i': 'cspi', 'B': 'cspB',
                            'V0': 'cspv3014', 'V1': 'cspv3009', 'V': 'cspv9844', 'Y': 'cspys',
                            'J': 'cspjs', 'Jrc2': 'cspjd', 'Jdw': 'cspjd', 'Ydw': 'cspyd', 'Hdw': 'csphd', 'H': 'csphs',
-                           'c': 'atlasc', 'o': 'atlaso', 'ZTF_g': 'ztfg', 'ZTF_r': 'ztfr', 'ZTF_i': 'ztfi'}
+                           'c': 'atlasc', 'o': 'atlaso', 'ZTF_g': 'ztfg', 'ZTF_r': 'ztfr', 'ZTF_i': 'ztfi',
+                           'zg': 'ztfg', 'zr': 'ztfr', 'zi': 'ztfi'}
             salt_time, salt_filters, salt_flux = np.array([]), np.array([]), np.array([])
             salt_dflux, salt_zp = np.array([]), np.array([])
 
@@ -648,7 +841,8 @@ class sneObj:
                                                      'err': result.errors[param_names[i]]}})
 
             # Save Covariance
-            self.covariance = result['covariance']
+            if result['covariance'] is not None:
+                self.covariance = result['covariance']
 
             # Calculate
             pho_mB = -2.5 * np.log10(self.params['x0']['value']) + mB_const
@@ -702,7 +896,8 @@ class sneObj:
             filter_dict = {'u': 'cspu', 'g': 'cspg', 'r': 'cspr', 'i': 'cspi', 'B': 'cspB',
                            'V0': 'cspv3014', 'V1': 'cspv3009', 'V': 'cspv9844', 'Y': 'cspys',
                            'J': 'cspjs', 'Jrc2': 'cspjd', 'Jdw': 'cspjd', 'Ydw': 'cspyd', 'Hdw': 'csphd', 'H': 'csphs',
-                           'c': 'atlasc', 'o': 'atlaso', 'ZTF_g': 'ztfg', 'ZTF_r': 'ztfr', 'ZTF_i': 'ztfi'}
+                           'c': 'atlasc', 'o': 'atlaso', 'ZTF_g': 'ztfg', 'ZTF_r': 'ztfr', 'ZTF_i': 'ztfi',
+                           'zg': 'ztfg', 'zr': 'ztfr', 'zi': 'ztfi'}
             salt_time, salt_filters, salt_flux = np.array([]), np.array([]), np.array([])
             salt_dflux, salt_zp = np.array([]), np.array([])
 
@@ -741,7 +936,8 @@ class sneObj:
                                                      'err': result.errors[param_names[i]]}})
 
             # Save Covariance
-            self.covariance = result['covariance']
+            if result['covariance'] is not None:
+                self.covariance = result['covariance']
 
             # Calculate
             pho_mB = -2.5 * np.log10(self.params['x0']['value']) + mB_const
@@ -1045,7 +1241,10 @@ def fit_subprocess(dataset: str, path: str, algo: str, rewrite: bool = False):
     # Get CMB Redshift, only if valid z, RA, and DEC
     if np.isnan(sn.z_cmb) and sn.coords[0] > -99999 and sn.coords[1] > -99999:
         print(f"[+++] Calculating CMB Redshift and adjusting for peculiar velocities...")
-        sn.get_zcmb()
+        try:
+            sn.get_zcmb()
+        except:
+            sn.z_cmb = float(sn.z)
 
     # Fit SN class - get mu+color+stretch
     if len(sn.params) == 0 or rewrite:
@@ -1115,6 +1314,14 @@ def fit(data_loc: str, algo: str, rewrite: bool = False) -> list[sneObj]:
         print(f"[+++] Fitting data in '{data_loc}'...")  # Batch fit
         success_counter, sne, fail_reasons  = 0, [], []
         for i, path in enumerate(paths):
+
+
+            # TEMP
+            if path in ["data/ATLAS-91bg/ATLAS2016brv.txt"]:
+                print("[~~~] Skipping error causing SN...")
+                continue
+
+
             print(f'[{i + 1} / {len(paths)}] ================================================================')
             sn = fit_subprocess(dataset, path, algo, rewrite)
             if (('mu' in sn.params) and ('hostMass' in sn.params) and
@@ -1124,9 +1331,14 @@ def fit(data_loc: str, algo: str, rewrite: bool = False) -> list[sneObj]:
                       f"\t{' '*len(sn.objname)}: {sn.params['hostMass']['value']} +/- {sn.params['hostMass']['err']}\n"
                       f"\t********************************")
             else:
-                print(f"\t---------------[!]--------------\n"
-                      f"\t{sn.objname}: Failed to fit!\n"
-                      f"\t---------------[!]--------------")
+                print(f"\t---------------[!]--------------")
+                if ('hostMass' in sn.params) and (sn.params['hostMass']['value'] < 0):
+                      print(f"\t{sn.objname}: Host Mass Faliure!")
+                elif ('mu' in sn.params) and (sn.params['mu']['value'] < 0):
+                      print(f"\t{sn.objname}: Fitting Faliure!")
+                else:
+                    print(f"\t{sn.objname}: *Unknown* Faliure!")
+                print(f"\t---------------[!]--------------")
             sne.append(sn)
 
         # Check errors
