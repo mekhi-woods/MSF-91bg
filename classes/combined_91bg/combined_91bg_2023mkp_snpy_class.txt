@@ -1,11 +1,5 @@
-combined_91bg,2023mkp,2023mkp,204.8455297525595,51.04965807523565,0.015293,0.01528635161561713,60132.0
+combined_91bg,2023mkp,2023mkp,204.8455296865456,51.04965756173415,0.015293,nan,60132.0
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-mu,35.39952184379894,0.07829051679792698
-st,0.40819271577794713,0.017669300911207202
-Tmax,60130.48036728822,0.25216024268813036
-EBVhost,-0.22901591587967493,0.05718581163095118
-chisquare,266.4261395172549,3.062369419738562
-hostMass,10.235440101474703,0.0009147764240383092
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zp,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan

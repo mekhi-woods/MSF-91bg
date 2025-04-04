@@ -171,11 +171,11 @@ class sneObj:
             var_table['dmag'] = np.abs(-1.08573620476 * (np.array(var_table['forcediffimfluxunc']).astype(float)
                                                          / np.array(var_table['forcediffimflux']).astype(float)))
 
-            # ATLAS Pairty flux
-            new_flux = var_table['forcediffimflux'].astype(float) * 10 ** (-0.4 * (23.9 - var_table['zpdiff'].astype(float)))
-            new_dflux = np.abs((new_flux * -0.4 * (23.9-var_table['zpdiff'].astype(float)) * var_table['forcediffimfluxunc'].astype(float)) / (var_table['forcediffimflux'].astype(float)))
-            var_table['forcediffimflux'] = new_flux
-            var_table['forcediffimfluxunc'] = new_dflux
+            # # ATLAS Pairty flux
+            # new_flux = var_table['forcediffimflux'].astype(float) * 10 ** (-0.4 * (23.9 - var_table['zpdiff'].astype(float)))
+            # new_dflux = np.abs((new_flux * -0.4 * (23.9-var_table['zpdiff'].astype(float)) * var_table['forcediffimfluxunc'].astype(float)) / (var_table['forcediffimflux'].astype(float)))
+            # var_table['forcediffimflux'] = new_flux
+            # var_table['forcediffimfluxunc'] = new_dflux
 
             # Add parity with CSP & ATLAS
             var_table.remove_columns(['index', 'field', 'ccdid', 'qid', 'pid', 'infobitssci', 'sciinpseeing',

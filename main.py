@@ -203,40 +203,40 @@ def run_plotter(final_dir: str = 'plots/'):
                          path_norm=pm_norm_merged_cut,
                          save_loc=final_dir + 'resid_v_mass.png',
                          label = True)
-    # plotter.mu_v_z(path_91bg=pm_91bg_merged_cut,
-    #                 path_norm=pm_norm_merged_cut,
-    #                 save_loc=final_dir+'mu_v_z.png',
-    #                 label = False)
-    # # Brout+Scolnic 2021 style Dust v. Scatter
-    # plotter.dust_v_scatter(path_91bg = pm_91bg_salt_cut, path_norm = pm_norm_salt_cut, path_dust = pm_dust,
-    #                        bin_num = 50, bin_bounds = [0.1, 6.3], hist_bins = 60,
-    #                        label = True, save_loc = final_dir+'dust_v_scatter.png')
-    #
-    # # SALT3 Plots
-    # plotter.alpha_beta(path_91bg=pm_91bg_salt_cut,
-    #                     path_norm=pm_norm_salt_cut,
-    #                     save_loc=final_dir+'alpha_beta.png')
-    #
-    # # Dust Plots
-    # plotter.abs_mag_v_color(path_91bg=pm_91bg_salt_cut, path_norm=pm_norm_salt_cut, path_dust=pm_dust,
-    #                         save_loc=final_dir+'absMag_v_color.png')
-    # plotter.dust_hist(path_91bg=pm_91bg_salt_cut, path_red_norm=pm_redNorms, path_dust=pm_dust,
-    #                    save_loc=final_dir+'dust_params.png')
-    #
-    # # Paramater Histograms
-    # plotter.param_hist(snpy_91bg_path=pm_91bg_snpy_cut, snpy_norm_path=pm_norm_snpy_cut,
-    #                    salt_91bg_path=pm_91bg_salt_cut, salt_norm_path=pm_norm_salt_cut,
-    #                    save_loc=final_dir + 'param_hist_cut.png', line_type='median')
-    # plotter.param_hist(snpy_91bg_path=pm_91bg_snpy_uncut, snpy_norm_path=pm_norm_snpy_uncut,
-    #                    salt_91bg_path=pm_91bg_salt_uncut, salt_norm_path=pm_norm_salt_uncut,
-    #                    save_loc=final_dir + 'param_hist_uncut.png', line_type='median')
-    #
-    # # Brout+Scolnic 2021 style Paramaters (Color & Stretch) v. Scatter
-    # plotter.params_v_scatter(path_snpy_91bg=pm_91bg_snpy_uncut, path_snpy_norm=pm_norm_snpy_uncut,
-    #                          path_salt_91bg=pm_91bg_salt_uncut, path_salt_norm=pm_norm_salt_uncut,
-    #                          bin_nums=[[10, 10], [10, 10], [10, 10], [10, 10]],
-    #                          bin_bounds=[[0.17, 1.074], [-0.299, 0.4], [-3.291, 2.838], [-0.368, 0.67]],
-    #                          label=True, save_loc=final_dir + 'params_v_scatter.png')
+    plotter.mu_v_z(path_91bg=pm_91bg_merged_cut,
+                    path_norm=pm_norm_merged_cut,
+                    save_loc=final_dir+'mu_v_z.png',
+                    label = False)
+    # Brout+Scolnic 2021 style Dust v. Scatter
+    plotter.dust_v_scatter(path_91bg = pm_91bg_salt_cut, path_norm = pm_norm_salt_cut, path_dust = pm_dust,
+                           bin_num = 50, bin_bounds = [0.1, 6.3], hist_bins = 60,
+                           label = True, save_loc = final_dir+'dust_v_scatter.png')
+
+    # SALT3 Plots
+    plotter.alpha_beta(path_91bg=pm_91bg_salt_cut,
+                        path_norm=pm_norm_salt_cut,
+                        save_loc=final_dir+'alpha_beta.png')
+
+    # Dust Plots
+    plotter.abs_mag_v_color(path_91bg=pm_91bg_salt_cut, path_norm=pm_norm_salt_cut, path_dust=pm_dust,
+                            save_loc=final_dir+'absMag_v_color.png')
+    plotter.dust_hist(path_91bg=pm_91bg_salt_cut, path_red_norm=pm_redNorms, path_dust=pm_dust,
+                       save_loc=final_dir+'dust_params.png')
+
+    # Paramater Histograms
+    plotter.param_hist(snpy_91bg_path=pm_91bg_snpy_cut, snpy_norm_path=pm_norm_snpy_cut,
+                       salt_91bg_path=pm_91bg_salt_cut, salt_norm_path=pm_norm_salt_cut,
+                       save_loc=final_dir + 'param_hist_cut.png', line_type='median')
+    plotter.param_hist(snpy_91bg_path=pm_91bg_snpy_uncut, snpy_norm_path=pm_norm_snpy_uncut,
+                       salt_91bg_path=pm_91bg_salt_uncut, salt_norm_path=pm_norm_salt_uncut,
+                       save_loc=final_dir + 'param_hist_uncut.png', line_type='median')
+
+    # Brout+Scolnic 2021 style Paramaters (Color & Stretch) v. Scatter
+    plotter.params_v_scatter(path_snpy_91bg=pm_91bg_snpy_uncut, path_snpy_norm=pm_norm_snpy_uncut,
+                             path_salt_91bg=pm_91bg_salt_uncut, path_salt_norm=pm_norm_salt_uncut,
+                             bin_nums=[[10, 10], [10, 10], [10, 10], [10, 10]],
+                             bin_bounds=[[0.17, 1.074], [-0.299, 0.4], [-3.291, 2.838], [-0.368, 0.67]],
+                             label=True, save_loc=final_dir + 'params_v_scatter.png')
 
     # # REDUNDANT =======================================================================================================
     # plotter.color_v_scatter(path_snpy_91bg=pm_91bg_snpy_cut, path_snpy_norm=pm_norm_snpy_cut,
@@ -298,6 +298,56 @@ def run_stats(style: str = 'terminal'):
                 line += f"{str(col)} | "
             print(line)
     elif style == 'latex':
+        # =============================================================================================================
+        # Variable call
+        # Ex.
+        # % Variable Results
+        # % SN~1991bg-like SNe Stats
+        # \def \msfOurNumSNe {36}
+        # \def \msfOurMassStepLogTen {0.014}
+        # \def \msfOurMassStepLogTenErr {0.083}
+        # \def \msfOurMassStepMedian {0.051}
+        # \def \msfOurMassStepMedianErr {0.066}
+        #
+        # % Normal SNe Stats
+        # \def \msfNormNumSNe {256}
+        # \def \msfNormMassStepLogTen {-0.076}
+        # \def \msfNormMassStepLogTenErr {0.022}
+        # \def \msfNormMassStepMedian {-0.084}
+        # \def \msfNormMassStepMedianErr {0.027}
+        tb_91bg = utils.default_open('results/91bg_snpy-salt_cut.txt', True)
+        tb_91bg['resid_mu'] = tb_91bg['mu'] - utils.current_cosmo().distmod(tb_91bg['z_cmb']).value
+        tb_91bg['resid_mu_err'] = np.copy(tb_91bg['mu_err'])
+        mass_step_10_91bg, resid_10_91bg = plotter.mass_step_calc(tb_91bg['mu'], tb_91bg['mu_err'],
+                                                                  tb_91bg['resid_mu'], tb_91bg['hostMass'],
+                                                                  tb_91bg['z_cmb'], cut = 10.0)
+        mass_step_med_91bg, resid_med_91bg = plotter.mass_step_calc(tb_91bg['mu'], tb_91bg['mu_err'],
+                                                                    tb_91bg['resid_mu'], tb_91bg['hostMass'],
+                                                                    tb_91bg['z_cmb'], cut=np.median(tb_91bg['hostMass']))
+        print("% Variable Results\n"
+              "% SN~1991bg-like SNe Stats\n"
+              "\def \msfOurNumSNe {"+f"{len(tb_91bg)}"+"}\n"
+              "\def \msfOurMassStepLogTen {"+f"{round(mass_step_10_91bg['value'], 3)}"+"}\n"
+              "\def \msfOurMassStepLogTenErr {"+f"{round(mass_step_10_91bg['err'], 3)}"+"}\n"
+              "\def \msfOurMassStepMedian {"+f"{round(mass_step_med_91bg['value'], 3)}"+"}\n"
+              "\def \msfOurMassStepMedianErr {"+f"{round(mass_step_med_91bg['err'], 3)}"+"}")
+        tb_norm = utils.default_open('results/norm_snpy-salt_cut.txt', True)
+        tb_norm['resid_mu'] = tb_norm['mu'] - utils.current_cosmo().distmod(tb_norm['z_cmb']).value
+        tb_norm['resid_mu_err'] = np.copy(tb_norm['mu_err'])
+        mass_step_10_norm, resid_10_norm = plotter.mass_step_calc(tb_norm['mu'], tb_norm['mu_err'],
+                                                                  tb_norm['resid_mu'], tb_norm['hostMass'],
+                                                                  tb_norm['z_cmb'], cut=10.0)
+        mass_step_med_norm, resid_med_norm = plotter.mass_step_calc(tb_norm['mu'], tb_norm['mu_err'],
+                                                                    tb_norm['resid_mu'], tb_norm['hostMass'],
+                                                                    tb_norm['z_cmb'], cut=np.median(tb_91bg['hostMass']))
+        print("% Normal SNe Stats\n"
+              "\def \msfNormNumSNe {"+f"{len(tb_norm)}"+"}\n"
+              "\def \msfNormMassStepLogTen {"+f"{round(mass_step_10_norm['value'], 3)}"+"}\n"
+              "\def \msfNormMassStepLogTenErr {"+f"{round(mass_step_10_norm['err'], 3)}"+"}\n"
+              "\def \msfNormMassStepMedian {"+f"{round(mass_step_med_norm['value'], 3)}"+"}\n"
+              "\def \msfNormMassStepMedianErr {"+f"{round(mass_step_med_norm['err'], 3)}"+"}")
+
+        # =============================================================================================================
         # Table 1. Summary of SN 1991bg-like SNe Samples
         # Ex.
         # \begin{table*}
@@ -324,42 +374,58 @@ def run_stats(style: str = 'terminal'):
         tb1_atlas = tb1[tb1['origin'] == 'ATLAS']
         tb1_ztf = tb1[tb1['origin'] == 'ZTF']
         tb1_combined = tb1[tb1['origin'] == 'COMBINED']
-        #
-        # # Average Mag. & Mag. Err ±5 days from peak
-        # avg_mag, avg_mag_err = [], []
-        # for tb in [tb1_csp, tb1_atlas, tb1_ztf, tb1_combined]:
-        #     for row in tb:
-        #         print(row)
-        #         break
-        #     break
 
+        # Average Mag. & Mag. Err ±5 days from peak
+        avg_mag_dict = {}
+        for tb, source, addon in zip([tb1_csp, tb1_atlas, tb1_ztf, tb1_combined],
+                                     ['CSP-91bg', 'ATLAS-91bg', 'ZTF-91bg', 'combined_91bg'],
+                                     ['CSP', 'ATLAS', 'ZTF', '']):
+            arr, arr_err = np.array([]), np.array([])
+            for i in range(len(tb['objname'])):
+                name = tb['objname'][i]
+                f = f"data/{source}/{addon}{name}.txt"
+                sn = fitter.sneObj(source.lower(), 'snpy', f)
+                avg_mag = np.average(sn.mag[np.abs(sn.mjd - tb['Tmax'][i]) < 5])
+                avg_mag_err = np.average(sn.dmag[np.abs(sn.mjd - tb['Tmax'][i]) < 5])
 
+                arr = np.append(arr, avg_mag)
+                arr_err = np.append(arr_err, avg_mag_err)
 
+            avg_mag_dict.update({source[:-5].lower(): {'value': np.average(arr[~np.isnan(arr)]),
+                                               'err': np.average(arr_err[~np.isnan(arr_err)])}})
 
+        avg_mag_dict.update({'all': {'value': np.average([avg_mag_dict['csp']['value'],
+                                                          avg_mag_dict['atlas']['value'],
+                                                          avg_mag_dict['ztf']['value'],
+                                                          avg_mag_dict['combined']['value']]),
+                                     'err': np.average([avg_mag_dict['csp']['err'],
+                                                        avg_mag_dict['atlas']['err'],
+                                                        avg_mag_dict['ztf']['err'],
+                                                        avg_mag_dict['combined']['err']])}})
 
+        combined_label = "ATLAS-ZTF$^{\\ast}$"
+        print("\\begin{table*}\n"
+              "\t\\centering\n"
+              "\t\\caption{Summary of SN~1991bg-like SNe Samples}\n"
+              "\t\\begin{tabular}{lcrrrrrr}\n"
+              "\t\t\\hline\n"
+              "\t\t& Number of SNe & \multicolumn{2}{r}{Redshift Range}& \multicolumn{2}{r}{Declination Range} & Average Mag. & Average Mag. Err\\\\\n"
+              "\t\t&&min.&max.&min.&max.&$\pm5$~days from peak&$\pm5$~days from peak\\\\\n"
+              "\t\t\\hline\n"
+              f"\t\tCSP & ${len(tb1_csp)}$ & ${round(np.min(tb1_csp['z_cmb']), 4)}$ & ${round(np.max(tb1_csp['z_cmb']), 4)}$ & ${round(np.min(tb1_csp['dec']), 4)}$ & ${round(np.max(tb1_csp['dec']), 4)}$ & ${round(avg_mag_dict['csp']['value'], 3)}$ & ${round(avg_mag_dict['csp']['err'], 3)}$\\\\\n"
+              f"\t\tATLAS & ${len(tb1_atlas)}$ & ${round(np.min(tb1_atlas['z_cmb']), 4)}$ & ${round(np.max(tb1_atlas['z_cmb']), 4)}$ & ${round(np.min(tb1_atlas['dec']), 4)}$ & ${round(np.max(tb1_atlas['dec']), 4)}$ & ${round(avg_mag_dict['atlas']['value'], 3)}$ & ${round(avg_mag_dict['atlas']['err'], 3)}$\\\\\n"
+              f"\t\tZTF & ${len(tb1_ztf)}$ & ${round(np.min(tb1_ztf['z_cmb']), 4)}$ & ${round(np.max(tb1_ztf['z_cmb']), 4)}$ & ${round(np.min(tb1_ztf['dec']), 4)}$ & ${round(np.max(tb1_ztf['dec']), 4)}$ & ${round(avg_mag_dict['ztf']['value'], 3)}$ & ${round(avg_mag_dict['ztf']['err'], 3)}$\\\\\n"
+              f"\t\t{combined_label} & ${len(tb1_combined)}$ & ${round(np.min(tb1_combined['z_cmb']), 4)}$ & ${round(np.max(tb1_combined['z_cmb']), 4)}$ & ${round(np.min(tb1_combined['dec']), 4)}$ & ${round(np.max(tb1_combined['dec']), 4)}$ & ${round(avg_mag_dict['combined']['value'], 3)}$ & ${round(avg_mag_dict['combined']['err'], 3)}$\\\\\n"
+              f"\t\tAll Surveys & ${len(tb1)}$ & ${round(np.min(tb1['z_cmb']), 4)}$ & ${round(np.max(tb1['z_cmb']), 4)}$ & ${round(np.min(tb1['dec']), 4)}$ & ${round(np.max(tb1['dec']), 4)}$ & ${round(avg_mag_dict['all']['value'], 3)}$ & ${round(avg_mag_dict['all']['err'], 3)}$\\\\\n"
+              "\t\t\\hline\n"
+              "\t\\end{tabular}\n"
+              "\n"
+              "\t*ATLAS and ZTF have "+f"{len(tb1_combined)}"+" SNe that overlap, so these data contains the \\textit{c}, \\textit{o}, \\textit{g}, \\textit{r}, and \\textit{i}-bands.\n"
+              "\t\\label{tab:sample_summary_uncut}\n"
+              "\\end{table*}\n"
+              )
 
-        # combined_label = "ATLAS-ZTF$^{\\ast}"
-        # print("\\begin{table*}\n"
-        #       "\t\\centering\n"
-        #       "\t\\caption{Summary of SN~1991bg-like SNe Samples}\n"
-        #       "\t\\begin{tabular}{lcrrrrrr}\n"
-        #       "\t\t\\hline\n"
-        #       "\t\t& Number of SNe & \multicolumn{2}{r}{Redshift Range}& \multicolumn{2}{r}{Declination Range} & Average Mag. & Average Mag. Err\\\\\n"
-        #       "\t\t&&min.&max.&min.&max.&$\pm5$~days from peak&$\pm5$~days from peak\\\\\n"
-        #       "\t\t\\hline\n"
-        #       f"\t\tCSP & ${len(tb1_csp)}$ & ${round(np.min(tb1_csp['z_cmb']), 4)}$ & ${round(np.max(tb1_csp['z_cmb']), 4)}$ & ${round(np.min(tb1_csp['dec']), 4)}$ & ${round(np.max(tb1_csp['dec']), 4)}$ & $0.0259$\\\\\n"
-        #       f"\t\tATLAS & ${len(tb1_atlas)}$ & $0.0149$& $0.0594$ & $-44.2625$ & $74.8300$& $17.3974$ & $0.0870$\\\\\n"
-        #       f"\t\tZTF & ${len(tb1_ztf)}$ & $0.0160$ & $0.1002$ & $-22.4477$ & $65.4675$ & $18.8785$ & $0.1230$\\\\\n"
-        #       f"\t\t{combined_label}$ & ${len(tb1_combined)}$ & $0.0055$ & $0.0706$ & $-27.2149$ & $86.9325$ & $18.2714$ & $0.1098$\\\\\n"
-        #       f"\t\tAll Surveys &  ${len(tb1)}$ & $0.0039$ & $0.1002$ & $-44.2625$ & $86.9325$ & $18.2427$ & $0.1049$\\\\\n"
-        #       "\t\t\\hline\n"
-        #       "\t\\end{tabular}\n"
-        #       "\n"
-        #       "\t*ATLAS and ZTF have 61 SNe that overlap, so these data contains the \\textit{c}, \\textit{o}, \\textit{g}, \\textit{r}, and \\textit{i}-bands.\n"
-        #       "\t\\label{tab:sample_summary_uncut}\n"
-        #       "\\end{table*}\n"
-        #       )
-
+        # =============================================================================================================
         # Table 2. Selection Criteria
         # Ex.
         # \begin{table*}
@@ -380,28 +446,63 @@ def run_stats(style: str = 'terminal'):
         #     \caption{Selection Criteria}
         #     \label{tab:selection_summary}
         # \end{table*}
+        # pass
 
+        # =============================================================================================================
         # Table 3. Summary of SN 1991bg-like SNe Samples After Selection Criteria
-        # Ex.
-        # \begin{table*}
-        #     \centering
-        #     \caption{Summary of SN~1991bg-like SNe Samples After Selection Criteria}
-        #     \begin{tabular}{lcrrrrrr}
-        #         \hline
-        #          & Number of SNe & \multicolumn{2}{r}{Redshift Range}& \multicolumn{2}{r}{Declination Range} & Average Mag. & Average Mag. Err\\
-        #          &&min.&max.&min.&max.&$\pm5$~days from peak&$\pm5$~days from peak\\
-        #         \hline
-        #         CSP & $5$ & $0.0152$ & $0.0424$ & $-13.1031$ & $20.5262$ & $17.6135$ & $0.0288$\\
-        #         ATLAS & $2$ & $0.0240$& $0.0244$ & $8.5583$ & $74.8300$& $17.5216$ & $0.0582$\\
-        #         ZTF & $9$ & $0.0160$& $0.0798$ & $-22.4477$ & $52.1151$ & $18.5232$ & $0.0535$\\
-        #         ATLAS-ZTF$^{\ast}$ & $20$ & $0.0186$ & $0.0706$ & $-25.9271$ & $61.5949$ & $18.5143$ & $0.1004$\\
-        #         All Surveys &  $36$ & $0.0152$ & $0.0798$ & $-25.9271$ & $74.8300$& $18.4019$ & $0.0807$\\
-        #         \hline
-        #     \end{tabular}
-        #     \label{tab:sample_summary_cut}
-        # \end{table*}
+        tb3 = utils.default_open('results/91bg_snpy-salt_cut.txt', True)
+        tb3_csp = tb3[tb3['origin'] == 'CSP']
+        tb3_atlas = tb3[tb3['origin'] == 'ATLAS']
+        tb3_ztf = tb3[tb3['origin'] == 'ZTF']
+        tb3_combined = tb3[tb3['origin'] == 'COMBINED']
 
-        pass
+        # Average Mag. & Mag. Err ±5 days from peak
+        avg_mag_dict = {}
+        for tb, source, addon in zip([tb3_csp, tb3_atlas, tb3_ztf, tb3_combined],
+                                     ['CSP-91bg', 'ATLAS-91bg', 'ZTF-91bg', 'combined_91bg'],
+                                     ['CSP', 'ATLAS', 'ZTF', '']):
+            arr, arr_err = np.array([]), np.array([])
+            for i in range(len(tb['objname'])):
+                name = tb['objname'][i]
+                f = f"data/{source}/{addon}{name}.txt"
+                sn = fitter.sneObj(source.lower(), 'snpy', f)
+                avg_mag = np.average(sn.mag[np.abs(sn.mjd - tb['Tmax'][i]) < 5])
+                avg_mag_err = np.average(sn.dmag[np.abs(sn.mjd - tb['Tmax'][i]) < 5])
+
+                arr = np.append(arr, avg_mag)
+                arr_err = np.append(arr_err, avg_mag_err)
+
+            avg_mag_dict.update({source[:-5].lower(): {'value': np.average(arr[~np.isnan(arr)]),
+                                                       'err': np.average(arr_err[~np.isnan(arr_err)])}})
+
+        avg_mag_dict.update({'ztf': {'value': 0.00, 'err': 0.00}}) # No ZTF-only in cut data
+        avg_mag_dict.update({'all': {'value': np.average([avg_mag_dict['csp']['value'],
+                                                          avg_mag_dict['atlas']['value'],
+                                                          # avg_mag_dict['ztf']['value'],
+                                                          avg_mag_dict['combined']['value']]),
+                                     'err': np.average([avg_mag_dict['csp']['err'],
+                                                        avg_mag_dict['atlas']['err'],
+                                                        # avg_mag_dict['ztf']['err'],
+                                                        avg_mag_dict['combined']['err']])}})
+        print("\\begin{table*}\n"
+              "\t\\centering\n"
+              "\t\\caption{Summary of SN~1991bg-like SNe Samples}\n"
+              "\t\\begin{tabular}{lcrrrrrr}\n"
+              "\t\t\\hline\n"
+              "\t\t& Number of SNe & \multicolumn{2}{r}{Redshift Range}& \multicolumn{2}{r}{Declination Range} & Average Mag. & Average Mag. Err\\\\\n"
+              "\t\t&&min.&max.&min.&max.&$\pm5$~days from peak&$\pm5$~days from peak\\\\\n"
+              "\t\t\\hline\n"
+              f"\t\tCSP & ${len(tb3_csp)}$ & ${round(np.min(tb3_csp['z_cmb']), 4)}$ & ${round(np.max(tb3_csp['z_cmb']), 4)}$ & ${round(np.min(tb3_csp['dec']), 4)}$ & ${round(np.max(tb3_csp['dec']), 4)}$ & ${round(avg_mag_dict['csp']['value'], 3)}$ & ${round(avg_mag_dict['csp']['err'], 3)}$\\\\\n"
+              f"\t\tATLAS & ${len(tb3_atlas)}$ & ${round(np.min(tb3_atlas['z_cmb']), 4)}$ & ${round(np.max(tb3_atlas['z_cmb']), 4)}$ & ${round(np.min(tb3_atlas['dec']), 4)}$ & ${round(np.max(tb3_atlas['dec']), 4)}$ & ${round(avg_mag_dict['atlas']['value'], 3)}$ & ${round(avg_mag_dict['atlas']['err'], 3)}$\\\\\n"
+              # f"\t\tZTF & ${len(tb3_ztf)}$ & ${round(np.min(tb3_ztf['z_cmb']), 4)}$ & ${round(np.max(tb3_ztf['z_cmb']), 4)}$ & ${round(np.min(tb3_ztf['dec']), 4)}$ & ${round(np.max(tb3_ztf['dec']), 4)}$ & ${round(avg_mag_dict['ztf']['value'], 3)}$ & ${round(avg_mag_dict['ztf']['err'], 3)}$\\\\\n"
+              f"\t\tZTF & $0$ & $0.0000$ & $0.0000$ & $0.0000$ & $0.0000$ & $0.0000$ & $0.0000$\\\\\n"
+              f"\t\tATLAS-ZTF & ${len(tb3_combined)}$ & ${round(np.min(tb3_combined['z_cmb']), 4)}$ & ${round(np.max(tb3_combined['z_cmb']), 4)}$ & ${round(np.min(tb3_combined['dec']), 4)}$ & ${round(np.max(tb3_combined['dec']), 4)}$ & ${round(avg_mag_dict['combined']['value'], 3)}$ & ${round(avg_mag_dict['combined']['err'], 3)}$\\\\\n"
+              f"\t\tAll Surveys & ${len(tb3)}$ & ${round(np.min(tb3['z_cmb']), 4)}$ & ${round(np.max(tb3['z_cmb']), 4)}$ & ${round(np.min(tb3['dec']), 4)}$ & ${round(np.max(tb3['dec']), 4)}$ & ${round(avg_mag_dict['all']['value'], 3)}$ & ${round(avg_mag_dict['all']['err'], 3)}$\\\\\n"
+              "\t\t\\hline\n"
+              "\t\\end{tabular}\n"
+              "\t\\label{tab:sample_summary_cut}\n"
+              "\\end{table*}"
+              )
     else:
         print(f"[!!!] '{style}' is not a valid style ['terminal'/'readme'/'latex']")
         return
@@ -672,7 +773,7 @@ def main():
     # run_fitter(subtype = 'norm', algo = 'snpy', rewrite = True)
     # run_fitter(subtype = 'norm', algo = 'salt', rewrite = True)
 
-    # # Combine algorithms
+    # # # Combine algorithms
     # run_algo_combination('91bg')
     # run_algo_combination('norm')
 
@@ -680,122 +781,130 @@ def main():
     # run_lc_checker('91bg')
     # run_lc_checker('norm')
 
-    # Plot data
-    run_plotter()
+    # # Plot data
+    # run_plotter()
 
     # # Outout stats
     # run_stats('latex')
     return
 @run_time
 def experiment():
+    tb_snpy = utils.default_open('results/91bg_snpy.txt', True)
+    tb_salt = utils.default_open('results/91bg_salt.txt', True)
+
+    for n in tb_snpy['objname']:
+        if n in list(tb_salt['objname']):
+            print(list(tb_salt[tb_salt['objname'] == n]))
+            print(list(tb_snpy[tb_snpy['objname'] == n]))
+        break
 
 
 
 
-    overlap_files = glob.glob('data/combined_91bg/2*.txt')
-    all_names, all_mu_diff, all_mu_err_diff = [], [], []
-    combined_atlas_mu_diff, combined_atlas_mu_err_diff = [], []
-    combined_ztf_mu_diff, combined_ztf_mu_err_diff = [], []
-    for index, file in enumerate(overlap_files):
-        name = file.split('/')[-1][:-4]
-        hdr = f"[{index+1} / {len(overlap_files)}] {name} ============================================================"
-        clr = "="*len(hdr)
-        print(hdr)
-
-        algo = 'snpy'
-        sn_atlas = fitter.fit(f'data/ATLAS-91bg/ATLAS{name}.txt', algo, False)[0]
-        if sn_atlas is None:
-            print(f"\n-=-=-=-=-=-=-=- [!!!] No match/fit for {name} in ATLAS-91bg data with {algo}! -=-=-=-=-=-=-=- \n")
-            systime.sleep(1)
-            continue
-        sn_ztf = fitter.fit(f'data/ZTF-91bg/ZTF{name}.txt', algo, False)[0]
-        if sn_ztf is None:
-            print(f"\n-=-=-=-=-=-=-=- [!!!] No match/fit for {name} in ZTF-91bg data with {algo}! -=-=-=-=-=-=-=-\n")
-            systime.sleep(1)
-            continue
-        sn_combined = fitter.fit(file, algo, False)[0]
-        if sn_combined is None:
-            print(f"\n-=-=-=-=-=-=-=- [!!!] No match/fit for {name} in COMBINED data with {algo}! -=-=-=-=-=-=-=-\n")
-            systime.sleep(1)
-            continue
-
-        # sn_atlas = fitter.fit(f'data/ATLAS-91bg/ATLAS{name}.txt', 'snpy', True)[0]
-        # if (sn_atlas is None) or (sn_atlas.params['mu']['value'] < 0):
-        #     print(f"\n-=-=-=-=-=-=-=-=-= [~~~] SNooPy failed, attemping SALT3 for {name} -=-=-=-=-=-=-=-=-=\n")
-        #     sn_atlas = fitter.fit(f'data/ATLAS-91bg/ATLAS{name}.txt', 'salt', True)[0]
-        #     if (sn_atlas is None) or (sn_atlas.params['mu']['value'] < 0):
-        #         print(f"\n-=-=-=-=-=-=-=-=-= [!!!] No match for {name} in ATLAS-91bg data! -=-=-=-=-=-=-=-=-=\n")
-        #         continue
-
-        # sn_ztf = fitter.fit(f'data/ZTF-91bg/ZTF{name}.txt', 'snpy', True)[0]
-        # if (sn_ztf is None) or (sn_ztf.params['mu']['value'] < 0):
-        #     print(f"\n-=-=-=-=-=-=-=-=-= [~~~] SNooPy failed, attemping SALT3 for {name} -=-=-=-=-=-=-=-=-=\n")
-        #     sn_ztf = fitter.fit(f'data/ZTF-91bg/ZTF{name}.txt', 'salt', True)[0]
-        #     if (sn_ztf is None) or (sn_ztf.params['mu']['value'] < 0):
-        #         print(f"\n-=-=-=-=-=-=-=-=-= [!!!] No match for {name} in ZTF-91bg data! -=-=-=-=-=-=-=-=-=\n")
-        #         continue
-
-        mu_dif = np.abs(sn_atlas.params['mu']['value'] - sn_ztf.params['mu']['value'])
-        mu_err_diff = np.abs(sn_atlas.params['mu']['err'] - sn_ztf.params['mu']['err'])
-        all_mu_diff.append(mu_dif)
-        all_mu_err_diff.append(mu_err_diff)
-        all_names.append(name)
-
-        combined_atlas_mu_diff.append(np.abs(sn_atlas.params['mu']['value'] - sn_combined.params['mu']['value']))
-        combined_atlas_mu_err_diff.append(np.abs(sn_atlas.params['mu']['err'] - sn_combined.params['mu']['err']))
-        combined_ztf_mu_diff.append(np.abs(sn_ztf.params['mu']['value'] - sn_combined.params['mu']['value']))
-        combined_ztf_mu_err_diff.append(np.abs(sn_ztf.params['mu']['err'] - sn_combined.params['mu']['err']))
-
-        print(f"\n-=-=-=-=-=-=-= [{index+1} / {len(overlap_files)}] {name}: {mu_dif}+/-{mu_err_diff} =-=-=-=-=-=-=-\n")
-        print(clr)
-        # systime.sleep(2)
-
-        # if index > 10:
-        #     break
-
-    list11, list12, list21, list22, list31, list32 = [], [], [], [], [], []
-    for i, d_mu in enumerate(all_mu_diff):
-        if all_mu_err_diff[i] > 100:
-            print(f"{all_names[i]}: Error")
-        elif d_mu > 1 or all_mu_err_diff[i] > 0.1:
-            print(f"{all_names[i]}: {d_mu}+/-{all_mu_err_diff[i]}")
-        else:
-            list11.append(d_mu)
-            list12.append(all_mu_err_diff[i])
-    print("===========================================================================================================")
-
-    for i, d_mu in enumerate(combined_atlas_mu_diff):
-        if combined_atlas_mu_err_diff[i] > 100:
-            print(f"{all_names[i]}: Error")
-        elif d_mu > 1 or combined_atlas_mu_err_diff[i] > 0.1:
-            print(f"{all_names[i]}: {d_mu}+/-{combined_atlas_mu_err_diff[i]}")
-        else:
-            list21.append(d_mu)
-            list22.append(combined_atlas_mu_err_diff[i])
-    print("===========================================================================================================")
-
-    for i, d_mu in enumerate(combined_ztf_mu_diff):
-        if combined_ztf_mu_err_diff[i] > 100:
-            print(f"{all_names[i]}: Error")
-        elif d_mu > 1 or combined_ztf_mu_err_diff[i] > 0.1:
-            print(f"{all_names[i]}: {d_mu}+/-{combined_ztf_mu_err_diff[i]}")
-        else:
-            list31.append(d_mu)
-            list32.append(combined_ztf_mu_err_diff[i])
-
-    print("===========================================================================================================")
-    print(f"Average Dist. Mod. ATLAS-ZTF Difference: {np.average(list11)}")
-    print(f"Average Dist. Mod. Err. ATLAS-ZTF Difference: {np.average(list12)}")
-    print(len(list11), np.average(list11), np.average(list12))
-    print("===========================================================================================================")
-    print(f"Average Dist. Mod. (ATLAS+ZTF)-ATLAS Difference: {np.average(list21)}")
-    print(f"Average Dist. Mod. Err. (ATLAS+ZTF)-ATLAS Difference: {np.average(list22)}")
-    print(len(list21), np.average(list21), np.average(list22))
-    print("===========================================================================================================")
-    print(f"Average Dist. Mod. (ATLAS+ZTF)-ZTF Difference: {np.average(list31)}")
-    print(f"Average Dist. Mod. Err. (ATLAS+ZTF)-ZTF Difference: {np.average(list32)}")
-    print(len(list31), np.average(list31), np.average(list32))
-    print("===========================================================================================================")
+    # overlap_files = glob.glob('data/combined_91bg/2*.txt')
+    # all_names, all_mu_diff, all_mu_err_diff = [], [], []
+    # combined_atlas_mu_diff, combined_atlas_mu_err_diff = [], []
+    # combined_ztf_mu_diff, combined_ztf_mu_err_diff = [], []
+    # for index, file in enumerate(overlap_files):
+    #     name = file.split('/')[-1][:-4]
+    #     hdr = f"[{index+1} / {len(overlap_files)}] {name} ============================================================"
+    #     clr = "="*len(hdr)
+    #     print(hdr)
+    #
+    #     algo = 'snpy'
+    #     sn_atlas = fitter.fit(f'data/ATLAS-91bg/ATLAS{name}.txt', algo, False)[0]
+    #     if sn_atlas is None:
+    #         print(f"\n-=-=-=-=-=-=-=- [!!!] No match/fit for {name} in ATLAS-91bg data with {algo}! -=-=-=-=-=-=-=- \n")
+    #         systime.sleep(1)
+    #         continue
+    #     sn_ztf = fitter.fit(f'data/ZTF-91bg/ZTF{name}.txt', algo, False)[0]
+    #     if sn_ztf is None:
+    #         print(f"\n-=-=-=-=-=-=-=- [!!!] No match/fit for {name} in ZTF-91bg data with {algo}! -=-=-=-=-=-=-=-\n")
+    #         systime.sleep(1)
+    #         continue
+    #     sn_combined = fitter.fit(file, algo, False)[0]
+    #     if sn_combined is None:
+    #         print(f"\n-=-=-=-=-=-=-=- [!!!] No match/fit for {name} in COMBINED data with {algo}! -=-=-=-=-=-=-=-\n")
+    #         systime.sleep(1)
+    #         continue
+    #
+    #     # sn_atlas = fitter.fit(f'data/ATLAS-91bg/ATLAS{name}.txt', 'snpy', True)[0]
+    #     # if (sn_atlas is None) or (sn_atlas.params['mu']['value'] < 0):
+    #     #     print(f"\n-=-=-=-=-=-=-=-=-= [~~~] SNooPy failed, attemping SALT3 for {name} -=-=-=-=-=-=-=-=-=\n")
+    #     #     sn_atlas = fitter.fit(f'data/ATLAS-91bg/ATLAS{name}.txt', 'salt', True)[0]
+    #     #     if (sn_atlas is None) or (sn_atlas.params['mu']['value'] < 0):
+    #     #         print(f"\n-=-=-=-=-=-=-=-=-= [!!!] No match for {name} in ATLAS-91bg data! -=-=-=-=-=-=-=-=-=\n")
+    #     #         continue
+    #
+    #     # sn_ztf = fitter.fit(f'data/ZTF-91bg/ZTF{name}.txt', 'snpy', True)[0]
+    #     # if (sn_ztf is None) or (sn_ztf.params['mu']['value'] < 0):
+    #     #     print(f"\n-=-=-=-=-=-=-=-=-= [~~~] SNooPy failed, attemping SALT3 for {name} -=-=-=-=-=-=-=-=-=\n")
+    #     #     sn_ztf = fitter.fit(f'data/ZTF-91bg/ZTF{name}.txt', 'salt', True)[0]
+    #     #     if (sn_ztf is None) or (sn_ztf.params['mu']['value'] < 0):
+    #     #         print(f"\n-=-=-=-=-=-=-=-=-= [!!!] No match for {name} in ZTF-91bg data! -=-=-=-=-=-=-=-=-=\n")
+    #     #         continue
+    #
+    #     mu_dif = np.abs(sn_atlas.params['mu']['value'] - sn_ztf.params['mu']['value'])
+    #     mu_err_diff = np.abs(sn_atlas.params['mu']['err'] - sn_ztf.params['mu']['err'])
+    #     all_mu_diff.append(mu_dif)
+    #     all_mu_err_diff.append(mu_err_diff)
+    #     all_names.append(name)
+    #
+    #     combined_atlas_mu_diff.append(np.abs(sn_atlas.params['mu']['value'] - sn_combined.params['mu']['value']))
+    #     combined_atlas_mu_err_diff.append(np.abs(sn_atlas.params['mu']['err'] - sn_combined.params['mu']['err']))
+    #     combined_ztf_mu_diff.append(np.abs(sn_ztf.params['mu']['value'] - sn_combined.params['mu']['value']))
+    #     combined_ztf_mu_err_diff.append(np.abs(sn_ztf.params['mu']['err'] - sn_combined.params['mu']['err']))
+    #
+    #     print(f"\n-=-=-=-=-=-=-= [{index+1} / {len(overlap_files)}] {name}: {mu_dif}+/-{mu_err_diff} =-=-=-=-=-=-=-\n")
+    #     print(clr)
+    #     # systime.sleep(2)
+    #
+    #     # if index > 10:
+    #     #     break
+    #
+    # list11, list12, list21, list22, list31, list32 = [], [], [], [], [], []
+    # for i, d_mu in enumerate(all_mu_diff):
+    #     if all_mu_err_diff[i] > 100:
+    #         print(f"{all_names[i]}: Error")
+    #     elif d_mu > 1 or all_mu_err_diff[i] > 0.1:
+    #         print(f"{all_names[i]}: {d_mu}+/-{all_mu_err_diff[i]}")
+    #     else:
+    #         list11.append(d_mu)
+    #         list12.append(all_mu_err_diff[i])
+    # print("===========================================================================================================")
+    #
+    # for i, d_mu in enumerate(combined_atlas_mu_diff):
+    #     if combined_atlas_mu_err_diff[i] > 100:
+    #         print(f"{all_names[i]}: Error")
+    #     elif d_mu > 1 or combined_atlas_mu_err_diff[i] > 0.1:
+    #         print(f"{all_names[i]}: {d_mu}+/-{combined_atlas_mu_err_diff[i]}")
+    #     else:
+    #         list21.append(d_mu)
+    #         list22.append(combined_atlas_mu_err_diff[i])
+    # print("===========================================================================================================")
+    #
+    # for i, d_mu in enumerate(combined_ztf_mu_diff):
+    #     if combined_ztf_mu_err_diff[i] > 100:
+    #         print(f"{all_names[i]}: Error")
+    #     elif d_mu > 1 or combined_ztf_mu_err_diff[i] > 0.1:
+    #         print(f"{all_names[i]}: {d_mu}+/-{combined_ztf_mu_err_diff[i]}")
+    #     else:
+    #         list31.append(d_mu)
+    #         list32.append(combined_ztf_mu_err_diff[i])
+    #
+    # print("===========================================================================================================")
+    # print(f"Average Dist. Mod. ATLAS-ZTF Difference: {np.average(list11)}")
+    # print(f"Average Dist. Mod. Err. ATLAS-ZTF Difference: {np.average(list12)}")
+    # print(len(list11), np.average(list11), np.average(list12))
+    # print("===========================================================================================================")
+    # print(f"Average Dist. Mod. (ATLAS+ZTF)-ATLAS Difference: {np.average(list21)}")
+    # print(f"Average Dist. Mod. Err. (ATLAS+ZTF)-ATLAS Difference: {np.average(list22)}")
+    # print(len(list21), np.average(list21), np.average(list22))
+    # print("===========================================================================================================")
+    # print(f"Average Dist. Mod. (ATLAS+ZTF)-ZTF Difference: {np.average(list31)}")
+    # print(f"Average Dist. Mod. Err. (ATLAS+ZTF)-ZTF Difference: {np.average(list32)}")
+    # print(len(list31), np.average(list31), np.average(list32))
+    # print("===========================================================================================================")
 
 
     # # Sigma Clipping

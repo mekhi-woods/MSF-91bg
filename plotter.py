@@ -337,18 +337,15 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
 
     ## Calculate Hubble Residual
     tb_norm['resid_mu'] = tb_norm['mu'] - utils.current_cosmo().distmod(tb_norm['z_cmb']).value
-    tb_norm['resid_mu'] -= np.average(tb_norm['resid_mu'][~np.isnan(tb_norm['resid_mu'])]) # Centering around average
-    tb_norm['mu_err'] = np.sqrt(tb_norm['mu_err'] ** 2.0 + 0.1 ** 2.0)  # intrinsic dispersion added in quadrature
     tb_norm['resid_mu_err'] = np.copy(tb_norm['mu_err'])
 
-    # Adding 0.1 mag in quadrature (taylor+11)
-    tb_norm['hostMass_err'] = np.sqrt(tb_norm['hostMass_err'] ** 2.0 + 0.1 ** 2.0)  # intrinsic dispersion added in quadrature
+    # Subtracting off Average Hubble Residual
+    tb_norm['resid_mu'] -= np.average(tb_norm['resid_mu'][~np.isnan(tb_norm['resid_mu'])]) # Centering around average
 
     ## Scatter plot & histogram
     axs[0,0].errorbar(x=tb_norm['hostMass'], y=tb_norm['resid_mu'], xerr=tb_norm['hostMass_err'], yerr=tb_norm['resid_mu_err'],
                       marker='o', alpha=0.5, color=c_norm, fmt='o', ms=6, elinewidth=0.8)
     axs[0,1].hist(tb_norm['resid_mu'], bins=20, orientation="horizontal", color=c_norm)
-    # int((np.max(tb_norm['resid_mu']) - np.min(tb_norm['resid_mu'])) / 0.02)
 
     # Labels
     if label:
@@ -375,13 +372,7 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
 
     ## Calculate Hubble Residual
     tb_91bg['resid_mu'] = tb_91bg['mu'] - utils.current_cosmo().distmod(tb_91bg['z_cmb']).value
-
-    # Adding 0.1 mag in quadrature for intrinsic dispersion
-    tb_91bg['mu_err'] = np.sqrt(tb_91bg['mu_err'] ** 2.0 + 0.1 ** 2.0)
     tb_91bg['resid_mu_err'] = np.copy(tb_91bg['mu_err'])
-
-    # Adding 0.1 mag in quadrature (taylor+11)
-    tb_91bg['hostMass_err'] = np.sqrt(tb_91bg['hostMass_err'] ** 2.0 + 0.1 ** 2.0)  # intrinsic dispersion added in quadrature
 
     # Subtracting off Average Hubble Residual
     tb_91bg['resid_mu'] -= np.average(tb_91bg['resid_mu'][~np.isnan(tb_91bg['resid_mu'])])

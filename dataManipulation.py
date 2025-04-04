@@ -86,11 +86,11 @@ def make_objTbl(source: str, path: str) -> Table:
         var_table['dmag'] = np.abs(-1.08573620476 * (np.array(var_table['forcediffimfluxunc']).astype(float)
                                                      / np.array(var_table['forcediffimflux']).astype(float)))
 
-        # ATLAS Pairty flux
-        new_flux = var_table['forcediffimflux'].astype(float) * 10 ** (-0.4 * (23.9 - var_table['zpdiff'].astype(float)))
-        new_dflux = np.abs((new_flux * -0.4 * (23.9-var_table['zpdiff'].astype(float)) * var_table['forcediffimfluxunc'].astype(float)) / (var_table['forcediffimflux'].astype(float)))
-        var_table['forcediffimflux'] = new_flux
-        var_table['forcediffimfluxunc'] = new_dflux
+        # # ATLAS Pairty flux
+        # new_flux = var_table['forcediffimflux'].astype(float) * 10 ** (-0.4 * (23.9 - var_table['zpdiff'].astype(float)))
+        # new_dflux = np.abs((new_flux * -0.4 * (23.9-var_table['zpdiff'].astype(float)) * var_table['forcediffimfluxunc'].astype(float)) / (var_table['forcediffimflux'].astype(float)))
+        # var_table['forcediffimflux'] = new_flux
+        # var_table['forcediffimfluxunc'] = new_dflux
 
         # Add parity with CSP & ATLAS
         var_table.remove_columns(['index', 'field', 'ccdid', 'qid', 'pid', 'infobitssci', 'sciinpseeing',
@@ -548,6 +548,10 @@ def selection_criteria(path: str, subtype: str = '91bg', save_loc: str = ''):
     # tb_combined = tb_combined[np.abs((resid - np.average(resid, weights=1/tb_combined['mu_err'].astype(float)**2.)) / np.std(resid))]
     print(f"{len(tb_combined)} "
           f"({np.std(tb_combined['mu'].astype(float) - utils.current_cosmo().distmod(tb_combined['z_cmb'].astype(float)).value)})")
+
+    # Adding intrinsic dispersion (0.1 mag) in quadrature for mass (taylor+11) & mu
+    tb_combined['mu_err'] = np.sqrt(tb_combined['mu_err'] ** 2.0 + 0.1 ** 2.0)
+    tb_combined['hostMass_err'] = np.sqrt(tb_combined['hostMass_err'] ** 2.0 + 0.1 ** 2.0)
 
     # Save new parameter file
     if len(save_loc) != 0:
