@@ -34,8 +34,8 @@ def run_queryCSP():
 def run_queryATLAS():
     # # Get SN1991bg-like SNe
     # queryATLAS.download(tar_list="txts/target_files/sn1991bglike_tarlist.csv", save_loc='data/ATLAS-91bg/')
-    # # # Get normal SNe
-    # queryATLAS.download(tar_list="txts/target_files/normal_tarlist.csv", save_loc='data/ATLAS-norm/')
+    # Get normal SNe
+    queryATLAS.download(tar_list="txts/target_files/normal_tarlist.csv", save_loc='data/ATLAS-norm/')
     return
 def run_queryZTF():
     # Get SN1991bg-like SNe
@@ -62,6 +62,10 @@ def run_data_combination(clear_old: bool = True):
     #                                    'data/combined_norm/',
     #                                    'norm', clear_old=clear_old)
     # dataManipulation.check_combined_stats('norm')
+    # dataManipulation.combine_like_data("txts/target_files/normal_tarlist.csv",
+    #                                    'data/combined_norm/',
+    #                                    'norm', clear_old=clear_old)
+    # dataManipulation.check_combined_stats('norm')
     return
 def run_algo_combination(subtype: str = '91bg'):
     dataManipulation.combine_snpy_salt(f'results/{subtype}_snpy.txt',
@@ -70,6 +74,7 @@ def run_algo_combination(subtype: str = '91bg'):
     dataManipulation.selection_criteria(f'results/{subtype}_snpy-salt.txt',
                                         subtype,
                                         f'results/{subtype}_snpy-salt_cut.txt')
+    # dataManipulation.visual_inspection(f'results/{subtype}_snpy-salt_cut.txt')
 
     # dataManipulation.selection_criteria(f'results/{subtype}_snpy.txt',
     #                                     subtype,
@@ -203,40 +208,40 @@ def run_plotter(final_dir: str = 'plots/'):
                          path_norm=pm_norm_merged_cut,
                          save_loc=final_dir + 'resid_v_mass.png',
                          label = True)
-    plotter.mu_v_z(path_91bg=pm_91bg_merged_cut,
-                    path_norm=pm_norm_merged_cut,
-                    save_loc=final_dir+'mu_v_z.png',
-                    label = False)
-    # Brout+Scolnic 2021 style Dust v. Scatter
-    plotter.dust_v_scatter(path_91bg = pm_91bg_salt_cut, path_norm = pm_norm_salt_cut, path_dust = pm_dust,
-                           bin_num = 50, bin_bounds = [0.1, 6.3], hist_bins = 60,
-                           label = True, save_loc = final_dir+'dust_v_scatter.png')
-
-    # SALT3 Plots
-    plotter.alpha_beta(path_91bg=pm_91bg_salt_cut,
-                        path_norm=pm_norm_salt_cut,
-                        save_loc=final_dir+'alpha_beta.png')
+    # plotter.mu_v_z(path_91bg=pm_91bg_merged_cut,
+    #                 path_norm=pm_norm_merged_cut,
+    #                 save_loc=final_dir+'mu_v_z.png',
+    #                 label = False)
+    # # Brout+Scolnic 2021 style Dust v. Scatter
+    # plotter.dust_v_scatter(path_91bg = pm_91bg_salt_cut, path_norm = pm_norm_salt_cut, path_dust = pm_dust,
+    #                        bin_num = 50, bin_bounds = [0.1, 6.3], hist_bins = 60,
+    #                        label = True, save_loc = final_dir+'dust_v_scatter.png')
+    #
+    # # SALT3 Plots
+    # plotter.alpha_beta(path_91bg=pm_91bg_salt_cut,
+    #                     path_norm=pm_norm_salt_cut,
+    #                     save_loc=final_dir+'alpha_beta.png')
 
     # Dust Plots
-    plotter.abs_mag_v_color(path_91bg=pm_91bg_salt_cut, path_norm=pm_norm_salt_cut, path_dust=pm_dust,
-                            save_loc=final_dir+'absMag_v_color.png')
-    plotter.dust_hist(path_91bg=pm_91bg_salt_cut, path_red_norm=pm_redNorms, path_dust=pm_dust,
-                       save_loc=final_dir+'dust_params.png')
+    # plotter.abs_mag_v_color(path_91bg=pm_91bg_salt_cut, path_norm=pm_norm_salt_cut, path_dust=pm_dust,
+    #                         save_loc=final_dir+'absMag_v_color.png')
+    # plotter.dust_hist(path_91bg=pm_91bg_salt_cut, path_red_norm=pm_redNorms, path_dust=pm_dust,
+    #                    save_loc=final_dir+'dust_params.png')
 
-    # Paramater Histograms
-    plotter.param_hist(snpy_91bg_path=pm_91bg_snpy_cut, snpy_norm_path=pm_norm_snpy_cut,
-                       salt_91bg_path=pm_91bg_salt_cut, salt_norm_path=pm_norm_salt_cut,
-                       save_loc=final_dir + 'param_hist_cut.png', line_type='median')
-    plotter.param_hist(snpy_91bg_path=pm_91bg_snpy_uncut, snpy_norm_path=pm_norm_snpy_uncut,
-                       salt_91bg_path=pm_91bg_salt_uncut, salt_norm_path=pm_norm_salt_uncut,
-                       save_loc=final_dir + 'param_hist_uncut.png', line_type='median')
-
-    # Brout+Scolnic 2021 style Paramaters (Color & Stretch) v. Scatter
-    plotter.params_v_scatter(path_snpy_91bg=pm_91bg_snpy_uncut, path_snpy_norm=pm_norm_snpy_uncut,
-                             path_salt_91bg=pm_91bg_salt_uncut, path_salt_norm=pm_norm_salt_uncut,
-                             bin_nums=[[10, 10], [10, 10], [10, 10], [10, 10]],
-                             bin_bounds=[[0.17, 1.074], [-0.299, 0.4], [-3.291, 2.838], [-0.368, 0.67]],
-                             label=True, save_loc=final_dir + 'params_v_scatter.png')
+    # # Paramater Histograms
+    # plotter.param_hist(snpy_91bg_path=pm_91bg_snpy_cut, snpy_norm_path=pm_norm_snpy_cut,
+    #                    salt_91bg_path=pm_91bg_salt_cut, salt_norm_path=pm_norm_salt_cut,
+    #                    save_loc=final_dir + 'param_hist_cut.png', line_type='median')
+    # plotter.param_hist(snpy_91bg_path=pm_91bg_snpy_uncut, snpy_norm_path=pm_norm_snpy_uncut,
+    #                    salt_91bg_path=pm_91bg_salt_uncut, salt_norm_path=pm_norm_salt_uncut,
+    #                    save_loc=final_dir + 'param_hist_uncut.png', line_type='median')
+    #
+    # # Brout+Scolnic 2021 style Paramaters (Color & Stretch) v. Scatter
+    # plotter.params_v_scatter(path_snpy_91bg=pm_91bg_snpy_uncut, path_snpy_norm=pm_norm_snpy_uncut,
+    #                          path_salt_91bg=pm_91bg_salt_uncut, path_salt_norm=pm_norm_salt_uncut,
+    #                          bin_nums=[[10, 10], [10, 10], [10, 10], [10, 10]],
+    #                          bin_bounds=[[0.17, 1.074], [-0.299, 0.4], [-3.291, 2.838], [-0.368, 0.67]],
+    #                          label=True, save_loc=final_dir + 'params_v_scatter.png')
 
     # # REDUNDANT =======================================================================================================
     # plotter.color_v_scatter(path_snpy_91bg=pm_91bg_snpy_cut, path_snpy_norm=pm_norm_snpy_cut,
@@ -767,36 +772,175 @@ def main():
     # # Data combination
     # run_data_combination()  # Combines data file if SN exsists in multiple surveys
 
-    # Fit light curves
+    # # Fit light curves
     # run_fitter(subtype = '91bg', algo = 'snpy', rewrite = True)
     # run_fitter(subtype = '91bg', algo = 'salt', rewrite = True)
     # run_fitter(subtype = 'norm', algo = 'snpy', rewrite = True)
     # run_fitter(subtype = 'norm', algo = 'salt', rewrite = True)
 
-    # # # Combine algorithms
+    # Combine algorithms
     # run_algo_combination('91bg')
     # run_algo_combination('norm')
 
-    # # Check lc of cut file
+    # Visiual Inspection
+    # dataManipulation.visual_inspection(f'results/91bg_snpy-salt_cut.txt', "results/91bg_snpy-salt_cut.txt")
+
+    # Check lc of cut file
     # run_lc_checker('91bg')
     # run_lc_checker('norm')
 
-    # # Plot data
+    # Plot data
     # run_plotter()
 
-    # # Outout stats
+    # Outout stats
     # run_stats('latex')
     return
 @run_time
 def experiment():
-    tb_snpy = utils.default_open('results/91bg_snpy.txt', True)
-    tb_salt = utils.default_open('results/91bg_salt.txt', True)
 
-    for n in tb_snpy['objname']:
-        if n in list(tb_salt['objname']):
-            print(list(tb_salt[tb_salt['objname'] == n]))
-            print(list(tb_snpy[tb_snpy['objname'] == n]))
-        break
+
+
+    # dataManipulation.visual_inspection(f'results/91bg_snpy-salt_cut.txt', "best_scatter_params.txt")
+    # plotter.resid_v_mass('best_scatter_params.txt', 'results/norm_snpy-salt_cut.txt', label=True)
+
+    # dataManipulation.visual_inspection(f'results/91bg_salt.txt', "test.txt")
+    # dataManipulation.selection_criteria(f'test.txt',
+    #                                     "91bg",
+    #                                     f'test.txt')
+    # plotter.resid_v_mass('test.txt', 'results/norm_snpy-salt_cut.txt', label=True)
+
+    # tb_all = utils.default_open('results/91bg_snpy-salt_cut.txt', True)
+    # tb_snpy = utils.default_open('results/91bg_snpy.txt', True)
+    #
+    # n = 0
+    # for name in tb_all["objname"]:
+    #     if name in list(tb_snpy["objname"]):
+    #         n += 1
+    #
+    # resid = tb_all['mu'] - utils.current_cosmo().distmod(tb_all['z_cmb']).value
+    # print(np.std(resid))
+
+
+
+
+
+    # tb_all = utils.default_open('results/91bg_snpy-salt_cut.txt', True)
+    #
+    # resid_snpy = tb_all[tb_all['algo'] == 'SNPY']['mu'] - utils.current_cosmo().distmod(tb_all[tb_all['algo'] == 'SNPY']['z_cmb']).value
+    # print(np.std(resid_snpy))
+    # print(len(resid_snpy))
+    #
+    # resid_salt = tb_all[tb_all['algo'] == 'SALT']['mu'] - utils.current_cosmo().distmod(tb_all[tb_all['algo'] == 'SALT']['z_cmb']).value
+    # print(np.std(resid_salt))
+    # print(len(resid_salt))
+    #
+    #
+    # resid = tb_all['mu'] - utils.current_cosmo().distmod(tb_all['z_cmb']).value
+    # print(np.std(resid))
+
+
+
+    # subtype, algo = '91bg', 'salt'
+    # sne = fitter.fit(data_loc=f'data/combined_{subtype}/CSP*.txt', algo=algo, rewrite=False)
+    # sne = fitter.fit(data_loc=f'data/combined_{subtype}/ATLAS*.txt', algo=algo, rewrite=False)
+    # sne = fitter.fit(data_loc=f'data/combined_{subtype}/ZTF*.txt', algo=algo, rewrite=False)
+    # sne = fitter.fit(data_loc=f'data/combined_{subtype}/2*.txt', algo=algo, rewrite=False)
+    # dataManipulation.make_param_file(sne=sne, save_loc='best_scatter_params.txt')
+    # cut_sn = dataManipulation.selection_criteria(path='best_scatter_params.txt', save_loc='test_c.txt')
+
+    # print(cut_sn['objname'])
+
+    # tb = utils.default_open('temp_man.txt', True)
+    # for n in tb['objname']:
+    #     sn = fitter.fit(f'data/combined_91bg/{n}.txt', 'snpy', rewrite=True)[0]
+        # break
+
+
+    # plotter.resid_v_mass(path_91bg='temp_man.txt',
+    #                      path_norm='results/norm_snpy-salt_cut.txt',
+    #                      label=True)
+
+    # subtype = '91bg'
+    # dataManipulation.combine_snpy_salt(f'results/{subtype}_snpy.txt',
+    #                                    f'results/{subtype}_salt.txt',
+    #                                    f'results/{subtype}_snpy-salt.txt')
+    # dataManipulation.selection_criteria(f'results/{subtype}_snpy-salt.txt',
+    #                                     subtype,
+    #                                     f'results/{subtype}_snpy-salt_cut.txt')
+
+
+
+
+    # run_data_combination()
+    # sn = fitter.fit('data/ATLAS-91bg/2022kbc.txt', 'salt', rewrite=True)[0]
+
+    # name = "2020acbx"
+    # algo = 'salt'
+    # type = 'mag'
+    # #
+    # #
+    # #
+    # sn = fitter.fit(f'data/combined_91bg/{name}.txt', algo, True)[0]
+    # print(sn.params)
+    # sn = fitter.sneObj('ATLAS-91bg', algo,f'data/ATLAS-91bg/ATLAS{name}.txt')
+
+
+    # print(sn.z, sn.z_cmb)
+
+    # sn = fitter.sneObj('ZTF-91bg', algo, f'data/ZTF-91bg/ZTF{name}.txt')
+    # sn.plot(type)
+    #
+    # sn = fitter.sneObj('combined_91bg', algo, f'data/combined_91bg/{name}.txt')
+    # sn.plot(type)
+
+
+
+
+
+
+    # sn = fitter.fit('data/combined_91bg/2019cp.txt', 'salt', rewrite=True)[0]
+
+    # run_data_combination()
+    # sn = fitter.sneObj('combined_91bg', 'snpy', 'data/combined_91bg/2019cp.txt')
+    # sn = fitter.sneObj('atlas-91bg', 'snpy', 'data/ATLAS-91bg/ATLAS2019cp.txt')
+    # sn.plot('flux')
+    #
+    # sn = fitter.sneObj('ztf-91bg', 'snpy', 'data/ZTF-91bg/ZTF2019cp.txt')
+    # sn.plot('flux')
+
+
+
+
+    # from astropy.table import Table
+    #
+    # tb_snpy = utils.default_open('results/91bg_snpy.txt', True)
+    # tb_salt = utils.default_open('results/91bg_salt.txt', True)
+    # tb_merged = utils.default_open('results/91bg_snpy-salt_cut.txt', True)
+    #
+    # tb_new = Table()
+    # for row in tb_merged:
+    #     n = row['objname']
+    #     if n in tb_snpy['objname'] and n in tb_salt['objname']:
+    #
+    #         print(n)
+    #         break
+
+        # break
+
+        # if row['origin'] == 'ZTF' or row['origin'] == 'COMBINED':
+        #     mu, z = row['mu'], row['z_cmb']
+        #     resid = mu - utils.current_cosmo().distmod(z).value
+        #
+        #     # objname, origin, subtype, algo, ra, dec, z, z_cmb, MJDs, MJDe, mu, mu_err, hostMass, hostMass_err, Tmax, Tmax_err, stretch, stretch_err, color, color_err, amplitude, amplitude_err, peak_mag, peak_mag_err
+        #
+        #
+        #     print(resid)
+
+    # for n in tb_snpy['objname']:
+    #     if n in list(tb_salt['objname']):
+    #         print(list(tb_salt[tb_salt['objname'] == n]))
+    #         print(list(tb_snpy[tb_snpy['objname'] == n]))
+    #     break
 
 
 

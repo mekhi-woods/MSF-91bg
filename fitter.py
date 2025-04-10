@@ -14,7 +14,7 @@ import snpy as snoopyfit
 import sncosmo as salt3fit
 import matplotlib.pyplot as plt
 from astropy import units as u
-from astropy.table import Table
+from astropy.table import Table, conf
 from astroquery.sdss import SDSS
 from collections import OrderedDict
 from astropy.time import Time as astrotime
@@ -102,7 +102,7 @@ class sneObj:
                 var_table[h_old].name = h_new
 
             # Recreate Zero-Points using ZP = m + 2.5log_10(flux)
-            var_table['zp'] = var_table['mag'] + (2.5*np.log10(var_table['flux']))
+            var_table['zp'] = np.full(var_table['mag'].shape, 23.9)
         elif source == 'csp-91bg' or source == 'csp-norm':
             var_table = Table(names=['filter', 'zp', 'z', 'ra', 'dec', 'mjd', 'mag', 'dmag', 'flux', 'dflux'],
                               dtype=[str, float, float, float, float, float, float, float, float, float])
@@ -173,7 +173,8 @@ class sneObj:
 
             # # ATLAS Pairty flux
             # new_flux = var_table['forcediffimflux'].astype(float) * 10 ** (-0.4 * (23.9 - var_table['zpdiff'].astype(float)))
-            # new_dflux = np.abs((new_flux * -0.4 * (23.9-var_table['zpdiff'].astype(float)) * var_table['forcediffimfluxunc'].astype(float)) / (var_table['forcediffimflux'].astype(float)))
+            # new_dflux = var_table['forcediffimfluxunc'].astype(float) * 10 ** (-0.4 * (23.9 - var_table['zpdiff'].astype(float)))
+            # # new_dflux = np.abs((new_flux * -0.4 * (23.9-var_table['zpdiff'].astype(float)) * var_table['forcediffimfluxunc'].astype(float)) / (var_table['forcediffimflux'].astype(float)))
             # var_table['forcediffimflux'] = new_flux
             # var_table['forcediffimfluxunc'] = new_dflux
 
@@ -246,8 +247,6 @@ class sneObj:
             #                         ['mjd', 'mag', 'dmag', 'flux', 'dflux', 'filter', 'ra', 'dec']):
             #     var_table[h_old].name = h_new
             #
-            # # Recreate Zero-Points using ZP = m + 2.5log_10(flux)
-            # var_table['zp'] = var_table['mag'] + (2.5*np.log10(var_table['flux']))
         elif source == 'csp-91bg' or source == 'csp-norm':
             var_table = Table(names=['filter', 'zp', 'z', 'ra', 'dec', 'mjd', 'mag', 'dmag', 'flux', 'dflux'],
                               dtype=[str, float, float, float, float, float, float, float, float, float])
@@ -1203,9 +1202,17 @@ def error_report_builder(fail_reasons: dict, source: str, report_loc: str = 'txt
         report_tbl[error_codes[k]][np.where(report_tbl['source'] == source)[0][0]] = fail_reasons[k]
 
     # Print out report
-    for k in error_codes.keys():
-        print(f"{error_codes[k]} : {k}")
-    print(report_tbl[report_tbl['source'] == source])  # Prints report
+    print("========================================================================================")
+    for k, col in zip(error_codes.keys(), report_tbl[report_tbl['source'] == source].colnames[1:]):
+        print(f"{error_codes[k]}, {k}: {list(report_tbl[report_tbl['source'] == source][col])[0]}")
+    print("========================================================================================")
+
+
+    # for k in error_codes.keys():
+    #     print(f"{error_codes[k]} : {k}")
+    # for col in report_tbl[report_tbl['source'] == source].colnames:
+    #     print(f"{col}: {list(report_tbl[report_tbl['source'] == source][col])}")
+    # # print()  # Prints report
 
     # Save new report
     with open(report_loc, 'w') as f:
@@ -1314,14 +1321,6 @@ def fit(data_loc: str, algo: str, rewrite: bool = False) -> list[sneObj]:
         print(f"[+++] Fitting data in '{data_loc}'...")  # Batch fit
         success_counter, sne, fail_reasons  = 0, [], []
         for i, path in enumerate(paths):
-
-
-            # TEMP
-            if path in ["data/ATLAS-91bg/ATLAS2016brv.txt"]:
-                print("[~~~] Skipping error causing SN...")
-                continue
-
-
             print(f'[{i + 1} / {len(paths)}] ================================================================')
             sn = fit_subprocess(dataset, path, algo, rewrite)
             if (('mu' in sn.params) and ('hostMass' in sn.params) and
@@ -1347,6 +1346,7 @@ def fit(data_loc: str, algo: str, rewrite: bool = False) -> list[sneObj]:
         good_sne = error_reporting(sne, f"{algo.upper()}_{t.upper()}_{s.upper()}", print_out=True)
 
         print(f"[+++++] Successfuly fit {len(good_sne)} / {len(sne)} SNe!")
+        print("========================================================================================")
 
         return good_sne
     else:

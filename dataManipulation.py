@@ -35,6 +35,10 @@ def make_objTbl(source: str, path: str) -> Table:
         for h_old, h_new in zip(['JD', 'm', 'dm', 'uJy', 'duJy', 'F', 'RA', 'Dec'],
                                 ['mjd', 'mag', 'dmag', 'flux', 'dflux', 'filter', 'ra', 'dec']):
             var_table[h_old].name = h_new
+
+        # Recreate Zero-Points using ZP = m + 2.5log_10(flux)
+        var_table['zp'] = np.full(var_table['mag'].shape, 23.9)
+
     elif source == 'csp':
         var_table = Table(names=['filter', 'zp', 'z', 'ra', 'dec', 'mjd', 'mag', 'dmag', 'flux', 'dflux'],
                           dtype=[str, float, float, float, float, float, float, float, float, float])
@@ -88,7 +92,8 @@ def make_objTbl(source: str, path: str) -> Table:
 
         # # ATLAS Pairty flux
         # new_flux = var_table['forcediffimflux'].astype(float) * 10 ** (-0.4 * (23.9 - var_table['zpdiff'].astype(float)))
-        # new_dflux = np.abs((new_flux * -0.4 * (23.9-var_table['zpdiff'].astype(float)) * var_table['forcediffimfluxunc'].astype(float)) / (var_table['forcediffimflux'].astype(float)))
+        # new_dflux = var_table['forcediffimfluxunc'].astype(float) * 10 ** (-0.4 * (23.9 - var_table['zpdiff'].astype(float)))
+        # # new_dflux = np.abs((new_flux * -0.4 * (23.9-var_table['zpdiff'].astype(float)) * var_table['forcediffimfluxunc'].astype(float)) / (var_table['forcediffimflux'].astype(float)))
         # var_table['forcediffimflux'] = new_flux
         # var_table['forcediffimfluxunc'] = new_dflux
 
@@ -273,7 +278,7 @@ def new_combine_like_data(target_file: str, combined_loc: str, subtype: str, cle
             # Only ZTF data
             shutil.copy(f'data/ZTF-{subtype}/ZTF{n}.csv', f"{combined_loc}ZTF{n}.txt")
     return
-def combine_snpy_salt(snpy_path: str, salt_path: str, save_loc: str = ''):
+def old_combine_snpy_salt(snpy_path: str, salt_path: str, save_loc: str = ''):
     tb_snpy = utils.default_open(snpy_path, 'True')
     tb_salt = utils.default_open(salt_path, 'True')
 
@@ -319,7 +324,7 @@ def combine_snpy_salt(snpy_path: str, salt_path: str, save_loc: str = ''):
                       f"{row['amplitude']}, {row['amplitude_err']}, "
                       f"{row['peak_mag']}, {row['peak_mag_err']}", file=f)
     return
-def new_combine_snpy_salt(snpy_path: str, salt_path: str, save_loc: str = ''):
+def combine_snpy_salt(snpy_path: str, salt_path: str, save_loc: str = ''):
     tb_snpy = utils.default_open(snpy_path, 'True')
     tb_salt = utils.default_open(salt_path, 'True')
 
@@ -491,30 +496,24 @@ def selection_criteria(path: str, subtype: str = '91bg', save_loc: str = ''):
     # Load data
     tb = utils.default_open(path, True)
 
-    # # Sigma Clipping
-    # resid = (tb['mu'].astype(float) - utils.current_cosmo().distmod(tb['z_cmb'].astype(float)).value)
-    # clipped_data = sigma_clip(resid, sigma=3, maxiters=5)
-    # tb_clipped = Table(names=tb.colnames, dtype=[object] * len(tb.colnames))
-    # for i in range(len(clipped_data)):
-    #     if ~clipped_data.mask[i]:
-    #         tb_clipped.add_row(tb[i])
-    # resid_clipped = (tb_clipped['mu'].astype(float) - utils.current_cosmo().distmod(tb_clipped['z_cmb'].astype(float)).value)
-    # print(f"[~~~] Sigma Clipping on Hubble Residual: σ = 3... SNe = {len(resid)} ---> {len(resid_clipped)} "
-    #       f"(Hubble Residual Scatter = {round(np.std(resid), 3)} --> {round(np.std(resid_clipped), 3)})")
-    # tb = tb_clipped.copy()
-
     # Basic cuts
+    prev_tb = tb.copy()
     for p in ['z_cmb', 'Tmax_err', 'mu_err']:
         print(f"{p}: {len(tb)} -> ", end='')
         tb = tb[(tb[p] > criteria[p][0]) & (tb[p] <= criteria[p][1])]
         print(f"{len(tb)} ", end='')
-        print(f"({np.std(tb['mu'].astype(float) - utils.current_cosmo().distmod(tb['z_cmb'].astype(float)).value)})")
+        print(f"(σ={round(np.std(tb['mu'].astype(float) - utils.current_cosmo().distmod(tb['z_cmb'].astype(float)).value), 4)}) ", end='')
+        print(list(set(list(prev_tb['objname'])).symmetric_difference(set(list(tb['objname'])))))
+        # dif_tb = list(set(list(prev_tb['objname'])).symmetric_difference(set(list(tb['objname']))))
+        # print(f"(x{len(dif_tb)})", dif_tb)
+        prev_tb = tb.copy()
 
     # Seperate SNPY & SALT
     tb_snpy = tb[tb['algo'] == 'SNPY']
     tb_salt = tb[tb['algo'] == 'SALT']
 
     # Cut on SNPY params
+    prev_tb = tb_snpy.copy()
     for f_name, d_name in zip(['EBVhost', 'st'], ['color', 'stretch']):
         for n_end in ['', '_err']:
             print(f"{f_name+n_end}: {len(tb_snpy)+len(tb_salt)} -> ", end='')
@@ -523,9 +522,14 @@ def selection_criteria(path: str, subtype: str = '91bg', save_loc: str = ''):
             print(f"{len(tb_snpy)+len(tb_salt)} ", end='')
 
             tb_temp = vstack([tb_snpy, tb_salt])
-            print(f"({np.std(tb_temp['mu'].astype(float) - utils.current_cosmo().distmod(tb_temp['z_cmb'].astype(float)).value)})")
+            print(f"(σ={round(np.std(tb_temp['mu'].astype(float) - utils.current_cosmo().distmod(tb_temp['z_cmb'].astype(float)).value))}) ", end='')
+            print(list(set(list(prev_tb['objname'])).symmetric_difference(set(list(tb_temp['objname'])))))
+            # dif_tb = list(set(list(prev_tb['objname'])).symmetric_difference(set(list(tb_temp['objname']))))
+            # print(f"(x{len(dif_tb)})", dif_tb)
+            prev_tb = tb_temp.copy()
 
     # Cut on SALT params
+    # prev_tb = tb_salt.copy()
     for f_name, d_name in zip(['c', 'x1'], ['color', 'stretch']):
         for n_end in ['', '_err']:
             print(f"{f_name+n_end}: {len(tb_snpy)+len(tb_salt)} -> ", end='')
@@ -534,24 +538,34 @@ def selection_criteria(path: str, subtype: str = '91bg', save_loc: str = ''):
             print(f"{len(tb_snpy)+len(tb_salt)} ", end='')
 
             tb_temp = vstack([tb_snpy, tb_salt])
-            print(f"({np.std(tb_temp['mu'].astype(float) - utils.current_cosmo().distmod(tb_temp['z_cmb'].astype(float)).value)})")
+            print(f"(σ={round(np.std(tb_temp['mu'].astype(float) - utils.current_cosmo().distmod(tb_temp['z_cmb'].astype(float)).value), 4)}) ", end='')
+            print(list(set(list(prev_tb['objname'])).symmetric_difference(set(list(tb_temp['objname'])))))
+            # dif_tb = list(set(list(prev_tb['objname'])).symmetric_difference(set(list(tb_temp['objname']))))
+            # print(f"(x{len(dif_tb)})", dif_tb)
+            prev_tb = tb_temp.copy()
+
 
     # Recombine SNPY & SALT
     tb_combined = vstack([tb_snpy, tb_salt])
 
     # Chauvenet’s Criterion
-    print(f"[~~~] Applying Chauvenet’s Criterion... SNe = {len(tb_combined)} ---> ", end='')
+    prev_tb = tb_combined.copy()
+    print(f"Chauvenet’s Criterion: {len(tb_combined)} -> ", end='')
     resid = tb_combined['mu'].astype(float) - utils.current_cosmo().distmod(tb_combined['z_cmb'].astype(float)).value
     limit = norm.ppf(1 - (1.0 / (4 * len(resid))))
-    # tb_combined = tb_combined[np.abs((resid - np.mean(resid)) / np.std(resid)) < limit]
     tb_combined = tb_combined[np.abs((resid - np.average(resid, weights=(1/(tb_combined['mu_err'].astype(float)**2)))) / np.std(resid)) < limit]
-    # tb_combined = tb_combined[np.abs((resid - np.average(resid, weights=1/tb_combined['mu_err'].astype(float)**2.)) / np.std(resid))]
     print(f"{len(tb_combined)} "
-          f"({np.std(tb_combined['mu'].astype(float) - utils.current_cosmo().distmod(tb_combined['z_cmb'].astype(float)).value)})")
+          f"(σ={round(np.std(tb_combined['mu'].astype(float) - utils.current_cosmo().distmod(tb_combined['z_cmb'].astype(float)).value), 4)}) ", end='')
+    print(list(set(list(prev_tb['objname'])).symmetric_difference(set(list(tb_combined['objname'])))))
+    # dif_tb = list(set(list(prev_tb['objname'])).symmetric_difference(set(list(tb_combined['objname']))))
+    # print(f"(x{len(dif_tb)})", dif_tb)
 
     # Adding intrinsic dispersion (0.1 mag) in quadrature for mass (taylor+11) & mu
     tb_combined['mu_err'] = np.sqrt(tb_combined['mu_err'] ** 2.0 + 0.1 ** 2.0)
     tb_combined['hostMass_err'] = np.sqrt(tb_combined['hostMass_err'] ** 2.0 + 0.1 ** 2.0)
+
+    # Remaining SNe
+    print(f"[~~~] Selected SNe: {list(tb_combined['objname'])}")
 
     # Save new parameter file
     if len(save_loc) != 0:
@@ -579,127 +593,31 @@ def selection_criteria(path: str, subtype: str = '91bg', save_loc: str = ''):
                       f"{row['amplitude']}, {row['amplitude_err']}, "
                       f"{row['peak_mag']}, {row['peak_mag_err']}", file=f)
 
-    # Old cutting
-    # # Load data & Seperate tables
-    # tb = utils.default_open(path, True)
-    #
-    # # Preform general cuts
-    # for cut in ['z_cmb', 'mu_err']:
-    #     print(f"      Selecting on {cut}: {criteria[cut][0]} < {cut} < {criteria[cut][1]}... ", end='')
-    #     print(f"SNe = {len(tb)} ---> ", end='')
-    #     tb = tb[(tb[cut] >= criteria[cut][0]) &
-    #             (tb[cut] <= criteria[cut][1])]
-    #     print(len(tb), end='\n')
-    #     # print(f"({round(min(tb[cut]), 4)} < "
-    #     #       f"{round(np.median(tb[cut]), 4)} < "
-    #     #       f"{round(max(tb[cut]), 4)})",
-    #     #       end='\n')
-    #
-    # # Preform algorithm specific cuts
-    # tb_snpy = tb[tb['algo'] == 'SNPY']
-    # tb_salt = tb[tb['algo'] == 'SALT']
-    # for snpy_param, salt_param, hdr_name in zip(['c', 'c_err', 'x1', 'x1_err', 't0_err'],
-    #                                             ['EBVhost', 'EBVhost_err', 'st', 'st_err', 'Tmax_err'],
-    #                                             ['color', 'color_err', 'stretch', 'stretch_err', 'Tmax_err']):
-    #     # Cut on SNooPy Parameter
-    #     print(f"      Selecting on {hdr_name}: {criteria[snpy_param][0]} < {snpy_param} < {criteria[snpy_param][1]}... ", end='')
-    #     print(f"SNe = {len(tb_snpy) + len(tb_salt)} ---> ", end='')
-    #     tb_snpy = tb_snpy[(tb_snpy[hdr_name] >= criteria[snpy_param][0]) &
-    #                       (tb_snpy[hdr_name] <= criteria[snpy_param][1])]
-    #     print(len(tb_snpy) + len(tb_salt), end='\n')
-    #     # print(f"({round(min(tb_snpy[hdr_name]), 4)} < "
-    #     #       f"{round(np.median(tb_snpy[hdr_name]), 4)} < "
-    #     #       f"{round(max(tb_snpy[hdr_name]), 4)})",
-    #     #       end='\n')
-    #
-    #     # Cut on SALT Parameter
-    #     print(f"      Selecting on {hdr_name}: {criteria[salt_param][0]} < {salt_param} < {criteria[salt_param][1]}... ", end='')
-    #     print(f"SNe = {len(tb_snpy) + len(tb_salt)} ---> ", end='')
-    #     tb_salt = tb_salt[(tb_salt[hdr_name] >= criteria[salt_param][0]) &
-    #                       (tb_salt[hdr_name] <= criteria[salt_param][1])]
-    #     print(len(tb_snpy) + len(tb_salt), end='\n')
-    #     # print(f"({round(min(tb_salt[hdr_name]), 4)} < "
-    #     #       f"{round(np.median(tb_salt[hdr_name]), 4)} < "
-    #     #       f"{round(max(tb_salt[hdr_name]), 4)})",
-    #     #       end='\n')
-    #
-    # # Combine tables
-    # tb_combined = tb_salt.copy()
-    # for row in tb_snpy:
-    #     tb_combined.add_row(row)
-    #
-    # # Sigma Clipping
-    # resid = (tb_combined['mu'].astype(float) - utils.current_cosmo().distmod(tb_combined['z_cmb'].astype(float)).value)
-    # clipped_data = sigma_clip(resid, sigma=3, maxiters=5)
-    # tb_clipped = Table(names=tb_combined.colnames, dtype=[object]*len(tb_combined.colnames))
-    # for i in range(len(clipped_data)):
-    #     if ~clipped_data.mask[i]:
-    #         tb_clipped.add_row(tb_combined[i])
-    # resid_clipped = (tb_clipped['mu'].astype(float) - utils.current_cosmo().distmod(tb_clipped['z_cmb'].astype(float)).value)
-    # print(f"      Sigma Clipping on Hubble Residual: σ = 3... SNe = {len(resid)} ---> {len(resid_clipped)} "
-    #       f"(Hubble Residual Scatter = {round(np.std(resid), 3)} --> {round(np.std(resid_clipped), 3)})")
-    #
-    # # old sigma clipping
-    # # r_mn, r_md, r_std = sigma_clipped_stats(resid)
-    # # print(f'      Pre-Sigma-Clipping Hubble Residual Scatter: {round(r_std, 3)}')
-    # # tb_combined = tb_combined[abs(resid - r_mn) < 3 * r_std]
-    # # new_resid = (tb_combined['mu'].astype(float) - utils.current_cosmo().distmod(tb_combined['z_cmb'].astype(float)).value)
-    # # mn, md, std = sigma_clipped_stats(new_resid)
-    # # print(f'      Post-Sigma-Clipping (3-sigma) Hubble Residual Scatter: {round(std, 3)}')
-    #
-    # # Save new parameter file
-    # if len(save_loc) != 0:
-    #     print(f"[~~~] Saving new parameter file to '{save_loc}'...")
-    #     with open(save_loc, 'w') as f:
-    #         print(f"# Created by M.D. Woods -- {CURRENTDATE} -- NUM TARGETS: {len(tb_snpy) + len(tb_salt)}", file=f)
-    #         print(f"# WARNING: For files with SNPY & SALT, the 'stretch' and 'color' are NOT identical.", file=f)
-    #         print(f"objname, origin, subtype, algo, ra, dec, z, z_cmb, MJDs, MJDe, mu, mu_err, hostMass, hostMass_err, "
-    #               f"Tmax, Tmax_err, stretch, stretch_err, color, color_err, amplitude, amplitude_err, "
-    #               f"peak_mag, peak_mag_err", file=f)
-    #         for row in tb_clipped:
-    #             print(f"{row['objname']}, "
-    #                   f"{row['origin']}, "
-    #                   f"{row['subtype']}, "
-    #                   f"{row['algo']}, "
-    #                   f"{row['ra']}, "
-    #                   f"{row['dec']}, "
-    #                   f"{row['z']}, {row['z_cmb']}, "
-    #                   f"{row['MJDs']}, {row['MJDe']}, "
-    #                   f"{row['mu']}, {row['mu_err']}, "
-    #                   f"{row['hostMass']}, {row['hostMass_err']}, "
-    #                   f"{row['Tmax']}, {row['Tmax_err']}, "
-    #                   f"{row['stretch']}, {row['stretch_err']}, "
-    #                   f"{row['color']}, {row['color_err']}, "
-    #                   f"{row['amplitude']}, {row['amplitude_err']}, "
-    #                   f"{row['peak_mag']}, {row['peak_mag_err']}", file=f)
+    return tb_combined
+def visual_inspection(path: str, save_loc: str = ''):
+    print(f"[+++] Visual inspection for '{path}'...")
 
-    # # old Save new parameter file
-    # if len(save_loc) != 0:
-    #     print(f"[~~~] Saving new parameter file to '{save_loc}'...")
-    #     with open(save_loc, 'w') as f:
-    #         print(f"# Created by M.D. Woods -- {CURRENTDATE} -- NUM TARGETS: {len(tb_snpy) + len(tb_salt)}", file=f)
-    #         print(f"# WARNING: For files with SNPY & SALT, the 'stretch' and 'color' are NOT identical.", file=f)
-    #         print(f"objname, origin, subtype, algo, ra, dec, z, z_cmb, MJDs, MJDe, mu, mu_err, hostMass, hostMass_err, "
-    #               f"Tmax, Tmax_err, stretch, stretch_err, color, color_err, amplitude, amplitude_err, "
-    #               f"peak_mag, peak_mag_err", file=f)
-    #         for tb in [tb_snpy, tb_salt]:
-    #             for row in tb:
-    #                 print(f"{row['objname']}, "
-    #                       f"{row['origin']}, "
-    #                       f"{row['subtype']}, "
-    #                       f"{row['algo']}, "
-    #                       f"{row['ra']}, "
-    #                       f"{row['dec']}, "
-    #                       f"{row['z']}, {row['z_cmb']}, "
-    #                       f"{row['MJDs']}, {row['MJDe']}, "
-    #                       f"{row['mu']}, {row['mu_err']}, "
-    #                       f"{row['hostMass']}, {row['hostMass_err']}, "
-    #                       f"{row['Tmax']}, {row['Tmax_err']}, "
-    #                       f"{row['stretch']}, {row['stretch_err']}, "
-    #                       f"{row['color']}, {row['color_err']}, "
-    #                       f"{row['amplitude']}, {row['amplitude_err']}, "
-    #                       f"{row['peak_mag']}, {row['peak_mag_err']}", file=f)
+    # Load data
+    hdr = []
+    with open(path, 'r') as f:
+        for i in range(3): hdr.append(f.readline())
+        lines = f.readlines()
+
+    bad_fits = ("2024zls, 2025nn, 2023dk, 2022ubt, 2021bmu, 2019op, 2024zaj, 2022vse, 2023jah, 2022vse, 2021mab, "
+                "2022vxf, 2022rjs, 2021gel, 2018hkw").split(', ')
+    willem_bad_fits = (
+        "2024zls, 2025nn, 2023dk, 2022ubt, 2021bmu, 2019op, 2024zaj, 2022vse, 2023jah, 2022vse, 2021mab, "
+        "2022vxf, 2022rjs, 2021gel, 2018hkw, 2022kbc, 2022abom, 2021uve, 2019moq").split(', ')
+    willem_cuts = ("2022kbc, 2022abom, 2021uve, 2019moq").split(', ')
+    with open(save_loc, 'w') as f:
+        for line in hdr:
+            print(line[:-1], file=f)
+        for line in lines:
+            n = line.split(', ')[0]
+            if n not in willem_bad_fits:
+                print(line[:-1], file=f)
     return
+
 
 if __name__ == '__main__':
     start = systime.time()  # Runtime tracker

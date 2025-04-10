@@ -410,7 +410,7 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
                                 f"${round(mass_step_dict['value'], 3)} \pm {round(mass_step_dict['err'], 3)}$ mag")
 
     # Brount, Scolnic 2021 Dust Prediction
-    axs[1, 0].hlines(y=np.average(tb_91bg['resid_mu'][tb_91bg['hostMass'] < 10]) - 0.4297,
+    axs[1, 0].hlines(y=np.average(tb_91bg['resid_mu'][tb_91bg['hostMass'] < 10]) - 0.25,
                      xmin=10, xmax=np.max(tb_91bg['hostMass']) + tol,
                      label='Brout et al. 2021 (c = 0.2)', linestyle=':', linewidth=3, color='C0', zorder=5)
 
