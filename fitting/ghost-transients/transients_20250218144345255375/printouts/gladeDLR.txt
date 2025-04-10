@@ -1,8 +1,0 @@
-
- transient = \
-SN2008bz
-offset/DLR = \
-{'VCC 1785': 59.39}
-candidate semi-major axis = \
-{'VCC 1785': 12.81}
-No host chosen! r/DLR > 5.0.

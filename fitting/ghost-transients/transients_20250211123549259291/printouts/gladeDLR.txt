@@ -1,8 +1,0 @@
-
- transient = \
-SN2009al
-offset/DLR = \
-{'NGC 3417': 26.54, 'NGC 3388': 2.95}
-candidate semi-major axis = \
-{'NGC 3417': 24.39, 'NGC 3388': 22.2}
-Selecting GLADE host: NGC 3388

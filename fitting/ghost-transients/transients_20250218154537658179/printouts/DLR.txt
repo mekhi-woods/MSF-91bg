@@ -1,9 +1,0 @@
-
- transient = \
-SN2024adzy
-offset/DLR = \
-{500175680: 24.41, 500175685: 1.6, 500175688: 13.76}
-candidate semi-major axis = \
-{500175680: 2.46, 500175685: 2.21, 500175688: 4.61}
-Issue with DLR. Try Gradient Descent!
-88.055519 -59.790849

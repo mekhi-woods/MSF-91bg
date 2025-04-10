@@ -5,250 +5,171 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b356fbe-13e0-4f0b-a319-7fe9c31645a1" name="Changes" comment="updates">
-      <change afterPath="$PROJECT_DIR$/best_scatter_params.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/newMSF-91bg/convert.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/newMSF-91bg/dataManipulation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/newMSF-91bg/fitter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/newMSF-91bg/getVpec.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/newMSF-91bg/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/newMSF-91bg/plotter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/newMSF-91bg/txts/TNS_key.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/newMSF-91bg/txts/api_keys.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/newMSF-91bg/txts/constants.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/newMSF-91bg/txts/mass_key.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/newMSF-91bg/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2018efn_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2018efn_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2018efn_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2018efn_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2019cp_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2019cp_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2019cp_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2019cp_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2019so_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2019so_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2019so_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2019so_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2020aejj_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2020aejj_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2020aejj_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2020aejj_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2020dq_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2020dq_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2020dq_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2020dq_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2022an_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2022an_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2022an_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2022an_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2022vse_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2022vse_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2022vse_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2022vse_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2023jah_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2023jah_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2023jah_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2023jah_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024lhg_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024lhg_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024lhg_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024lhg_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024nev_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024nev_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024nev_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024nev_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024pkh_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024pkh_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024pkh_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024pkh_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024stt_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024stt_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024stt_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024stt_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024ulb_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024ulb_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024ulb_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024ulb_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024yhg_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024yhg_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024zaj_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024zaj_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024zaj_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/atlas-91bg/atlas-91bg_ATLAS2024zaj_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ame_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ame_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ame_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ame_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ast_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ast_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ast_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ast_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018baz_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018baz_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018baz_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018baz_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ciw_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ciw_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ciw_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018ciw_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018efn_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018efn_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018efn_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018efn_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018eyi_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018eyi_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018eyi_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018eyi_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018gro_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018gro_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018gro_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018gro_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018hkw_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018hkw_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018hkw_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018hkw_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018jag_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018jag_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018jag_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018jag_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018lph_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018lph_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018lph_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2018lph_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019ahh_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019ahh_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019ahh_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019ahh_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019be_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019be_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019be_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019be_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019cdc_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019cdc_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019cdc_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019cdc_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019cp_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019cp_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019cp_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019cp_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019ecx_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019ecx_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019ecx_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019ecx_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019exc_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019exc_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019exc_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019exc_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019luv_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019luv_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019luv_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019luv_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019moq_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019moq_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019moq_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019moq_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019noh_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019noh_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019noh_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019noh_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019op_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019op_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019op_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2019op_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020abmg_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020abmg_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020abmg_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020abmg_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020abpe_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020abpe_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020abpe_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020abpe_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020acbx_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020acbx_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020acbx_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020acbx_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020aclx_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020aclx_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020aclx_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020aclx_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020acoo_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020acoo_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020acoo_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020acoo_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020ais_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020ais_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020ais_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020ais_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020ecn_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020ecn_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020ecn_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020ecn_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020mfd_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020mfd_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020mfd_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020mfd_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020nta_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020nta_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020nta_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020nta_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020vae_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020vae_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020vae_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2020vae_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021aare_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021aare_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021aare_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021aare_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021abzd_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021abzd_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021abzd_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021abzd_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021agej_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021agej_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021agej_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021agej_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021agnf_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021agnf_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021agnf_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021agnf_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021bls_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021bls_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021bls_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021bls_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021bmu_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021bmu_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021bmu_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021bmu_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021cad_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021cad_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021cad_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021cad_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021fnr_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021fnr_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021fnr_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021fnr_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021gel_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021gel_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021gel_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021gel_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021jbp_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021jbp_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021jbp_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021jbp_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021jvp_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021jvp_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021jvp_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021jvp_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021mab_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021mab_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021mab_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021mab_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021pom_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021pom_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021pom_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021pom_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021qqr_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021qqr_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021qqr_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021qqr_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021qvv_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021qvv_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021qvv_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021qvv_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021twa_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021twa_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021twa_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021twa_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021uef_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021uef_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021uef_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021uef_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021uve_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021uve_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021uve_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021uve_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021wzb_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021wzb_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021wzb_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021wzb_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021xfm_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021xfm_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021xfm_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021xfm_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021zqs_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021zqs_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021zqs_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021zqs_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021zsz_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021zsz_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021zsz_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2021zsz_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022aaok_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022aaok_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022aaok_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022aaok_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022abom_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022abom_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022abom_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022abom_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022aecb_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022aecb_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022aecb_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022aecb_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022bsi_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022bsi_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022bsi_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022bsi_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022dsu_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022dsu_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022dsu_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022dsu_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022fjx_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022fjx_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022fjx_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022fjx_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022ihz_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022ihz_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022ihz_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022ihz_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022kbc_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022kbc_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022kbc_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022kbc_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022omn_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022omn_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022omn_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022omn_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022oux_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022oux_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022oux_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022oux_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022rey_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022rey_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022rey_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022rey_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022rjs_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022rjs_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022rjs_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022rjs_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022skw_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022skw_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022skw_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022skw_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022ubt_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022ubt_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022ubt_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022ubt_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022uxl_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022uxl_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022uxl_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022uxl_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022vxf_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022vxf_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022vxf_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022vxf_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xhh_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xhh_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xhh_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xhh_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xkq_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xkq_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xkq_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xkq_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xnq_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xnq_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xnq_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022xnq_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022yv_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022yv_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022yv_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022yv_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022zsp_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022zsp_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022zsp_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022zsp_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022zvu_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022zvu_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022zvu_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2022zvu_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023abdv_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023abdv_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023abdv_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023abdv_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023acdv_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023acdv_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023acdv_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023acdv_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023bhm_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023bhm_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023bhm_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023bhm_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023cvq_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023cvq_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023cvq_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023cvq_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023dk_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023dk_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023dk_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023dk_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023ex_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023ex_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023ex_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023ex_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023fot_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023fot_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023fot_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023fot_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023fwb_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023fwb_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023fwb_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023fwb_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023mkp_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023mkp_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023mkp_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023mkp_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023omo_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023omo_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023omo_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023omo_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023sps_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023sps_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023sps_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023sps_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023vjh_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023vjh_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023vjh_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023vjh_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023yrs_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023yrs_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023yrs_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2023yrs_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024abwg_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024abwg_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024abwg_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024abwg_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024bjb_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024bjb_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024bjb_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024bjb_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024fid_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024fid_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024fid_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024fid_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jgw_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jgw_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jgw_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jgw_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jhk_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jhk_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jhk_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jhk_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jih_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jih_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jih_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024jih_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024luo_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024luo_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024luo_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024luo_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024pbd_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024pbd_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024pbd_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024pbd_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024rkh_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024rkh_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024rkh_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024rkh_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024sag_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024sag_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024sag_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024sag_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024vcj_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024vcj_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024vcj_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024vcj_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024wdg_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024wdg_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024wdg_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024wdg_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024xdl_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024xdl_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024xdl_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024xdl_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024xhs_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024xhs_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024xhs_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024xhs_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024yhg_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024yhg_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024yhg_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024yhg_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024zls_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024zls_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024zls_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024zls_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024zwb_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024zwb_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024zwb_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2024zwb_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2025nn_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2025nn_salt_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2025nn_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/combined_91bg/combined_91bg_2025nn_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/ztf-91bg/ztf-91bg_ZTF2019cp_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/ztf-91bg/ztf-91bg_ZTF2019cp_salt_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/ztf-91bg/ztf-91bg_ZTF2019cp_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/ztf-91bg/ztf-91bg_ZTF2019cp_snpy_class.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/ztf-91bg/ztf-91bg_ZTF2024yhg_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/ztf-91bg/ztf-91bg_ZTF2024yhg_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2005bl_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2005bl_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2005bl_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2005bl_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2005ke_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2005ke_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2005ke_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2005ke_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2006bd_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2006bd_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2006gt_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2006gt_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2006gt_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2006gt_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2006mr_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2006mr_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2006mr_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2006mr_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007N_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007N_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007N_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007N_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007al_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007al_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007al_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007al_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007ax_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007ax_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007ba_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007ba_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007ba_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2007ba_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bd_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bd_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bd_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bd_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bi_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bi_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bi_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bi_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bt_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bt_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bt_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2008bt_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2009F_salt_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2009F_salt_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2009F_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/csp-91bg/csp-91bg_CSP2009F_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/ztf-91bg/ztf-91bg_ZTF2020yo_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/ztf-91bg/ztf-91bg_ZTF2020yo_snpy_class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/ztf-91bg/ztf-91bg_ZTF2021afur_snpy_class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/classes/ztf-91bg/ztf-91bg_ZTF2021afur_snpy_class.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/combined_91bg/2018ame.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/combined_91bg/2018ame.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/combined_91bg/2018ast.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/combined_91bg/2018ast.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/combined_91bg/2018baz.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/combined_91bg/2018baz.txt" afterDir="false" />
@@ -356,129 +277,225 @@
       <change beforePath="$PROJECT_DIR$/data/combined_91bg/2025nn.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/combined_91bg/2025nn.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataManipulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataManipulation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/fitter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2018ame_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2018ame_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2018ast_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2018ast_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2018baz_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2018baz_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2018ciw_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2018ciw_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2018efn_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2018efn_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2018eyi_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2018eyi_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2018gro_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2018gro_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2018hkw_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2018hkw_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2018lph_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2018lph_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2019be_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2019be_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2019cdc_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2019cdc_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2019cp_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2019cp_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2019ecx_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2019ecx_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2019exc_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2019exc_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2019luv_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2019luv_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2019moq_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2019moq_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2019noh_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2019noh_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2019op_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2019op_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2019so_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2019so_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020abmg_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020abmg_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020abpe_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020abpe_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020acbx_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020acbx_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020aclx_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020aclx_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020acoo_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020acoo_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020aejj_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020aejj_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020dq_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020dq_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020ecn_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020ecn_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020mfd_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020mfd_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020nta_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020nta_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020vae_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020vae_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2020yo_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2020yo_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021aare_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021aare_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021abzd_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021abzd_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021agnf_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021agnf_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021bls_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021bls_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021bmu_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021bmu_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021cad_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021cad_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021fnr_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021fnr_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021gel_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021gel_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021jbp_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021jbp_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021jvp_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021jvp_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021mab_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021mab_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021pom_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021pom_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021qqr_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021qqr_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021qvv_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021qvv_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021twa_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021twa_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021uef_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021uef_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021uve_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021uve_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021wzb_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021wzb_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021xfm_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021xfm_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021zqs_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021zqs_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2021zsz_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2021zsz_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022aaok_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022aaok_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022abom_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022abom_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022aecb_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022aecb_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022an_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022an_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022bsi_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022bsi_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022dsu_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022dsu_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022fjx_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022fjx_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022ihz_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022ihz_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022kbc_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022kbc_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022omn_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022omn_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022oux_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022oux_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022rey_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022rey_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022rjs_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022rjs_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022skw_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022skw_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022ubt_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022ubt_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022uxl_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022uxl_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022vse_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022vse_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022xhh_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022xhh_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022xkq_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022xkq_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022xnq_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022xnq_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022yv_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022yv_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022zsp_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022zsp_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2022zvu_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2022zvu_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023abdv_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023abdv_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023acdv_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023acdv_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023bhm_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023bhm_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023cvq_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023cvq_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023dk_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023dk_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023ex_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023ex_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023fot_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023fot_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023fwb_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023fwb_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023jah_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023jah_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023mkp_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023mkp_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023omo_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023omo_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023sps_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023sps_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023vjh_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023vjh_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2023yrs_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2023yrs_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024abwg_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024abwg_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024bjb_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024bjb_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024fid_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024fid_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024jgw_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024jgw_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024jhk_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024jhk_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024jih_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024jih_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024lhg_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024lhg_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024luo_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024luo_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024nev_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024nev_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024pbd_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024pbd_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024pkh_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024pkh_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024rkh_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024rkh_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024sag_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024sag_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024stt_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024stt_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024ulb_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024ulb_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024vcj_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024vcj_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024wdg_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024wdg_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024xdl_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024xdl_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024xhs_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024xhs_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024yhg_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024yhg_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024zaj_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024zaj_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024zls_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024zls_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2024zwb_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2024zwb_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/salt-plots/2025nn_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/salt-plots/2025nn_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020aclx_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020aclx_model.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020ecn_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020ecn_model.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2023omo_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2023omo_model.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020aclx_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020aclx_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020ecn_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020ecn_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2023omo_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2023omo_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2018ast_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2018ast_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2018jag_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2018jag_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2018lph_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2018lph_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2019cdc_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2019cdc_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2019moq_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2019moq_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2019noh_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2019noh_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2019ycb_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2019ycb_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2019yfu_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2019yfu_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020abpe_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020abpe_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020aejj_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020aejj_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020buy_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020buy_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020cbo_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020cbo_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020cdm_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020cdm_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020cpn_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020cpn_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020dq_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020dq_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020eci_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020eci_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020jhf_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020jhf_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020jol_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020jol_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020kpx_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020kpx_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020kru_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020kru_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020krw_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020krw_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020kui_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020kui_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020mdd_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020mdd_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020mfd_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020mfd_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020mnv_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020mnv_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020mnw_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020mnw_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020mue_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020mue_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020mvp_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020mvp_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020ndv_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020ndv_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020nxk_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020nxk_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020obe_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020obe_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020svo_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020svo_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020swx_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020swx_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020szr_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020szr_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020tce_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020tce_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020tdy_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020tdy_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020tel_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020tel_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020tfc_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020tfc_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020tgi_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020tgi_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020tpf_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020tpf_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020uek_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020uek_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020ufe_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020ufe_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020ulf_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020ulf_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020uyg_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020uyg_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020vas_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020vas_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020vav_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020vav_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020vwv_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020vwv_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020wlw_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020wlw_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020wux_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020wux_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020xsl_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020xsl_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020yav_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020yav_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020yef_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020yef_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020ysl_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020ysl_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020yvu_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020yvu_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020yzs_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020yzs_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020yzv_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020yzv_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020zbc_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020zbc_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020zem_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020zem_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2020zhd_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2020zhd_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021aabw_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021aabw_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021aaqb_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021aaqb_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021abht_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021abht_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021abmp_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021abmp_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021abza_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021abza_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021abzd_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021abzd_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021acaz_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021acaz_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021accx_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021accx_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021aceo_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021aceo_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021adu_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021adu_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021aggu_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021aggu_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021ash_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021ash_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021aut_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021aut_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021biz_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021biz_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021bjb_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021bjb_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021bjy_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021bjy_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021bjz_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021bjz_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021bkw_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021bkw_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021blp_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021blp_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021bls_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021bls_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021fnr_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021fnr_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021pom_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021pom_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021twa_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021twa_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021wzb_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021wzb_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2021zsz_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2021zsz_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022aaok_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022aaok_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022aecb_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022aecb_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022dsu_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022dsu_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022kbc_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022kbc_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022omn_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022omn_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022oux_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022oux_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022rjs_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022rjs_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022uxl_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022uxl_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022vse_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022vse_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022xhh_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022xhh_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022zsp_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022zsp_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2022zvu_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2022zvu_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2023bhm_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2023bhm_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2023fot_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2023fot_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2023fwb_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2023fwb_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2023jah_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2023jah_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2023vjh_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2023vjh_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2024bjb_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2024bjb_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2024lhg_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2024lhg_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2024luo_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2024luo_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2024pkh_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2024pkh_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2024rkh_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2024rkh_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2024stt_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2024stt_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2024wdg_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2024wdg_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-asciis/2024zls_ascii.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-asciis/2024zls_ascii.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2018jag_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2018jag_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2018lph_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2018lph_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2019cdc_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2019cdc_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2019moq_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2019moq_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2019noh_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2019noh_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020jol_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020jol_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020mfd_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020mfd_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020mue_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020mue_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020tfc_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020tfc_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020tpf_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020tpf_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020uek_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020uek_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020ufe_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020ufe_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020ulf_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020ulf_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020vwv_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020vwv_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2020zem_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2020zem_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2021aabw_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2021aabw_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2021abzd_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2021abzd_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2021aut_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2021aut_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2021bls_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2021bls_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2021fnr_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2021fnr_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2021twa_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2021twa_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2021wzb_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2021wzb_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2021zsz_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2021zsz_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2022aaok_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2022aaok_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2022dsu_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2022dsu_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2022kbc_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2022kbc_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2022oux_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2022oux_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2022rjs_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2022rjs_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2022uxl_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2022uxl_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2022vse_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2022vse_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2022xhh_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2022xhh_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2022zsp_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2022zsp_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2022zvu_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2022zvu_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2023bhm_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2023bhm_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2023fot_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2023fot_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2023jah_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2023jah_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2023vjh_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2023vjh_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2024bjb_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2024bjb_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2024lhg_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2024lhg_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2024luo_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2024luo_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2024pkh_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2024pkh_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2024rkh_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2024rkh_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2024stt_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2024stt_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2024wdg_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2024wdg_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-models/2024zls_model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-models/2024zls_model.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2018jag_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2018jag_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2018lph_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2018lph_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2019cdc_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2019cdc_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2019moq_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2019moq_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2019noh_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2019noh_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020jol_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020jol_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020mfd_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020mfd_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020mue_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020mue_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020tfc_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020tfc_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020tpf_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020tpf_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020uek_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020uek_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020ufe_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020ufe_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020ulf_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020ulf_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020vwv_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020vwv_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2020zem_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2020zem_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2021aabw_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2021aabw_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2021abzd_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2021abzd_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2021aut_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2021aut_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2021bls_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2021bls_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2021fnr_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2021fnr_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2021twa_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2021twa_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2021wzb_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2021wzb_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2021zsz_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2021zsz_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2022aaok_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2022aaok_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2022dsu_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2022dsu_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2022kbc_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2022kbc_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2022oux_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2022oux_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2022rjs_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2022rjs_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2022uxl_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2022uxl_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2022vse_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2022vse_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2022xhh_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2022xhh_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2022zsp_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2022zsp_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2022zvu_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2022zvu_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2023bhm_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2023bhm_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2023fot_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2023fot_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2023jah_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2023jah_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2023vjh_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2023vjh_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2024bjb_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2024bjb_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2024lhg_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2024lhg_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2024luo_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2024luo_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2024pkh_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2024pkh_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2024rkh_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2024rkh_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2024stt_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2024stt_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2024wdg_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2024wdg_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitting/snpy-plots/2024zls_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/fitting/snpy-plots/2024zls_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plots/absMag_v_color.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/absMag_v_color.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plots/alpha_beta.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/alpha_beta.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plots/dust_params.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/dust_params.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plots/dust_v_scatter.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/dust_v_scatter.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plots/mu_v_z.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/mu_v_z.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plots/param_hist_cut.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/param_hist_cut.png" afterDir="false" />
@@ -492,44 +509,40 @@
       <change beforePath="$PROJECT_DIR$/results/91bg_snpy-salt_cut.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/91bg_snpy-salt_cut.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/results/91bg_snpy.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/91bg_snpy.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/results/91bg_snpy_cut.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/91bg_snpy_cut.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2008bd_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2008bd_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2018eyi_lc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2018jag_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2018jag_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2006bd_lc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2006gt_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2006gt_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2007N_lc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2008bd_lc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2008bt_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2008bt_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2018ciw_lc.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2018lph_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2018lph_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2019be_lc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2019cp_lc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2019ecx_lc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2019moq_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2019moq_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2019noh_lc.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2020abpe_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2020abpe_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2020nta_lc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2021abzd_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2021abzd_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2021bls_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2021bls_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2020acbx_lc.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2021fnr_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2021fnr_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2021uve_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2021uve_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2021wzb_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2021wzb_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2021xfm_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2021xfm_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2022aaok_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2022aaok_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2022bsi_lc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2021jvp_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2021jvp_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2021pom_lc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2021zsz_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2021zsz_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2022dsu_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2022dsu_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2022fjx_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2022fjx_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2022oux_lc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2022ubt_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2022ubt_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2022uxl_lc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2022vse_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2022vse_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2022vxf_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2022vxf_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2022omn_lc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2022zvu_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2022zvu_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2023fot_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2023fot_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2023jah_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2023jah_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2023vjh_lc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2024abwg_lc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2024jgw_lc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2023sps_lc.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2024jhk_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2024jhk_lc.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2024rkh_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2024rkh_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2024xdl_lc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2024yhg_lc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/final_lc/91bg/2024zaj_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/91bg/2024zaj_lc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/norm/2005be_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/norm/2005be_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/norm/2008bz_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/norm/2008bz_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/final_lc/norm/2008fu_lc.png" beforeDir="false" afterPath="$PROJECT_DIR$/results/final_lc/norm/2008fu_lc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/norm_salt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/norm_salt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/norm_salt_cut.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/norm_salt_cut.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/norm_snpy-salt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/norm_snpy-salt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/norm_snpy-salt_cut.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/norm_snpy-salt_cut.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/norm_snpy.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/norm_snpy.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/norm_snpy_cut.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/norm_snpy_cut.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/txts/TNS_key.txt" beforeDir="false" afterPath="$PROJECT_DIR$/txts/TNS_key.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/txts/error_report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/txts/error_report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/txts/mass_key.txt" beforeDir="false" afterPath="$PROJECT_DIR$/txts/mass_key.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/txts/target_files/normal_tarlist.csv" beforeDir="false" afterPath="$PROJECT_DIR$/txts/target_files/old_normal_tarlist.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/txts/target_files/sn1991bglike_tarlist.csv" beforeDir="false" afterPath="$PROJECT_DIR$/txts/target_files/sn1991bglike_tarlist.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -579,17 +592,21 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$USER_HOME$/Downloads/david folder/fitter.py" root0="SKIP_INSPECTION" />
-    <setting file="file://$USER_HOME$/Downloads/search/search.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/dataManipulation.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/fitter.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/legacy/verthandi.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/main.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/newMSF-91bg/convert.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/newMSF-91bg/dataManipulation.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/newMSF-91bg/fitter.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/newMSF-91bg/main.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/newMSF-91bg/plotter.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/newMSF-91bg/utils.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/params_v_scatter/params_v_scatter.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/plotter.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/queryATLAS.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/queryCSP.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/queryZTF.py" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/stats.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/utils.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProblemsViewState">
@@ -611,12 +628,16 @@
     &quot;Python.amadeusx.executor&quot;: &quot;Run&quot;,
     &quot;Python.arc-light.executor&quot;: &quot;Run&quot;,
     &quot;Python.atlas_download.executor&quot;: &quot;Run&quot;,
+    &quot;Python.convert.executor&quot;: &quot;Run&quot;,
     &quot;Python.david_code.executor&quot;: &quot;Run&quot;,
     &quot;Python.download.executor&quot;: &quot;Run&quot;,
     &quot;Python.fitter.executor&quot;: &quot;Run&quot;,
     &quot;Python.general.executor&quot;: &quot;Run&quot;,
     &quot;Python.ghost_process.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.new main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.params_v_scatter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.plotter.executor&quot;: &quot;Run&quot;,
     &quot;Python.skul.executor&quot;: &quot;Run&quot;,
     &quot;Python.skuld.executor&quot;: &quot;Run&quot;,
     &quot;Python.snpy test.executor&quot;: &quot;Run&quot;,
@@ -630,7 +651,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/mekhiwoods/PycharmProjects/MSF-91bg&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mekhiwoods/PycharmProjects/MSF-91bg/newMSF-91bg&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -647,18 +668,18 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/newMSF-91bg" />
+      <recent name="$PROJECT_DIR$/newMSF-91bg/txts" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/params_v_scatter" />
       <recent name="$PROJECT_DIR$/txts/target_files" />
-      <recent name="$PROJECT_DIR$/txts" />
-      <recent name="$PROJECT_DIR$/data" />
-      <recent name="$PROJECT_DIR$/results" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/newMSF-91bg/fitting" />
+      <recent name="$PROJECT_DIR$/params_v_scatter" />
       <recent name="$PROJECT_DIR$/legacy/old target files" />
       <recent name="$PROJECT_DIR$/results/old" />
       <recent name="$PROJECT_DIR$/legacy" />
-      <recent name="$PROJECT_DIR$/.idea" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -666,7 +687,7 @@
       <command value="pip install -r requirements.txt" />
     </option>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.new main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python">
       <module name="HiloCATsSN1991bg" />
       <option name="ENV_FILES" value="" />
@@ -683,6 +704,30 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="new main" type="PythonConfigurationType" factoryName="Python">
+      <module name="HiloCATsSN1991bg" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.9 (MSF-91bg)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/newMSF-91bg" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/newMSF-91bg/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -718,6 +763,7 @@
     <list>
       <item itemvalue="Python.main" />
       <item itemvalue="Python.verthandi" />
+      <item itemvalue="Python.new main" />
     </list>
   </component>
   <component name="SharedIndexes">
@@ -884,22 +930,27 @@
       <workItem from="1743539815432" duration="37191000" />
       <workItem from="1743875495542" duration="12389000" />
       <workItem from="1744133614645" duration="11380000" />
-    </task>
-    <task id="LOCAL-00069" summary="Refactoring and bug fixing">
-      <option name="closed" value="true" />
-      <created>1727729771335</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1727729771335</updated>
-    </task>
-    <task id="LOCAL-00070" summary="Updates">
-      <option name="closed" value="true" />
-      <created>1727746736055</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1727746736055</updated>
+      <workItem from="1744310280663" duration="10071000" />
+      <workItem from="1744326584412" duration="12264000" />
+      <workItem from="1744741758226" duration="11443000" />
+      <workItem from="1744822990782" duration="11412000" />
+      <workItem from="1744913203531" duration="20332000" />
+      <workItem from="1745351020995" duration="40254000" />
+      <workItem from="1745959375842" duration="13926000" />
+      <workItem from="1746038106982" duration="18052000" />
+      <workItem from="1746210162424" duration="1943000" />
+      <workItem from="1746301308850" duration="5346000" />
+      <workItem from="1746553878138" duration="21081000" />
+      <workItem from="1746657508576" duration="227000" />
+      <workItem from="1746725334416" duration="30589000" />
+      <workItem from="1747068413330" duration="15611000" />
+      <workItem from="1747159421095" duration="3316000" />
+      <workItem from="1747169656094" duration="2662000" />
+      <workItem from="1747243664056" duration="5896000" />
+      <workItem from="1747258529113" duration="4641000" />
+      <workItem from="1747324136181" duration="7361000" />
+      <workItem from="1747333134015" duration="11227000" />
+      <workItem from="1747349641410" duration="495000" />
     </task>
     <task id="LOCAL-00071" summary="Official deprecation of 'arc-light.py'">
       <option name="closed" value="true" />
@@ -1277,7 +1328,23 @@
       <option name="project" value="LOCAL" />
       <updated>1743782791217</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="updates">
+      <option name="closed" value="true" />
+      <created>1744310554519</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1744310554519</updated>
+    </task>
+    <task id="LOCAL-00119" summary="updates">
+      <option name="closed" value="true" />
+      <created>1744326533207</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1744326533207</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1359,25 +1426,29 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$ztf_process.coverage" NAME="ztf_process Coverage Results" MODIFIED="1721083900292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$main.coverage" NAME="main Coverage Results" MODIFIED="1738376230653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$ghost_process.coverage" NAME="ghost_process Coverage Results" MODIFIED="1720229682578" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/MSF_91bg$params_v_scatter.coverage" NAME="params_v_scatter Coverage Results" MODIFIED="1744922658759" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/params_v_scatter" />
     <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$urd.coverage" NAME="urd Coverage Results" MODIFIED="1729117856212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MSF_91bg$main.coverage" NAME="main Coverage Results" MODIFIED="1744218892469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$test.coverage" NAME="test Coverage Results" MODIFIED="1720741619242" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$verthandi.coverage" NAME="verthandi Coverage Results" MODIFIED="1738362910440" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/old_file_system" />
     <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$ztf_wget.coverage" NAME="ztf_wget Coverage Results" MODIFIED="1720481844611" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ztf_get_query" />
-    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$arc_light.coverage" NAME="arc-light Coverage Results" MODIFIED="1728683719640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSF_91bg$plotter.coverage" NAME="plotter Coverage Results" MODIFIED="1744922657484" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$snpy_test.coverage" NAME="snpy test Coverage Results" MODIFIED="1721083284891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/MSF_91bg$fitter.coverage" NAME="fitter Coverage Results" MODIFIED="1743225014340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads/david folder" />
-    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$tess.coverage" NAME="tess Coverage Results" MODIFIED="1722560792569" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/default" />
-    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$atlas_download.coverage" NAME="atlas_download Coverage Results" MODIFIED="1736294590518" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/MSF_91bg$utils.coverage" NAME="utils Coverage Results" MODIFIED="1743224842272" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads/david folder" />
     <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$skul.coverage" NAME="skul Coverage Results" MODIFIED="1726530472116" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$download.coverage" NAME="download Coverage Results" MODIFIED="1736811875095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$general.coverage" NAME="general Coverage Results" MODIFIED="1736812570000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$main.coverage" NAME="main Coverage Results" MODIFIED="1738376230653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$ghost_process.coverage" NAME="ghost_process Coverage Results" MODIFIED="1720229682578" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/MSF_91bg$convert.coverage" NAME="convert Coverage Results" MODIFIED="1746992093360" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/newMSF-91bg" />
+    <SUITE FILE_PATH="coverage/MSF_91bg$main.coverage" NAME="main Coverage Results" MODIFIED="1746992459889" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/newMSF-91bg" />
+    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$test.coverage" NAME="test Coverage Results" MODIFIED="1720741619242" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/MSF_91bg$new_main.coverage" NAME="new main Coverage Results" MODIFIED="1747346681269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/newMSF-91bg" />
+    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$arc_light.coverage" NAME="arc-light Coverage Results" MODIFIED="1728683719640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSF_91bg$fitter.coverage" NAME="fitter Coverage Results" MODIFIED="1746992517180" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/newMSF-91bg" />
+    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$tess.coverage" NAME="tess Coverage Results" MODIFIED="1722560792569" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/default" />
+    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$atlas_download.coverage" NAME="atlas_download Coverage Results" MODIFIED="1736294590518" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$SNCosmoSALT2Fit.coverage" NAME="SNCosmoSALT2Fit Coverage Results" MODIFIED="1720057797608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$david_code.coverage" NAME="david_code Coverage Results" MODIFIED="1727812147794" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$download.coverage" NAME="download Coverage Results" MODIFIED="1736811875095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$amadeusx.coverage" NAME="amadeusx Coverage Results" MODIFIED="1724109400137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$skuld.coverage" NAME="skuld Coverage Results" MODIFIED="1737509418636" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/HiloCATsSN1991bg$general.coverage" NAME="general Coverage Results" MODIFIED="1736812570000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
   </component>
 </project>

@@ -1,8 +1,0 @@
-
- transient = \
-SN2009D
-offset/DLR = \
-{'': 7.82}
-candidate semi-major axis = \
-{'': 16.86}
-No host chosen! r/DLR > 5.0.

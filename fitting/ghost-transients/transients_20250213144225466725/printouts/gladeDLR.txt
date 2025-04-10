@@ -1,8 +1,0 @@
-
- transient = \
-SN2005mc
-offset/DLR = \
-{'CGCG 119-101': 27.63, '2MASX J08272019+2143137': 29.91}
-candidate semi-major axis = \
-{'CGCG 119-101': 11.13, '2MASX J08272019+2143137': 11.94}
-No host chosen! r/DLR > 5.0.

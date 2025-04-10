@@ -1,8 +1,0 @@
-
- transient = \
-SN2005bg
-offset/DLR = \
-{'NGC 4239': 20.82, 'SN 2005bg': 0.05}
-candidate semi-major axis = \
-{'NGC 4239': 37.71, 'SN 2005bg': 12.48}
-Selecting GLADE host: SN 2005bg

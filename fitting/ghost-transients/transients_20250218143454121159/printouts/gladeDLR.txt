@@ -1,8 +1,0 @@
-
- transient = \
-SN2006et
-offset/DLR = \
-{'NGC 0230': 9.62, 'NGC 0232': 0.52, 'NGC 0232 E': 7.1, '': 5.17}
-candidate semi-major axis = \
-{'NGC 0230': 38.64, 'NGC 0232': 20.25, 'NGC 0232 E': 29.25, '': 22.71}
-Selecting GLADE host: NGC 0232

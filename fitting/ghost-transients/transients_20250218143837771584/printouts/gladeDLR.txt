@@ -1,8 +1,0 @@
-
- transient = \
-SN2008fl
-offset/DLR = \
-{'NGC 6805': 0.67, 'WISEA J193607.86-373211.2': 34.78}
-candidate semi-major axis = \
-{'NGC 6805': 23.79, 'WISEA J193607.86-373211.2': 13.41}
-Selecting GLADE host: NGC 6805

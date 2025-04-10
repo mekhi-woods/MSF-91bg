@@ -92,224 +92,77 @@ def plot_binned_param(axis, path, param_name, bin_num, bin_bounds, p_label, p_co
     return
 
 # WIP Functions =======================================================================================================
-def resid_v_mass_dust(path_91bg: str = 'merged_params_cut.txt',
-                      path_norm: str = 'aaronDo_salt2_params_cut.txt',
-                      path_dust: str = 'global_dust_params.txt',
-                      save_loc: str = '', label: bool = False):
-    """
-    Plots the Hubble Residual v. Mass
-    """
-    fig, axs = plt.subplots(2, 2, figsize=(18, 10), gridspec_kw={'width_ratios': [10, 1]}, constrained_layout=True)
+def dust_mass_step(path_91bg: str, path_norm: str, path_dust: str, save_loc: str = '', label: bool = False):
+    fig, axs = plt.subplots(1, 3, figsize=(16, 5), gridspec_kw={'width_ratios': [18, 2, 1]},
+                            constrained_layout=True)
     plt.style.use('tableau-colorblind10')
-    all_resid, all_mass = [], []
     c_norm, c_norm_mass = 'C2', 'C3'
     c_91bg, c_91bg_mass = 'C8', 'C1'
 
-    # Plot Normals
-    # -----------------------------------------------------------------------------------------------------------------
-    tb_norm = utils.default_open(path_norm, True)
-    tb_norm = tb_norm[tb_norm['hostMass'] > 7.5]  # Removes the low mass Normals
-
-    ## Calculate Hubble Residual
-    tb_norm['resid_mu'] = tb_norm['mu'] - utils.current_cosmo().distmod(tb_norm['z_cmb']).value
-    tb_norm['resid_mu'] -= np.average(tb_norm['resid_mu'][~np.isnan(tb_norm['resid_mu'])])  # Centering around average
-    tb_norm['mu_err'] = np.sqrt(tb_norm['mu_err'] ** 2.0 + 0.1 ** 2.0)  # intrinsic dispersion added in quadrature
-    tb_norm['resid_mu_err'] = np.copy(tb_norm['mu_err'])
-
-    # Adding 0.1 mag in quadrature (taylor+11)
-    tb_norm['hostMass_err'] = np.sqrt(
-        tb_norm['hostMass_err'] ** 2.0 + 0.1 ** 2.0)  # intrinsic dispersion added in quadrature
-
-    ## Scatter plot & histogram
-    axs[0, 0].errorbar(x=tb_norm['hostMass'], y=tb_norm['resid_mu'], xerr=tb_norm['hostMass_err'],
-                       yerr=tb_norm['resid_mu_err'],
-                       marker='o', alpha=0.5, color=c_norm, fmt='o', ms=6, elinewidth=0.8)
-    axs[0, 1].hist(tb_norm['resid_mu'], bins=20, orientation="horizontal", color=c_norm)
-    # int((np.max(tb_norm['resid_mu']) - np.min(tb_norm['resid_mu'])) / 0.02)
-
-    # Labels
-    if label:
-        for x, y, name in zip(tb_norm['hostMass'], tb_norm['resid_mu'], tb_norm['objname']):
-            axs[0, 0].text(x, y, name, ha='left', va='top', size='xx-small')
-
-    # Plot 10dex & Median Mass Lines
-    tol = 1
-    for cut, ls, cl in zip([10, 10.55], ['-', '--'], [c_norm_mass, c_norm_mass]):
-        if cut == 'median': cut = np.median(tb_norm['hostMass'])
-        lin_details = {'linestyle': ls, 'linewidth': 3, 'color': cl, 'zorder': 5}
-        mass_step_dict, resid_dict = mass_step_calc(tb_norm['mu'], tb_norm['mu_err'], tb_norm['resid_mu'],
-                                                    tb_norm['hostMass'], tb_norm['z_cmb'], cut=cut)
-        if resid_dict['lower_resid']['value'] > resid_dict['upper_resid']['value']: mass_step_dict['value'] = \
-        mass_step_dict['value'] * -1
-        axs[0, 0].hlines(y=resid_dict['lower_resid']['value'], xmin=np.min(tb_norm['hostMass']) - tol, xmax=cut,
-                         **lin_details)  # Left
-        axs[0, 0].hlines(y=resid_dict['upper_resid']['value'], xmin=cut, xmax=np.max(tb_norm['hostMass']) + tol,
-                         **lin_details)  # Right
-        axs[0, 0].axvline(cut, alpha=0.75, **lin_details,
-                          label="$\gamma (M_{split}=$" + f"{round(cut, 2)}) = " +
-                                f"${round(mass_step_dict['value'], 3)} \pm {round(mass_step_dict['err'], 3)}$")
-
-    # Plot 91bg-like
-    # -----------------------------------------------------------------------------------------------------------------
     tb_91bg = utils.default_open(path_91bg, True)
+    tb_norm = utils.default_open(path_norm, True)
     tb_dust = utils.default_open(path_dust, True)
 
-    ## Calculate Hubble Residual
-    tb_91bg['resid_mu'] = tb_91bg['mu'] - utils.current_cosmo().distmod(tb_91bg['z_cmb']).value
-    tb_91bg['resid_mu'] -= np.average(
-        tb_91bg['resid_mu'][~np.isnan(tb_91bg['resid_mu'])])  # Centering around average
-    tb_91bg['mu_err'] = np.sqrt(tb_91bg['mu_err'] ** 2.0 + 0.1 ** 2.0)  # intrinsic dispersion added in quadrature
-    tb_91bg['resid_mu_err'] = np.copy(tb_91bg['mu_err'])
+    # Fix dust tables
+    tb_91bg.add_column(name='av_50', col=np.nan)
+    tb_norm.add_column(name='av_50', col=np.nan)
+    for n in tb_dust['objname']:
+        if n in tb_91bg['objname']:
+            tb_91bg['av_50'][tb_91bg['objname'] == n] = tb_dust['av_50'][tb_dust['objname'] == n]
+        if n in tb_norm['objname']:
+            tb_norm['av_50'][tb_norm['objname'] == n] = tb_dust['av_50'][tb_dust['objname'] == n]
+    tb_91bg = tb_91bg[~np.isnan(tb_91bg['av_50'])]
+    tb_norm = tb_norm[~np.isnan(tb_norm['av_50'])]
 
-    # Adding 0.1 mag in quadrature (taylor+11)
-    tb_91bg['hostMass_err'] = np.sqrt(
-        tb_91bg['hostMass_err'] ** 2.0 + 0.1 ** 2.0)  # intrinsic dispersion added in quadrature
+    # Adjust and save resid
+    tb_91bg['resid'], tb_91bg['resid_err'] = tb_91bg['mu'] - utils.current_cosmo().distmod(tb_91bg['z_cmb']).value, tb_91bg['mu_err']
+    tb_91bg['resid'] = tb_91bg['resid'] - np.average(tb_91bg['resid'])
+    tb_norm['resid'], tb_norm['resid_err'] = tb_norm['mu'] - utils.current_cosmo().distmod(tb_norm['z_cmb']).value, tb_norm['mu_err']
+    tb_norm['resid'] = tb_norm['resid'] - np.average(tb_norm['resid'])
 
-    # Get associated dust values
-    dust_91bg = np.array([])
-    for name in tb_91bg['objname']:
-        if name in list(tb_dust['objname']):
-            dust_91bg = np.append(dust_91bg, tb_dust['av_50'][tb_dust['objname'] == name].value[0])
-        else:
-            tb_91bg.remove_row(list(tb_91bg['objname']).index(name))  # Removes if no dust value found
+    # Plot
+    bin_width = 0.05
+    cm = plt.cm.get_cmap('Reds')
 
-    ## Scatter plot & histogram
-    median_dust = np.median(dust_91bg)
-    axs[1, 0].errorbar(x=tb_91bg['hostMass'][dust_91bg < median_dust],
-                       y=tb_91bg['resid_mu'][dust_91bg < median_dust],
-                       xerr=tb_91bg['hostMass_err'][dust_91bg < median_dust],
-                       yerr=tb_91bg['resid_mu_err'][dust_91bg < median_dust],
-                       marker='s', alpha=1, color='C8', fmt='o', ms=6, elinewidth=0.8,
-                       label='$A_{V=50} < Median$ ('+f'{round(median_dust,2)})')
-    axs[1, 0].errorbar(x=tb_91bg['hostMass'][dust_91bg > median_dust],
-                       y=tb_91bg['resid_mu'][dust_91bg > median_dust],
-                       xerr=tb_91bg['hostMass_err'][dust_91bg > median_dust],
-                       yerr=tb_91bg['resid_mu_err'][dust_91bg > median_dust],
-                       marker='s', alpha=1, color='C9', fmt='o', ms=6, elinewidth=0.8,
-                       label='$A_{V=50} > Median$ ('+f'{round(median_dust,2)})')
-    axs[1, 1].hist(tb_91bg['resid_mu'], bins=20, orientation="horizontal", color=c_91bg)
+    # Plot 1991bg-like
+    sc = axs[0].scatter(tb_91bg['hostMass'], tb_91bg['resid'], c=tb_91bg['av_50'],
+                        vmin=min(tb_91bg['av_50']), vmax=max(tb_91bg['av_50']), cmap=cm,
+                        marker='o', s=55, edgecolors=c_91bg_mass, alpha=1.0, zorder=2,
+                        label='1991bg-like SNe Ia')
+    axs[0].errorbar(tb_91bg['hostMass'], tb_91bg['resid'], xerr=tb_91bg['hostMass_err'], yerr=tb_91bg['resid_err'],
+                    fmt='o', ms=1, ecolor=c_91bg_mass, alpha=1.0, zorder=1)
+    axs[1].hist(tb_91bg['resid'], bins=int((max(tb_91bg['resid']) - min(tb_91bg['resid'])) / bin_width),
+                orientation="horizontal", color=c_91bg_mass)
+
+    # Plot Normal
+    sc = axs[0].scatter(tb_norm['hostMass'], tb_norm['resid'], c=tb_norm['av_50'],
+                        vmin=min(tb_norm['av_50']), vmax=max(tb_norm['av_50']), cmap=cm,
+                        marker='s', s=55,  edgecolors=c_norm_mass, alpha=0.3, zorder=2,
+                        label='Normal SNe Ia')
+    axs[0].errorbar(tb_norm['hostMass'], tb_norm['resid'], xerr=tb_norm['hostMass_err'], yerr=tb_norm['resid_err'],
+                    fmt='s', ms=1, ecolor=c_norm_mass, alpha=0.3, zorder=1)
+    axs[1].hist(tb_norm['resid'], bins=int((max(tb_norm['resid']) - min(tb_norm['resid'])) / bin_width),
+                orientation="horizontal", color=c_norm_mass)
+
+    # Color bar
+    plt.colorbar(sc, cax=axs[2])
+
+    # Adjust Axises
+    axs[0].set(xlim=(6, 13), ylim=(-1, 1))
+    axs[1].set(ylim=(-1, 1))
+
+    axs[1].tick_params(labelleft=False)
+    axs[2].tick_params(labelleft=False, labelbottom=False, labelright=True)
 
     # Labels
-    if label:
-        for x, y, name in zip(tb_91bg['hostMass'], tb_91bg['resid_mu'], tb_91bg['objname']):
-            axs[1, 0].text(x, y, name, ha='left', va='top', size='xx-small')
-
-    # # Plot 10dex & Median Mass Lines
-    tol = 1
-    for cut, ls, cl in zip([10, 10.55], ['-', '--'], [c_91bg_mass, c_91bg_mass]):
-        if cut == 'median': cut = np.median(tb_91bg['hostMass'])
-        lin_details = {'linestyle': ls, 'linewidth': 3, 'color': cl, 'zorder': 5}
-        mass_step_dict, resid_dict = mass_step_calc(tb_91bg['mu'], tb_91bg['mu_err'], tb_91bg['resid_mu'],
-                                                    tb_91bg['hostMass'], tb_91bg['z_cmb'], cut=cut)
-        if resid_dict['lower_resid']['value'] > resid_dict['upper_resid']['value']: mass_step_dict['value'] = \
-        mass_step_dict['value'] * -1
-        axs[1, 0].hlines(y=resid_dict['lower_resid']['value'], xmin=np.min(tb_91bg['hostMass']) - tol, xmax=cut,
-                         **lin_details)  # Left
-        axs[1, 0].hlines(y=resid_dict['upper_resid']['value'], xmin=cut, xmax=np.max(tb_91bg['hostMass']) + tol,
-                         **lin_details)  # Right
-        axs[1, 0].axvline(cut, alpha=0.75, **lin_details,
-                          label="$\gamma (M_{split}=$" + f"{round(cut, 2)}) = " +
-                                f"${round(mass_step_dict['value'], 3)} \pm {round(mass_step_dict['err'], 3)}$")
-
-    # Brount, Scolnic 2021 Dust Prediction
-    axs[1, 0].hlines(y=np.average(tb_91bg['resid_mu'][tb_91bg['hostMass'] < 10]) - 0.25,
-                     xmin=10, xmax=np.max(tb_91bg['hostMass']) + tol,
-                     label='Brout et al. 2021 (c = 0.2)', linestyle=':', linewidth=3, color='C0', zorder=5)
-
-    # Formatting
-    # -----------------------------------------------------------------------------------------------------------------
-    ## Label number of SNe and Scatter
-    axs[0, 0].text(0.04, 0.96,
-                   "Normal SNe Ia\n" +
-                   "$N_{SNe}$ = " + f"{len(tb_norm)}\n" +
-                   "$\sigma$ = " + f"{round(np.std(tb_norm['resid_mu']), 3)} mag",
-                   transform=axs[0, 0].transAxes, ha='left', va='top', fontsize=12)
-    axs[1, 0].text(0.04, 0.96,
-                   "1991bg-like SNe Ia\n" +
-                   "$N_{SNe}$ = " + f"{len(tb_91bg)}\n" +
-                   "$\sigma$ = " + f"{round(np.std(tb_91bg['resid_mu']), 3)} mag",
-                   transform=axs[1, 0].transAxes, ha='left', va='top', fontsize=12)
-
-    ## Adjust Axises
-    tol = 0.1
-    x_min = np.min(np.hstack([tb_norm['hostMass'], tb_91bg['hostMass']])) - tol
-    x_max = np.max(np.hstack([tb_norm['hostMass'], tb_91bg['hostMass']])) + tol
-    y_min = np.min(np.hstack([tb_norm['resid_mu'], tb_91bg['resid_mu']])) - tol
-    y_max = np.max(np.hstack([tb_norm['resid_mu'], tb_91bg['resid_mu']])) + tol
-    axs[0, 0].set(xlim=(x_min, x_max), ylim=(y_min, y_max))
-    axs[1, 0].set(xlim=(x_min, x_max), ylim=(y_min, y_max))
-    axs[0, 1].set(ylim=(y_min, y_max))
-    axs[1, 1].set(ylim=(y_min, y_max))
-    axs[0, 0].tick_params(labelbottom=False)
-    axs[0, 1].tick_params(labelleft=False, labelbottom=False)
-    axs[1, 1].tick_params(labelleft=False, labelbottom=False)
-    # cb = plt.colorbar(sc, ax=[axs[1, 0]], location='bottom')
-
-    ## Labels
-    axs[0, 0].set_ylabel('Hubble Residual (mag)', size=16)
-    axs[1, 0].set_ylabel('Hubble Residual (mag)', size=16)
-    axs[1, 0].set_xlabel("Host Stellar Mass ($\log M_{*}[M_{\odot}]$)", size=16)
-    axs[0, 0].legend(loc='lower left')
-    axs[1, 0].legend(loc='lower left')
+    axs[0].set_ylabel('Hubble Residual (mag)', size=16)
+    axs[0].set_xlabel("Host Stellar Mass ($\log M_{*}[M_{\odot}]$)", size=16)
+    axs[0].legend(loc='lower left')
 
     # Saving Figure
     if len(save_loc) != 0:
         print('Saved figure to... ', save_loc)
         plt.savefig(save_loc)
-    plt.show()
-    return
-def dust_mass_step():
-    fig, axs = plt.subplots(2, 2, figsize=(18, 10), gridspec_kw={'width_ratios': [10, 1]}, constrained_layout=True)
-    plt.style.use('tableau-colorblind10')
-    all_resid, all_mass = [], []
-    c_norm, c_norm_mass = 'C2', 'C3'
-    c_91bg, c_91bg_mass = 'C8', 'C1'
-
-    tb_91bg = utils.default_open('results/old/merged_params_cut.txt', True)
-    tb_norm = utils.default_open('results/old/aaronDo_salt2_params_cut.txt', True)
-    tb_dust = utils.default_open('results/old/global_dust_params.txt', True)
-
-    # Fix dust tables
-    tb_91bg.add_column(name='av_50', col=np.nan)
-    for n in tb_dust['objname']:
-        if n in tb_91bg['objname']:
-            tb_91bg['av_50'][tb_91bg['objname'] == n] = tb_dust['av_50'][tb_dust['objname'] == n]
-    tb_91bg = tb_91bg[~np.isnan(tb_91bg['av_50'])]
-
-    for tb, axis in zip([tb_91bg, tb_91bg], axs):
-        resid, resid_err = tb['mu'] - utils.current_cosmo().distmod(tb['z_cmb']).value, tb['mu_err']
-        mass, mass_err = tb['hostMass'], tb['hostMass_err']
-
-        # axis[0].errorbar(mass[tb['av_50']], resid, xerr=mass_err, yerr=resid_err, fmt='o')
-
-
-
-
-    ## Adjust Axises
-    # tol = 0.1
-    # x_min = np.min(np.hstack([tb_norm['hostMass'], tb_91bg['hostMass']])) - tol
-    # x_max = np.max(np.hstack([tb_norm['hostMass'], tb_91bg['hostMass']])) + tol
-    # y_min = np.min(np.hstack([tb_norm['resid_mu'], tb_91bg['resid_mu']])) - tol
-    # y_max = np.max(np.hstack([tb_norm['resid_mu'], tb_91bg['resid_mu']])) + tol
-    # axs[0,0].set(xlim=(x_min, x_max), ylim=(y_min, y_max))
-    # axs[1,0].set(xlim=(x_min, x_max), ylim=(y_min, y_max))
-    # axs[0,1].set(ylim=(y_min, y_max))
-    # axs[1,1].set(ylim=(y_min, y_max))
-    axs[0,0].tick_params(labelbottom=False)
-    axs[0,1].tick_params(labelleft=False, labelbottom=False)
-    axs[1,1].tick_params(labelleft=False, labelbottom=False)
-
-    ## Labels
-    axs[0,0].set_ylabel('Hubble Residual (mag)', size=16)
-    axs[1,0].set_ylabel('Hubble Residual (mag)', size=16)
-    axs[1,0].set_xlabel("Host Stellar Mass ($\log M_{*}[M_{\odot}]$)", size=16)
-    axs[0,0].legend(loc='lower left')
-    axs[1,0].legend(loc='lower left')
-
-    # Saving Figure
-    # if len(save_loc) != 0:
-    #     print('Saved figure to... ', save_loc)
-    #     plt.savefig(save_loc)
     plt.show()
     return
 
@@ -333,7 +186,7 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
     # Plot Normals
     # -----------------------------------------------------------------------------------------------------------------
     tb_norm = utils.default_open(path_norm, True)
-    tb_norm = tb_norm[tb_norm['hostMass']>7.5] # Removes the low mass Normals
+    # tb_norm = tb_norm[tb_norm['hostMass']>7.5] # Removes the low mass Normals
 
     ## Calculate Hubble Residual
     tb_norm['resid_mu'] = tb_norm['mu'] - utils.current_cosmo().distmod(tb_norm['z_cmb']).value
@@ -344,7 +197,7 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
 
     ## Scatter plot & histogram
     axs[0,0].errorbar(x=tb_norm['hostMass'], y=tb_norm['resid_mu'], xerr=tb_norm['hostMass_err'], yerr=tb_norm['resid_mu_err'],
-                      marker='o', alpha=0.5, color=c_norm, fmt='o', ms=6, elinewidth=0.8)
+                      marker='o', alpha=0.25, color=c_norm, fmt='o', ms=6, elinewidth=0.8)
     axs[0,1].hist(tb_norm['resid_mu'], bins=20, orientation="horizontal", color=c_norm)
 
     # Labels
@@ -403,8 +256,8 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
         mass_step_dict, resid_dict = mass_step_calc(tb_91bg['mu'], tb_91bg['mu_err'], tb_91bg['resid_mu'],
                                                     tb_91bg['hostMass'], tb_91bg['z_cmb'], cut=cut)
         if resid_dict['lower_resid']['value'] > resid_dict['upper_resid']['value']: mass_step_dict['value'] = mass_step_dict['value']*-1
-        axs[1, 0].hlines(y=resid_dict['lower_resid']['value'], xmin=np.min(tb_91bg['hostMass']) - tol, xmax=cut, **lin_details)  # Left
-        axs[1, 0].hlines(y=resid_dict['upper_resid']['value'], xmin=cut, xmax=np.max(tb_91bg['hostMass']) + tol, **lin_details)  # Right
+        axs[1, 0].hlines(y=resid_dict['lower_resid']['value'], xmin=-7.5, xmax=cut, **lin_details)  # Left
+        axs[1, 0].hlines(y=resid_dict['upper_resid']['value'], xmin=cut, xmax=13.5, **lin_details)  # Right
         axs[1, 0].axvline(cut, alpha=0.75, **lin_details,
                           label="$\gamma (M_{split}=$" + f"{round(cut, 2)}) = " +
                                 f"${round(mass_step_dict['value'], 3)} \pm {round(mass_step_dict['err'], 3)}$ mag")
@@ -462,17 +315,17 @@ def resid_v_mass(path_91bg: str = 'merged_params_cut.txt',
     # Formatting
     # -----------------------------------------------------------------------------------------------------------------
     ## Label number of SNe and Scatter
-    norm_mn, norm_md, norm_std = sigma_clipped_stats(tb_norm['resid_mu'])
-    sn91bg_mn, sn91bg_md, sn91bg_std = sigma_clipped_stats(tb_91bg['resid_mu'])
+    # norm_mn, norm_md, norm_std = sigma_clipped_stats(tb_norm['resid_mu'])
+    # sn91bg_mn, sn91bg_md, sn91bg_std = sigma_clipped_stats(tb_91bg['resid_mu'])
     axs[0,0].text(0.04, 0.96,
                   "Normal SNe Ia\n"+
                   "$N_{SNe}$ = "+f"{len(tb_norm)}\n"+
-                  "$\sigma$ = "+f"{round(norm_std,3)} mag\n",
+                  "$\sigma$ = "+f"{np.std(tb_norm['resid_mu']):.3f} mag\n",
                   transform=axs[0, 0].transAxes, ha='left', va='top', fontsize=12)
     axs[1,0].text(0.04, 0.96,
                   "1991bg-like SNe Ia\n" +
                   "$N_{SNe}$ = " + f"{len(tb_91bg)}\n" +
-                  "$\sigma$ = " + f"{round(sn91bg_std, 3)} mag\n",
+                  "$\sigma$ = " + f"{np.std(tb_91bg['resid_mu']):.3f} mag\n",
                   transform=axs[1, 0].transAxes, ha='left', va='top', fontsize=12)
 
     ## Adjust Axises
@@ -678,28 +531,28 @@ def alpha_beta(path_91bg: str = 'salt_params_cov_cut.txt',
 
     # 91bg-like Fit Lines
     ax[0].axline((0, minimize(get_chi2, 0.00, args=(x1_91bg, absmB_91bg, absmB_err_91bg, alpha_91bg)).x[0]),
-                 slope=alpha_91bg, color=c_91bg_line, label="$\\alpha_{1991bg\\text{-}like}" + f"={round(-1 * alpha_91bg, 2)}$", zorder=10)
+                 slope=alpha_91bg, color=c_91bg_line, label="$\\alpha_{1991bg\\text{-}like}" + f"={-1*alpha_91bg:.2f}$", zorder=10)
     ax[0].axline((0, minimize(get_chi2, 0.00, args=(x1_norm, absmB_norm, absmB_err_norm, alpha_91bg)).x[0]),
                  slope=alpha_91bg, color=c_91bg_line, linestyle='--', zorder=10)
     ax[1].axline((0, minimize(get_chi2, 0.00, args=(c_91bg, absmB_91bg, absmB_err_91bg, beta_91bg)).x[0]),
-                 slope=beta_91bg, color=c_91bg_line, label="$\\beta_{1991bg\\text{-}like}" + f"={round(beta_91bg, 2)}$", zorder=10)
+                 slope=beta_91bg, color=c_91bg_line, label="$\\beta_{1991bg\\text{-}like}" + f"={beta_91bg:.2f}$", zorder=10)
     ax[1].axline((0, minimize(get_chi2, 0.00, args=(c_norm, absmB_norm, absmB_err_norm, beta_91bg)).x[0]),
                  slope=beta_91bg, color=c_91bg_line, linestyle='--', zorder=10)
 
     # Normal Fit Lines
     ax[0].axline((0, minimize(get_chi2, 0.00, args=(x1_norm, absmB_norm, absmB_err_norm, alpha_norm)).x[0]),
-                 slope=alpha_norm, color=c_norm_line, label="$\\alpha_{Normal\\text{ }SNIa}" + f"={round(-1*alpha_norm, 2)}$", zorder=10)
+                 slope=alpha_norm, color=c_norm_line, label="$\\alpha_{Normal\\text{ }SNIa}" + f"={-1*alpha_norm:.2f}$", zorder=10)
     ax[0].axline((0, minimize(get_chi2, 0.00, args=(x1_91bg, absmB_91bg, absmB_err_91bg, alpha_norm)).x[0]),
                  slope=alpha_norm, color=c_norm_line, linestyle='--', zorder=10)
     ax[1].axline((0, minimize(get_chi2, 0.00, args=(c_norm, absmB_norm, absmB_err_norm, beta_norm)).x[0]),
-                 slope=beta_norm, color=c_norm_line, label="$\\beta_{Normal\\text{ }SNIa}"+f"={round(beta_norm, 2)}$", zorder=10)
+                 slope=beta_norm, color=c_norm_line, label="$\\beta_{Normal\\text{ }SNIa}"+f"={beta_norm:.2f}$", zorder=10)
     ax[1].axline((0, minimize(get_chi2, 0.00, args=(c_91bg, absmB_91bg, absmB_err_91bg, beta_norm)).x[0]),
                  slope=beta_norm, color=c_norm_line, linestyle='--', zorder=10)
 
     # Formatting
-    ax[0].set_xlabel('$x_1$', size=16)
-    ax[0].set_ylabel('$m_{B} - \mu$', size=16)
-    ax[1].set_xlabel('$c$', size=16)
+    ax[0].set_xlabel('$x_1$', size=18)
+    ax[0].set_ylabel('$m_{B} - \mu$', size=18)
+    ax[1].set_xlabel('$c$', size=18)
     ax[0].invert_yaxis(); ax[1].invert_yaxis()
     ax[0].legend(); ax[1].legend()
     plt.subplots_adjust(wspace=0)
@@ -711,6 +564,7 @@ def alpha_beta(path_91bg: str = 'salt_params_cov_cut.txt',
     plt.show()
     return
 def param_hist(snpy_91bg_path: str, salt_91bg_path: str, snpy_norm_path: str, salt_norm_path: str,
+               bins: list = [0.1, 0.8, 0.2, 0.15], hist_tol: list = [0.00, 0.00, 0.00, 0.00],
                line_type: str = 'median', save_loc: str = ''):
     # Set colors
     c_norm, c_norm_line = 'C2', 'C6'
@@ -746,66 +600,82 @@ def param_hist(snpy_91bg_path: str, salt_91bg_path: str, snpy_norm_path: str, sa
     plt.style.use('tableau-colorblind10')
 
     # Plot data
-    bin_num = 20
-    axs[0, 0].hist(tb_snpy_norm['stretch'], label="$s_{BV, Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
-                   bins=bin_num)
-    axs[0, 0].hist(tb_snpy_91bg['stretch'], label="$s_{BV, 1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
-                   bins=bin_num)
+    ## sBV plot
+    sbv_binwidth = bins[0]
+    sbv_stack = np.hstack([tb_snpy_norm['stretch'], tb_snpy_91bg['stretch']])
+    axs[0, 0].hist(tb_snpy_norm['stretch'],
+                   color=c_norm,
+                   bins=np.arange(min(sbv_stack), max(sbv_stack), sbv_binwidth))
+    axs[0, 0].hist(tb_snpy_91bg['stretch'],
+                   color=c_91bg, alpha=0.75,
+                   bins=np.arange(min(sbv_stack), max(sbv_stack), sbv_binwidth))
 
-    axs[0, 1].hist(tb_snpy_norm['color'], label="$E(B-V)_{Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
-                   bins=bin_num)
-    axs[0, 1].hist(tb_snpy_91bg['color'], label="$E(B-V)_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
-                   bins=bin_num)
+    # x1 plot
+    x1_binwidth = bins[1]
+    x1_stack = np.hstack([tb_salt_norm['stretch'], tb_salt_91bg['stretch']])
+    axs[1, 0].hist(tb_salt_norm['stretch'],
+                   color=c_norm,
+                   bins=np.arange(min(x1_stack), max(x1_stack), x1_binwidth))
 
-    axs[1, 0].hist(tb_salt_norm['stretch'], label="$x_{1, Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
-                   bins=bin_num)
-    axs[1, 0].hist(tb_salt_91bg['stretch'], label="$x_{1, 1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
-                   bins=bin_num)
+    axs[1, 0].hist(tb_salt_91bg['stretch'],
+                   color=c_91bg, alpha=0.75,
+                   bins=np.arange(min(x1_stack), max(x1_stack), x1_binwidth))
 
-    axs[1, 1].hist(tb_salt_norm['color'], label="$c_{Normal\\text{ }Ia\\text{ }SNe}$", color=c_norm,
-                   bins=bin_num)
-    axs[1, 1].hist(tb_salt_91bg['color'], label="$c_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$", color=c_91bg, alpha=0.75,
-                   bins=bin_num)
+    # EBVhost plot
+    ebvhost_binwidth = bins[2]
+    ebvhost_stack = np.hstack([tb_snpy_norm['color'], tb_snpy_91bg['color']])
+    axs[0, 1].hist(tb_snpy_norm['color'],
+                   color=c_norm,
+                   bins=np.arange(min(ebvhost_stack), max(ebvhost_stack), ebvhost_binwidth))
+    axs[0, 1].hist(tb_snpy_91bg['color'],
+                   color=c_91bg, alpha=0.75,
+                   bins=np.arange(min(ebvhost_stack), max(ebvhost_stack), ebvhost_binwidth))
 
-    # Plot median/average lines
+    # c plot
+    c_binwidth = bins[3]
+    c_stack = np.hstack([tb_salt_norm['color'], tb_salt_91bg['color']])
+    axs[1, 1].hist(tb_salt_norm['color'],
+                   color=c_norm,
+                   bins=np.arange(min(c_stack), max(c_stack), c_binwidth))
+    axs[1, 1].hist(tb_salt_91bg['color'],
+                   color=c_91bg, alpha=0.75,
+                   bins=np.arange(min(c_stack), max(c_stack), c_binwidth))
+
     if line_type == 'median':
         line_type = line_type[0].upper() + line_type[1:]
 
         axs[0, 0].axvline(np.median(tb_snpy_norm['stretch']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.median(tb_snpy_norm['stretch']), 3)}$")
+                                f" = ${np.median(tb_snpy_norm['stretch']):.4f}$") # f" = ${round(np.median(tb_snpy_norm['stretch']), 3)}$")
         axs[0, 0].axvline(np.median(tb_snpy_91bg['stretch']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.median(tb_snpy_91bg['stretch']), 3)}$")
-
+                                f" = ${np.median(tb_snpy_91bg['stretch']):.4f}$")
         axs[0, 1].axvline(np.median(tb_snpy_norm['color']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.median(tb_snpy_norm['color']), 3)}$")
+                                f" = ${np.median(tb_snpy_norm['color']):.4f}$")
         axs[0, 1].axvline(np.median(tb_snpy_91bg['color']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.median(tb_snpy_91bg['color']), 3)}$")
-
+                                f" = ${np.median(tb_snpy_91bg['color']):.4f}$")
         axs[1, 0].axvline(np.median(tb_salt_norm['stretch']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.median(tb_salt_norm['stretch']), 3)}$")
+                                f" = ${np.median(tb_salt_norm['stretch']):.4f}$")
         axs[1, 0].axvline(np.median(tb_salt_91bg['stretch']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.median(tb_salt_91bg['stretch']), 3)}$")
-
+                                f" = ${np.median(tb_salt_91bg['stretch']):.4f}$")
         axs[1, 1].axvline(np.median(tb_salt_norm['color']), color=c_norm_line, linestyle='--', linewidth=3,
                           label=f"{line_type}"+
                                 "$_{Normal\\text{ }Ia\\text{ }SNe}$"+
-                                f" = ${round(np.median(tb_salt_norm['color']), 3)}$")
+                                f" = ${np.median(tb_salt_norm['color']):.4f}$")
         axs[1, 1].axvline(np.median(tb_salt_91bg['color']), color=c_91bg_line, linestyle=':', linewidth=3,
                           label=f"{line_type}" +
                                 "$_{1991bg\\text{-}like\\text{ }Ia\\text{ }SNe}$" +
-                                f" = ${round(np.median(tb_salt_91bg['color']), 3)}$")
+                                f" = ${np.median(tb_salt_91bg['color']):.4f}$")
     elif line_type == 'average':
         line_type = line_type[0].upper() + line_type[1:]
 
@@ -855,30 +725,35 @@ def param_hist(snpy_91bg_path: str, salt_91bg_path: str, snpy_norm_path: str, sa
 
     # Enable legends
     axs[0, 0].legend(loc='upper right')
-    axs[0, 1].legend(loc='upper right')
+    axs[0, 1].legend(loc='upper left')
     axs[1, 0].legend(loc='upper right')
-    axs[1, 1].legend(loc='upper right')
+    axs[1, 1].legend(loc='upper left')
 
     # Set labels
-    axs[0, 0].set_ylabel('SNooPy\n$N_{SNe}$', size=16)
-    axs[1, 0].set_ylabel('SALT3\n$N_{SNe}$', size=16)
-    axs[1, 0].set_xlabel('Stretch', size=16)
-    axs[1, 1].set_xlabel('Color', size=16)
+    axs[0, 0].set_ylabel('SNooPy\n$N_{SNe}$', size=18)
+    axs[1, 0].set_ylabel('SALT3\n$N_{SNe}$', size=18)
+    axs[0, 0].set_xlabel('$s_{BV}$', size=18)
+    axs[0, 1].set_xlabel('$E(B-V)_{host}$', size=18)
+    axs[1, 0].set_xlabel('$x_1$', size=18)
+    axs[1, 1].set_xlabel('$c$', size=18)
 
     # Adjust formatting
     axs[0, 1].tick_params(labelleft=False, labelright=True)
     axs[1, 1].tick_params(labelleft=False, labelright=True)
 
     # Adjust bounds
-    tol = 0.3
-    axs[0, 0].set_xlim(-1 * np.max(np.hstack([tb_snpy_norm['stretch'], tb_snpy_91bg['stretch']])) + 1 - tol,
-                       np.max(np.hstack([tb_snpy_norm['stretch'], tb_snpy_91bg['stretch']])) + 1 + tol)
-    axs[1, 0].set_xlim(-1 * np.max(np.hstack([tb_salt_norm['stretch'], tb_salt_91bg['stretch']])) - tol,
-                       np.max(np.hstack([tb_salt_norm['stretch'], tb_salt_91bg['stretch']])) + tol)
-    axs[0, 1].set_xlim(-1*np.max(np.hstack([tb_snpy_norm['color'], tb_snpy_91bg['color']])) - tol,
-                       np.max(np.hstack([tb_snpy_norm['color'], tb_snpy_91bg['color']])) + tol)
-    axs[1, 1].set_xlim(-1*np.max(np.hstack([tb_salt_norm['color'], tb_salt_91bg['color']])) - tol,
-                       np.max(np.hstack([tb_salt_norm['color'], tb_salt_91bg['color']])) + tol)
+    ## sBV
+    axs[0, 0].set_xlim(((np.std(tb_snpy_91bg['stretch'] - np.average(tb_snpy_91bg['stretch']))*-2.9) - hist_tol[0]) + 1,
+                       ((np.std(tb_snpy_91bg['stretch'] - np.average(tb_snpy_91bg['stretch']))*2.9) + hist_tol[0]) + 1)
+    ## x1
+    axs[1, 0].set_xlim(np.std(tb_salt_91bg['stretch'] - np.average(tb_salt_91bg['stretch']))*-2.9 - hist_tol[1],
+                       np.std(tb_salt_91bg['stretch'] - np.average(tb_salt_91bg['stretch']))*2.9 + hist_tol[1])
+    ## EBVhost
+    axs[0, 1].set_xlim(np.std(tb_snpy_91bg['color'] - np.average(tb_snpy_91bg['color']))*-2.9 - hist_tol[2],
+                       np.std(tb_snpy_91bg['color'] - np.average(tb_snpy_91bg['color']))*2.9 + hist_tol[2])
+    ## c
+    axs[1, 1].set_xlim(np.std(tb_salt_91bg['color'][np.abs(tb_salt_91bg['color'])<2] - np.average(tb_salt_91bg['color'][np.abs(tb_salt_91bg['color'])<2]))*-2.9 - hist_tol[3],
+                       np.std(tb_salt_91bg['color'][np.abs(tb_salt_91bg['color'])<2] - np.average(tb_salt_91bg['color'][np.abs(tb_salt_91bg['color'])<2]))*2.9 + hist_tol[3])
 
     if len(save_loc) > 0:
         print(f"Saved figure to...  {save_loc}")
@@ -1223,20 +1098,20 @@ def params_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.tx
                           p_label=p_label, p_color=p_color)
 
     # Formatting ======================================================================================================
-    axs[0, 0].set_ylabel('SNooPy\n Hubble Residual Scatter, $\sigma$', size=16)
-    axs[0, 0].set_xlabel('Binned SNooPy $s_{BV}$', size=16)
-    axs[0, 1].set_xlabel('Binned SNooPy $E(B-V)_{host}$', size=16)
-    axs[1, 0].set_ylabel('SALT3\n Hubble Residual Scatter, $\sigma$', size=16)
-    axs[1, 0].set_xlabel('Binned SALT3 $x_1$', size=16)
-    axs[1, 1].set_xlabel('Binned SALT3 $c$', size=16)
+    axs[0, 0].set_ylabel('SNooPy\n Hubble Residual Scatter, $\sigma$', size=20)
+    axs[0, 0].set_xlabel('Binned SNooPy $s_{BV}$', size=20)
+    axs[0, 1].set_xlabel('Binned SNooPy $E(B-V)_{host}$', size=20)
+    axs[1, 0].set_ylabel('SALT3\n Hubble Residual Scatter, $\sigma$', size=20)
+    axs[1, 0].set_xlabel('Binned SALT3 $x_1$', size=20)
+    axs[1, 1].set_xlabel('Binned SALT3 $c$', size=20)
     axs[0, 0].legend(loc='upper left')
     axs[0, 1].legend(loc='upper left')
     axs[1, 0].legend(loc='upper left')
     axs[1, 1].legend(loc='upper left')
-    # axs[0, 0].set_ylim(0, 0.3)
-    # axs[0, 1].set_ylim(0, 0.3)
-    # axs[1, 0].set_ylim(0, 0.3)
-    # axs[1, 1].set_ylim(0, 0.3)
+    axs[0, 0].set_ylim(0, 0.5)
+    axs[0, 1].set_ylim(0, 0.5)
+    axs[1, 0].set_ylim(0, 0.5)
+    axs[1, 1].set_ylim(0, 0.5)
     axs[0, 1].tick_params(labelleft=False)
     axs[1, 1].tick_params(labelleft=False)
 
@@ -1248,7 +1123,7 @@ def params_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.tx
     return
 def dust_v_scatter(path_91bg: str = 'results/old/merged_params_cut.txt',
                    path_norm: str = 'results/old/redNormSNe.txt',
-                   path_dust: str = 'results/old/global_dust_params.txt',
+                   path_dust: str = 'txts/global_dust_params.txt',
                    bin_num: int = 20, bin_bounds: list = [0.1, 6.3], hist_bins: int = 20,
                    label: bool = True, save_loc: str = ''):
     fig, axs = plt.subplots(2, 1, figsize=(16, 9), constrained_layout=True, height_ratios=[10, 2])
@@ -1259,10 +1134,10 @@ def dust_v_scatter(path_91bg: str = 'results/old/merged_params_cut.txt',
     tb_91bg = utils.default_open(path_91bg, True)
     tb_norm = utils.default_open(path_norm, True)
     tb_dust = utils.default_open(path_dust, True)
-    tb_red_norm = tb_norm[tb_norm['color'] > 0.15]
+    # tb_red_norm = tb_norm[tb_norm['color'] > 0.15]
 
-    for tb, lb, cl in zip([tb_91bg, tb_red_norm],
-                          ["1991bg-like SNe Ia", "Normal SNe (c > 0.15)"],
+    for tb, lb, cl in zip([tb_91bg, tb_norm],
+                          ["1991bg-like SNe Ia", "Normal SNe"],
                           [c_91bg, c_norm]):
         # Get associated dust values
         dust = np.array([])
@@ -1309,6 +1184,8 @@ def dust_v_scatter(path_91bg: str = 'results/old/merged_params_cut.txt',
                          ha='left', va='bottom', size='small')
 
     # STD of entire data set
+    all_91bg_resid = tb_91bg['mu'].astype(float) - utils.current_cosmo().distmod(tb_91bg['z_cmb'].astype(float)).value
+    print(np.std(all_91bg_resid))
     axs[0].axhline(np.std(resid),
                    label=f'Total Hubble Residual Scatter, $\sigma$ = {round(np.std(resid), 3)}',
                    color='C3')

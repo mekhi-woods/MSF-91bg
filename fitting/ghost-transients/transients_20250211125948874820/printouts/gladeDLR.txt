@@ -1,8 +1,0 @@
-
- transient = \
-SN2022zvu
-offset/DLR = \
-{'WISEA J095351.03-074733.7': 0.03, 'WISEA J095428.70-074235.9': 113.25}
-candidate semi-major axis = \
-{'WISEA J095351.03-074733.7': 37.77, 'WISEA J095428.70-074235.9': 7.89}
-Selecting GLADE host: WISEA J095351.03-074733.7

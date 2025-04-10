@@ -1,8 +1,0 @@
-
- transient = \
-SN2006ax
-offset/DLR = \
-{'NGC 3663': 1.39}
-candidate semi-major axis = \
-{'NGC 3663': 40.38}
-Selecting GLADE host: NGC 3663

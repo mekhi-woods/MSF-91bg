@@ -1,8 +1,0 @@
-
- transient = \
-SN2008cc
-offset/DLR = \
-{'PGC1 0066000 GROUP': 0.27}
-candidate semi-major axis = \
-{'PGC1 0066000 GROUP': 32.82}
-Selecting GLADE host: PGC1 0066000 GROUP

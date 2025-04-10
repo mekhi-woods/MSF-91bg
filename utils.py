@@ -1,4 +1,5 @@
 import os
+import glob
 import json
 import time
 import requests
@@ -6,7 +7,6 @@ import numpy as np
 from astropy.table import Table
 from collections import OrderedDict
 from astropy.cosmology import FlatLambdaCDM
-
 
 def get_apikeys(apikeys_loc: str = 'txts/api_keys.txt') -> dict:
     """
@@ -222,7 +222,7 @@ def default_open(path: str, table_mode: bool = False, delimiter: str = ', '):
     else:
         hdr, data = data[0, :], data[1:, :]
         for i in range(len(hdr)):
-            if hdr[i] in ['objname', 'origin', 'algo', 'subtype', 'hostMass', 'hostMass_err']: continue
+            if hdr[i] in ['objname', 'origin', 'algo', 'subtype', 'hostMass', 'hostMass_err', 'z_err', 'chisquare']: continue
             data[:, i] = data[:, i].astype(float)
         if table_mode:
             var_table = Table()
@@ -233,64 +233,3 @@ def default_open(path: str, table_mode: bool = False, delimiter: str = ', '):
             return var_table
         else:
             return hdr.tolist(), data
-def get_twomass():
-    if not os.path.exists('twomass++_velocity_LH11.npy'):
-        raise FileNotFoundError('[!!!] TwoMass velocities file "twomass++_velocity_LH11.npy" not found! '
-                                'Please download from the follow...\n'
-                                "https://drive.usercontent.google.com/download?id=1DGcWQPgmI2ZoHJm_zCqyscogmWwY7lQu&"
-                                "export=download&authuser=0")
-    return
-def verify_downloads(combined_tarlist_path: str, source: str, subtype: str):
-    """
-    :param combined_tarlist_path: Target list of several sources (CSP/ATLAS/ZTF)
-    :param source: Selected source to check for (CSP/ATLAS)
-    :param subtype: Wether to check for 1991bg-like or Normals
-    :return: None
-    """
-    print(f"[+++] Verifying downloaded '{source}' '{subtype}' files via {combined_tarlist_path}...")
-    tarlist = np.genfromtxt(combined_tarlist_path, delimiter=',', dtype=str, skip_header=1)
-    tb = Table(names=tarlist[0], data=tarlist[1:])
-    list_sne = []
-    for i, row in enumerate(tb):
-        n = row['Name'][3:]
-        # Path verification
-        if subtype.lower() not in ['91bg', 'norm']:
-            print(f"[!!!] '{subtype}' is an invalid 'subtype' selection!")
-            return
-        path = f"data/{source.upper()}-{subtype.lower()}/{source.upper()}{n}.txt"
-
-        # Check path
-        if os.path.exists(path):
-            list_sne.append(n)
-            # print(f"[{len(list_sne)}] {n} exists in {source} download path!")
-    if len(list_sne) > 0:
-        print(f"      {len(list_sne)} '{source}' files identified out of {len(tb)} '{subtype}' files in target list. "
-              f"({len(list_sne)} / {len(tb)})")
-        return True
-    else:
-        print(f"[!!!] Missing data for '{source}' '{subtype}'!")
-        return False
-def verifiy_overlap():
-    tarlist_91bg = np.genfromtxt('txts/target_files/tarlist_CSP-ATLAS-ZTF_91bg.csv',
-                                 delimiter=',', skip_header=1, dtype=str)
-    tb_91bg = Table(names=tarlist_91bg[0], data=tarlist_91bg[1:])
-    tarlist_norm = np.genfromtxt('txts/target_files/tarlist_CSP-ATLAS_norm.csv',
-                                 delimiter=',', skip_header=1, dtype=str)
-    tb_norm = Table(names=tarlist_norm[0], data=tarlist_norm[1:])
-
-    for tb, lb in zip([tb_91bg, tb_norm], ['1991bg-like', 'Normal']):
-        print(f'[~~~] Verifying overlap for {lb} SNe...')
-        tb_CSP = tb[tb['Source'] == 'CSP']
-        tb_ATLAS = tb[tb['Source'] == 'ATLAS']
-        tb_ZTF = tb[tb['Source'] == 'ZTF']
-
-        for n in tb['Name']:
-            if (n in list(tb_CSP['Name'])) and (n in list(tb_ATLAS['Name'])):
-                print(n, "CSP+ATLAS")
-            elif (n in list(tb_CSP['Name'])) and (n in list(tb_ZTF['Name'])):
-                print(n, "CSP+ZTF")
-            elif (n in list(tb_ATLAS['Name'])) and (n in list(tb_ZTF['Name'])):
-                print(n, "ATLAS+ZTF")
-            else:
-                pass
-    return

@@ -1,8 +1,0 @@
-
- transient = \
-SN2024lxm
-offset/DLR = \
-{491097970: 8.44}
-candidate semi-major axis = \
-{491097970: 3.0}
-No host chosen! r/DLR > 5.0.

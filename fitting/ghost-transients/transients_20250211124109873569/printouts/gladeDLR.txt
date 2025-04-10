@@ -1,8 +1,0 @@
-
- transient = \
-SN2023yrs
-offset/DLR = \
-{'ESO 489- G 057': 0.49, 'WISEA J062714.23-243931.9': 13.1, '2MFGC 05183': 9.14, 'WISEA J062730.41-242942.0': 45.92}
-candidate semi-major axis = \
-{'ESO 489- G 057': 20.73, 'WISEA J062714.23-243931.9': 25.53, '2MFGC 05183': 21.72, 'WISEA J062730.41-242942.0': 16.11}
-Selecting GLADE host: ESO 489- G 057

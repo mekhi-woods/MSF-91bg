@@ -1,8 +1,0 @@
-
- transient = \
-SN2024hue
-offset/DLR = \
-{'WISEA J140606.67-313136.0': 8.6}
-candidate semi-major axis = \
-{'WISEA J140606.67-313136.0': 15.03}
-No host chosen! r/DLR > 5.0.

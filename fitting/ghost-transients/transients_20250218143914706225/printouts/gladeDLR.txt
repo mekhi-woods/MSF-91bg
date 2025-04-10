@@ -1,8 +1,0 @@
-
- transient = \
-SN2009ab
-offset/DLR = \
-{'UGC 02998 GROUP': 1.33}
-candidate semi-major axis = \
-{'UGC 02998 GROUP': 29.67}
-Selecting GLADE host: UGC 02998 GROUP

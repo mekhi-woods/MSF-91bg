@@ -1,8 +1,0 @@
-
- transient = \
-SN2024afbe
-offset/DLR = \
-{'NGC 3183': 4.74}
-candidate semi-major axis = \
-{'NGC 3183': 49.71}
-Selecting GLADE host: NGC 3183

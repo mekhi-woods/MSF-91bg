@@ -1,8 +1,0 @@
-
- transient = \
-SN2007ax
-offset/DLR = \
-{'NGC 2577': 0.23, 'UGC 04375': 13.88, '2MASX J08222312+2241484': 54.04}
-candidate semi-major axis = \
-{'NGC 2577': 39.48, 'UGC 04375': 53.25, '2MASX J08222312+2241484': 10.89}
-Selecting GLADE host: NGC 2577

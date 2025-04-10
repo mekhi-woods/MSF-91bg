@@ -1,8 +1,0 @@
-
- transient = \
-SN2023bhm
-offset/DLR = \
-{'NGC 1642': 0.05, 'UGC 03141 NED01': 26.87}
-candidate semi-major axis = \
-{'NGC 1642': 38.58, 'UGC 03141 NED01': 18.48}
-Selecting GLADE host: NGC 1642

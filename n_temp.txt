@@ -1,3 +1,0 @@
-# Created by M.D. Woods -- 2025-03-13 10:47:02.154749 -- NUM TARGETS: 1
-# WARNING: For files with SNPY & SALT, the 'stretch' and 'color' are NOT identical.
-objname, origin, subtype, algo, ra, dec, z, z_cmb, MJDs, MJDe, mu, mu_err, hostMass, hostMass_err, Tmax, Tmax_err, stretch, stretch_err, color, color_err, amplitude, amplitude_err, peak_mag, peak_mag_err

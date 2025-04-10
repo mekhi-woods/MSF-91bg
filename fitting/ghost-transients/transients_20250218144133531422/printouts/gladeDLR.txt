@@ -1,8 +1,0 @@
-
- transient = \
-SN2007af
-offset/DLR = \
-{'NGC 5584': 0.79}
-candidate semi-major axis = \
-{'NGC 5584': 71.82}
-Selecting GLADE host: NGC 5584

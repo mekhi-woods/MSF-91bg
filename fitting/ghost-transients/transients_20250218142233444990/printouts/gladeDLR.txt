@@ -1,8 +1,0 @@
-
- transient = \
-SN2008R
-offset/DLR = \
-{'NGC 1195': 27.79, 'NGC 1196': 12.26, 'NGC 1200': 0.3, 'IC 0285': 8.49}
-candidate semi-major axis = \
-{'NGC 1195': 12.78, 'NGC 1196': 33.6, 'NGC 1200': 62.58, 'IC 0285': 25.5}
-Selecting GLADE host: NGC 1200

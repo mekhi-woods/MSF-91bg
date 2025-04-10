@@ -1,8 +1,0 @@
-
- transient = \
-SN2005lu
-offset/DLR = \
-{'2MASS J02360349-1715396': 4.95}
-candidate semi-major axis = \
-{'2MASS J02360349-1715396': 2.43}
-Selecting GLADE host: 2MASS J02360349-1715396

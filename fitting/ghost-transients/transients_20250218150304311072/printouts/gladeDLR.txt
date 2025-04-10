@@ -1,8 +1,0 @@
-
- transient = \
-SN2024gjd
-offset/DLR = \
-{'Leo III': 6.09}
-candidate semi-major axis = \
-{'Leo III': 153.0}
-No host chosen! r/DLR > 5.0.

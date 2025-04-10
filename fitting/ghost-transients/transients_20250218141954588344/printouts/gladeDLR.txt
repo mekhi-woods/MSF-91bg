@@ -1,8 +1,0 @@
-
- transient = \
-SN2006kf
-offset/DLR = \
-{'UGC 02829': 1.27}
-candidate semi-major axis = \
-{'UGC 02829': 22.2}
-Selecting GLADE host: UGC 02829

@@ -1,8 +1,0 @@
-
- transient = \
-SN2022xkq
-offset/DLR = \
-{'NGC 1784': 0.93}
-candidate semi-major axis = \
-{'NGC 1784': 90.45}
-Selecting GLADE host: NGC 1784

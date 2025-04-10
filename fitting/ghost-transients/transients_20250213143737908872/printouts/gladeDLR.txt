@@ -1,8 +1,0 @@
-
- transient = \
-SN2009Y
-offset/DLR = \
-{'NGC 5728': 0.35}
-candidate semi-major axis = \
-{'NGC 5728': 68.61}
-Selecting GLADE host: NGC 5728

@@ -1,8 +1,0 @@
-
- transient = \
-SN2007A
-offset/DLR = \
-{'NGC 0105': 0.45}
-candidate semi-major axis = \
-{'NGC 0105': 24.36}
-Selecting GLADE host: NGC 0105

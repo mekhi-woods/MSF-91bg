@@ -1,8 +1,0 @@
-
- transient = \
-SN2006X
-offset/DLR = \
-{'': 26.65, 'IC 0783A': 31.64, 'NGC 4321': 0.29, 'NGC 4323': 16.3, 'NGC 4328': 14.09}
-candidate semi-major axis = \
-{'': 33.66, 'IC 0783A': 22.77, 'NGC 4321': 164.58, 'NGC 4323': 36.9, 'NGC 4328': 27.3}
-Selecting GLADE host: NGC 4321

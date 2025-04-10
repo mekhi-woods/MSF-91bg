@@ -1,8 +1,0 @@
-
- transient = \
-SN2005ki
-offset/DLR = \
-{'NGC 3332': 2.22, 'WISEA J104026.15+091536.7': 35.58, 'SDSS J104008.76+091628.8': 30.24}
-candidate semi-major axis = \
-{'NGC 3332': 32.1, 'WISEA J104026.15+091536.7': 7.35, 'SDSS J104008.76+091628.8': 14.04}
-Selecting GLADE host: NGC 3332

@@ -1,8 +1,0 @@
-
- transient = \
-SN2007le
-offset/DLR = \
-{'GALEXASC J233848.40-063104.6': 0.31}
-candidate semi-major axis = \
-{'GALEXASC J233848.40-063104.6': 65.52}
-Selecting GLADE host: GALEXASC J233848.40-063104.6

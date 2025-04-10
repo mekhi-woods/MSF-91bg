@@ -1,8 +1,0 @@
-
- transient = \
-SN2008hv
-offset/DLR = \
-{'NGC 2765': 0.99}
-candidate semi-major axis = \
-{'NGC 2765': 43.29}
-Selecting GLADE host: NGC 2765

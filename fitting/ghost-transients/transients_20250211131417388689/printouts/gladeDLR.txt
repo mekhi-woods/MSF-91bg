@@ -1,8 +1,0 @@
-
- transient = \
-SN2021bls
-offset/DLR = \
-{'NGC 6223': 1.77}
-candidate semi-major axis = \
-{'NGC 6223': 75.21}
-Selecting GLADE host: NGC 6223
