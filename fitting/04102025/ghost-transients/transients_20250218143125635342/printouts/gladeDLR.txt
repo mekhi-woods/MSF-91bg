@@ -1,0 +1,8 @@
+
+ transient = \
+SN2007on
+offset/DLR = \
+{'NGC 1399': 3.77, 'NGC 1404': 0.81, 'LSBG F358-043': 48.84, 'FCCB 1241': 53.21}
+candidate semi-major axis = \
+{'NGC 1399': 143.34, 'NGC 1404': 86.37, 'LSBG F358-043': 10.17, 'FCCB 1241': 12.51}
+Selecting GLADE host: NGC 1404

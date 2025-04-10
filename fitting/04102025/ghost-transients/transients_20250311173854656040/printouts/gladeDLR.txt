@@ -1,0 +1,8 @@
+
+ transient = \
+SN2008fp
+offset/DLR = \
+{'PGC1 0020551 GROUP': 0.67, '2MASS J07170815-2922562': 79.3}
+candidate semi-major axis = \
+{'PGC1 0020551 GROUP': 36.87, '2MASS J07170815-2922562': 40.47}
+Selecting GLADE host: PGC1 0020551 GROUP

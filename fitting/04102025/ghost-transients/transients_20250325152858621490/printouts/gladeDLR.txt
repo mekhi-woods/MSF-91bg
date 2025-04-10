@@ -1,0 +1,8 @@
+
+ transient = \
+SN2006ej
+offset/DLR = \
+{'VIII Zw 032': inf, 'NGC 0191': 1.83, 'NGC 0191A': 0.85}
+candidate semi-major axis = \
+{'VIII Zw 032': 31.53, 'NGC 0191': 31.35, 'NGC 0191A': 26.13}
+Selecting GLADE host: NGC 0191A

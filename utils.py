@@ -1,4 +1,5 @@
 import os
+import glob
 import json
 import time
 import requests
@@ -240,7 +241,7 @@ def get_twomass():
                                 "https://drive.usercontent.google.com/download?id=1DGcWQPgmI2ZoHJm_zCqyscogmWwY7lQu&"
                                 "export=download&authuser=0")
     return
-def verify_downloads(combined_tarlist_path: str, source: str, subtype: str):
+def old_verify_downloads(combined_tarlist_path: str, source: str, subtype: str):
     """
     :param combined_tarlist_path: Target list of several sources (CSP/ATLAS/ZTF)
     :param source: Selected source to check for (CSP/ATLAS)
@@ -270,6 +271,38 @@ def verify_downloads(combined_tarlist_path: str, source: str, subtype: str):
     else:
         print(f"[!!!] Missing data for '{source}' '{subtype}'!")
         return False
+def verify_downloads(combined_tarlist_path: str, source: str, subtype: str):
+    print(f"[+++] Verifying downloaded '{source}' '{subtype}' files via {combined_tarlist_path}...")
+
+    tarlist = np.genfromtxt(combined_tarlist_path, delimiter=',', dtype=str, skip_header=1)
+    tb_tarlist = Table(names=tarlist[0], data=tarlist[1:])
+    tb_source = tb_tarlist[tb_tarlist['Data Source(s)'] == source]
+
+    count = 0
+    missing = []
+    for row in tb_source:
+        name = row['Name'][3:]
+
+        if source == 'ATLAS+ZTF':
+            atlas_file = f"data/ATLAS-{subtype}/ATLAS{name}.txt"
+            ztf_file = f"data/ZTF-{subtype}/ZTF{name}.txt"
+            if os.path.exists(atlas_file) and os.path.exists(ztf_file):
+                count += 1
+            elif os.path.exists(atlas_file):
+                missing.append(f"ZTF{name}")
+            else:
+                missing.append(f"ATLAS{name}")
+        else:
+            n_file = f"data/{source}-{subtype}/{source}{name}.txt"
+            if os.path.exists(n_file):
+                count += 1
+            else:
+                missing.append(name)
+
+    print(f"      ({count}/{len(tb_source)}) {count} files found out of {len(tb_source)} expected from target file.")
+    if len(missing) > 0:
+        print(f"      ({len(missing)}/{len(tb_source)}) {len(missing)} files missing: {missing}")
+    return
 def verifiy_overlap():
     tarlist_91bg = np.genfromtxt('txts/target_files/tarlist_CSP-ATLAS-ZTF_91bg.csv',
                                  delimiter=',', skip_header=1, dtype=str)

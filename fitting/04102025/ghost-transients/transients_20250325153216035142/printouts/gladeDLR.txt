@@ -1,0 +1,8 @@
+
+ transient = \
+SN2004eo
+offset/DLR = \
+{'WISEA J203236.61+095259.1': 69.03, 'NGC 6927': 48.55, 'NGC 6928': 2.1, 'NGC 6930': 11.7}
+candidate semi-major axis = \
+{'WISEA J203236.61+095259.1': 7.17, 'NGC 6927': 11.4, 'NGC 6928': 45.33, 'NGC 6930': 26.07}
+Selecting GLADE host: NGC 6928

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024aexz
+offset/DLR = \
+{'UGC 06219': 43.93, 'CGCG 096-007': 42.04}
+candidate semi-major axis = \
+{'UGC 06219': 26.07, 'CGCG 096-007': 21.24}
+No host chosen! r/DLR > 5.0.

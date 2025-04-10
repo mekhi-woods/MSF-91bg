@@ -1,0 +1,10 @@
+
+ transient = \
+SN2022vse
+offset/DLR = \
+{502119388: 26.39, 502119446: 3.52, 502119447: 5.43, 502119448: 1.48}
+candidate semi-major axis = \
+{502119388: 1.87, 502119446: 3.12, 502119447: 2.82, 502119448: 3.39}
+Choosing the galaxy with the smallest DLR - nearest source had DLR > 1!
+Issue with DLR. Try Gradient Descent!
+60.337179 -54.756293

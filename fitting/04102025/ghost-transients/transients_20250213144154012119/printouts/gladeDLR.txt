@@ -1,0 +1,8 @@
+
+ transient = \
+SN2008ia
+offset/DLR = \
+{'ESO 125- G 006': 0.17}
+candidate semi-major axis = \
+{'ESO 125- G 006': 36.9}
+Selecting GLADE host: ESO 125- G 006

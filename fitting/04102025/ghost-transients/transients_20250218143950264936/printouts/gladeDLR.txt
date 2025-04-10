@@ -1,0 +1,8 @@
+
+ transient = \
+SN2009ds
+offset/DLR = \
+{'NGC 3905': 0.36}
+candidate semi-major axis = \
+{'NGC 3905': 38.58}
+Selecting GLADE host: NGC 3905

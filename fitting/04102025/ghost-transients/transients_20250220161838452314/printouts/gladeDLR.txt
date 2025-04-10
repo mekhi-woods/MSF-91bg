@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020mfd
+offset/DLR = \
+{'2MASS J17170632+4050422': 19.01}
+candidate semi-major axis = \
+{'2MASS J17170632+4050422': 62.58}
+No host chosen! r/DLR > 5.0.

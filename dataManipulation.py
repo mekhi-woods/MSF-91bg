@@ -513,7 +513,7 @@ def selection_criteria(path: str, subtype: str = '91bg', save_loc: str = ''):
     tb_salt = tb[tb['algo'] == 'SALT']
 
     # Cut on SNPY params
-    prev_tb = tb_snpy.copy()
+    prev_tb = vstack([tb_snpy, tb_salt])
     for f_name, d_name in zip(['EBVhost', 'st'], ['color', 'stretch']):
         for n_end in ['', '_err']:
             print(f"{f_name+n_end}: {len(tb_snpy)+len(tb_salt)} -> ", end='')
@@ -529,7 +529,7 @@ def selection_criteria(path: str, subtype: str = '91bg', save_loc: str = ''):
             prev_tb = tb_temp.copy()
 
     # Cut on SALT params
-    # prev_tb = tb_salt.copy()
+    prev_tb = vstack([tb_snpy, tb_salt])
     for f_name, d_name in zip(['c', 'x1'], ['color', 'stretch']):
         for n_end in ['', '_err']:
             print(f"{f_name+n_end}: {len(tb_snpy)+len(tb_salt)} -> ", end='')
@@ -543,7 +543,6 @@ def selection_criteria(path: str, subtype: str = '91bg', save_loc: str = ''):
             # dif_tb = list(set(list(prev_tb['objname'])).symmetric_difference(set(list(tb_temp['objname']))))
             # print(f"(x{len(dif_tb)})", dif_tb)
             prev_tb = tb_temp.copy()
-
 
     # Recombine SNPY & SALT
     tb_combined = vstack([tb_snpy, tb_salt])
@@ -609,13 +608,56 @@ def visual_inspection(path: str, save_loc: str = ''):
         "2024zls, 2025nn, 2023dk, 2022ubt, 2021bmu, 2019op, 2024zaj, 2022vse, 2023jah, 2022vse, 2021mab, "
         "2022vxf, 2022rjs, 2021gel, 2018hkw, 2022kbc, 2022abom, 2021uve, 2019moq").split(', ')
     willem_cuts = ("2022kbc, 2022abom, 2021uve, 2019moq").split(', ')
+    selected_cuts = willem_bad_fits.copy()
+
     with open(save_loc, 'w') as f:
         for line in hdr:
             print(line[:-1], file=f)
         for line in lines:
             n = line.split(', ')[0]
-            if n not in willem_bad_fits:
+            if n not in selected_cuts:
                 print(line[:-1], file=f)
+    print(f"      SNe removed ({len(selected_cuts)}): {selected_cuts}")
+    return
+def seperate_cut_data(mixed_path: str, snpy_path: str, salt_path: str, snpy_path_new: str, salt_path_new: str):
+    print(f"[~~~] Spliting data from '{mixed_path}' into SNooPy & SALT3 cut files...")
+    tb_mixed = utils.default_open(mixed_path, True)
+    tb_snpy = utils.default_open(snpy_path, True)
+    tb_salt = utils.default_open(salt_path, True)
+
+    tb_snpy_new = Table(names=tb_mixed.colnames, dtype=tb_mixed.dtype)
+    tb_salt_new = Table(names=tb_mixed.colnames, dtype=tb_mixed.dtype)
+    for name in list(tb_mixed['objname']):
+        if name in list(tb_snpy['objname']):
+            row = tb_snpy[tb_snpy['objname'] == name][0]
+            mixed_row = tb_mixed[tb_mixed['objname'] == name][0]
+            row['mu'] = mixed_row['mu']
+            row['mu_err'] = mixed_row['mu_err']
+            tb_snpy_new.add_row(row)
+        if name in list(tb_salt['objname']):
+            row = tb_salt[tb_salt['objname'] == name][0]
+            mixed_row = tb_mixed[tb_mixed['objname'] == name][0]
+            row['mu'] = mixed_row['mu']
+            row['mu_err'] = mixed_row['mu_err']
+            tb_salt_new.add_row(row)
+
+    # Save SNPY file
+    print(f"      Updating '{snpy_path_new}' ({len(tb_snpy_new)}/{len(tb_mixed)})...")
+    with open(snpy_path_new, 'w') as f:
+        print(f"# Created by M.D. Woods -- {CURRENTDATE} -- NUM TARGETS: {len(tb_snpy_new)}", file=f)
+        print(f"# WARNING: For files with SNPY & SALT, the 'stretch' and 'color' are NOT identical.", file=f)
+        print(str(tb_snpy_new.colnames)[1:-1].replace("'", ""), file=f)
+        for row in tb_snpy_new:
+            print(str(list(row))[1:-1].replace("'", ""), file=f)
+
+    # Save SALT file
+    print(f"      Updating '{salt_path_new}' ({len(tb_salt_new)}/{len(tb_mixed)})...")
+    with open(salt_path_new, 'w') as f:
+        print(f"# Created by M.D. Woods -- {CURRENTDATE} -- NUM TARGETS: {len(tb_salt_new)}", file=f)
+        print(f"# WARNING: For files with SNPY & SALT, the 'stretch' and 'color' are NOT identical.", file=f)
+        print(str(tb_salt_new.colnames)[1:-1].replace("'", ""), file=f)
+        for row in tb_salt_new:
+            print(str(list(row))[1:-1].replace("'", ""), file=f)
     return
 
 

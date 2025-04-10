@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024N
+offset/DLR = \
+{'WISEA J140509.19-294248.7': 19.44}
+candidate semi-major axis = \
+{'WISEA J140509.19-294248.7': 14.37}
+No host chosen! r/DLR > 5.0.

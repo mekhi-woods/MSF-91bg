@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024hlj
+offset/DLR = \
+{'PGC1 1697033 GROUP': 42.44}
+candidate semi-major axis = \
+{'PGC1 1697033 GROUP': 15.75}
+No host chosen! r/DLR > 5.0.

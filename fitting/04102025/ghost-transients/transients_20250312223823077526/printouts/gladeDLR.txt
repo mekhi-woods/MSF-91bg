@@ -1,0 +1,8 @@
+
+ transient = \
+SN2022aecb
+offset/DLR = \
+{'CGCG 394-055': 38.03, 'CGCG 394-056': inf, 'NGC 1709': 11.26, 'NGC 1713': 6.22, 'CGCG 394-061': 33.73, 'WISEA J045920.60-003026.9': 44.83, 'GIN 213': 53.3}
+candidate semi-major axis = \
+{'CGCG 394-055': 28.65, 'CGCG 394-056': 15.15, 'NGC 1709': 27.99, 'NGC 1713': 32.82, 'CGCG 394-061': 34.44, 'WISEA J045920.60-003026.9': 14.37, 'GIN 213': 16.5}
+No host chosen! r/DLR > 5.0.

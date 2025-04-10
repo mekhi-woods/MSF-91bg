@@ -1,0 +1,8 @@
+
+ transient = \
+SN2008bc
+offset/DLR = \
+{'ESO 091- G 017': 6.26, 'KK 1524': 1.16}
+candidate semi-major axis = \
+{'ESO 091- G 017': 29.28, 'KK 1524': 19.32}
+Selecting GLADE host: KK 1524

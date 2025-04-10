@@ -1,0 +1,8 @@
+
+ transient = \
+SN2006mr
+offset/DLR = \
+{'NGC 1316 GROUP': 0.08, 'NGC 1317': 7.27}
+candidate semi-major axis = \
+{'NGC 1316 GROUP': 243.42, 'NGC 1317': 62.55}
+Selecting GLADE host: NGC 1316 GROUP

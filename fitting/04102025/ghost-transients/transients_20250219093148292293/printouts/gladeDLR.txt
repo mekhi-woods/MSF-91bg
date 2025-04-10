@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024beq
+offset/DLR = \
+{'UGC 01980': 56.76}
+candidate semi-major axis = \
+{'UGC 01980': 23.79}
+No host chosen! r/DLR > 5.0.

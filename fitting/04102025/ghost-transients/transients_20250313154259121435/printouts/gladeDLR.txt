@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021mab
+offset/DLR = \
+{'NGC 3959': 25.81, 'NGC 3967': 0.12, '2MFGC 09354': 66.73}
+candidate semi-major axis = \
+{'NGC 3959': 23.79, 'NGC 3967': 38.64, '2MFGC 09354': 23.28}
+Selecting GLADE host: NGC 3967

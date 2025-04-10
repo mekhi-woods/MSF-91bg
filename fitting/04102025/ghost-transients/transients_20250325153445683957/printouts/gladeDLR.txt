@@ -1,0 +1,8 @@
+
+ transient = \
+SN2008cd
+offset/DLR = \
+{'NGC 5038': 0.21}
+candidate semi-major axis = \
+{'NGC 5038': 30.66}
+Selecting GLADE host: NGC 5038

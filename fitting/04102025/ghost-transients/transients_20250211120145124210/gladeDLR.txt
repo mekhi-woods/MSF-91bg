@@ -1,0 +1,8 @@
+
+ transient = \
+SN2009F
+offset/DLR = \
+{'NGC 1721': 2.15, 'NGC 1725': 0.41, 'NGC 1723': 11.49, 'NGC 1728': 3.61, 'MCG -02-13-031': 16.16, '2MFGC 04079': 66.37, '': 74.68}
+candidate semi-major axis = \
+{'NGC 1721': 50.85, 'NGC 1725': 36.0, 'NGC 1723': 70.2, 'NGC 1728': 39.48, 'MCG -02-13-031': 37.71, '2MFGC 04079': 30.0, '': 24.39}
+Selecting GLADE host: NGC 1725

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2018gro
+offset/DLR = \
+{'NGC 7227': 16.14, 'NGC 7228': 0.34, '': 23.44}
+candidate semi-major axis = \
+{'NGC 7227': 27.96, 'NGC 7228': 29.94, '': 27.93}
+Selecting GLADE host: NGC 7228

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021agnf
+offset/DLR = \
+{'CGCG 175-003': 0.94}
+candidate semi-major axis = \
+{'CGCG 175-003': 18.45}
+Selecting GLADE host: CGCG 175-003

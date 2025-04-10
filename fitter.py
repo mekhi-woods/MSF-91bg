@@ -491,7 +491,7 @@ class sneObj:
         if '91bg' in source:
             tarlist_path = 'txts/target_files/sn1991bglike_tarlist.csv'
         elif 'norm' in source:
-            tarlist_path = 'txts/target_files/normal_tarlist_new.csv'
+            tarlist_path = 'txts/target_files/normal_tarlist.csv'
 
         # Load data
         data = np.genfromtxt(tarlist_path, delimiter=',', dtype=str, skip_header=1)
@@ -876,101 +876,6 @@ class sneObj:
             self.save_class()
             return
         return
-    def test_salt_fit(self):
-        show_plot = True
-        plot_path = f"fitting/salt-plots/{self.objname}_lc.png"
-
-        CONSTANTS = utils.get_constants()
-        alpha, beta = float(CONSTANTS['salt_alpha']), float(CONSTANTS['salt_beta'])
-        mB_const, M0 = float(CONSTANTS['salt_mB_const']), float(CONSTANTS['salt_absolute_mag'])
-        try:
-            # Make sure more than one filter
-            if len(np.unique(self.filter)) < 1:
-                self.params.update({'mu': {'value': -124.0, 'err': -124.0}})
-                self.save_class()
-                print(f"[!!!] Too few filters! Can not fit {self.objname}! {np.unique(self.filter)}")
-                return
-
-            # Fix filters
-            filter_dict = {'u': 'cspu', 'g': 'cspg', 'r': 'cspr', 'i': 'cspi', 'B': 'cspB',
-                           'V0': 'cspv3014', 'V1': 'cspv3009', 'V': 'cspv9844', 'Y': 'cspys',
-                           'J': 'cspjs', 'Jrc2': 'cspjd', 'Jdw': 'cspjd', 'Ydw': 'cspyd', 'Hdw': 'csphd', 'H': 'csphs',
-                           'c': 'atlasc', 'o': 'atlaso', 'ZTF_g': 'ztfg', 'ZTF_r': 'ztfr', 'ZTF_i': 'ztfi',
-                           'zg': 'ztfg', 'zr': 'ztfr', 'zi': 'ztfi'}
-            salt_time, salt_filters, salt_flux = np.array([]), np.array([]), np.array([])
-            salt_dflux, salt_zp = np.array([]), np.array([])
-
-            for i in range(len(self.filter)):
-                if self.origin.split('-')[0] == 'csp' and self.filter[i] in ['u', 'Y', 'J', 'H', 'Jrc2', 'Ydw']:
-                    continue
-                salt_time = np.append(salt_time, self.mjd[i])
-                salt_filters = np.append(salt_filters, filter_dict[self.filter[i]])
-                salt_flux = np.append(salt_flux, self.flux[i])
-                salt_dflux = np.append(salt_dflux, self.dflux[i])
-                salt_zp = np.append(salt_zp, self.zp[i])
-            print('[~~~]', np.unique(self.filter), '->', np.unique(salt_filters))
-
-            data = Table([salt_time, salt_filters, salt_flux, salt_dflux, salt_zp, np.full(len(salt_time), 'ab')],
-                         names=('time', 'band', 'flux', 'fluxerr', 'zp', 'zpsys'))
-
-            if len(np.unique(data['band'])) < 2:
-                print(f"[!!!] Not enough filters to fit! ({len(np.unique(data['band']))})")
-                self.params.update({'mu': {'value': -124.0, 'err': -124.0}})
-                return
-
-
-            # Create and fit data to model
-            model = salt3fit.Model(source='salt3')
-            model.set(z=self.z, t0=self.discdate)  # set the model's redshift.
-            result, fitted_model = salt3fit.fit_lc(data, model,
-                                                   ['t0', 'x0', 'x1', 'c'],
-                                                   bounds={'x1': (-5, 5)},
-                                                   minsnr=1)
-
-
-            # Save Parameters
-            param_names = ['t0', 'x0', 'x1', 'c']
-            for i in range(len(param_names)):
-                self.params.update({param_names[i]: {'value': result.parameters[i+1],
-                                                     'err': result.errors[param_names[i]]}})
-
-            # Save Covariance
-            if result['covariance'] is not None:
-                self.covariance = result['covariance']
-
-            # Calculate
-            pho_mB = -2.5 * np.log10(self.params['x0']['value']) + mB_const
-            pho_mB_err = np.abs(-2.5 * (self.params['x0']['err'] / (self.params['x0']['value'] * np.log(10))))
-
-            mu = pho_mB + (alpha * self.params['x1']['value']) - (beta * self.params['c']['value']) - M0
-            mu_err = np.sqrt(pho_mB_err ** 2 + (np.abs(alpha) * self.params['x1']['err']) ** 2 + (np.abs(beta) * self.params['c']['err']) ** 2)
-
-            self.params.update({'mu': {'value': mu, 'err': mu_err}})
-
-            # Plot data with fit
-            salt3fit.plot_lc(data, model=fitted_model, errors=result.errors)
-            plt.savefig(plot_path)
-            if show_plot:
-                plt.show()
-                systime.sleep(2)
-            plt.close()
-
-            self.save_class()
-            print(f'[+++] Successfully fit {self.objname}!')
-        except Exception as error:
-            print(f"[!!!] Error: {str(error)}")
-            if 'result is NaN for' in str(error):
-                print(f"[!!!] SALT3 couldn't fit with current parameter selection! Returning nan for {self.objname}...")
-                self.params.update({'mu': {'value': -107.0, 'err': -107.0}})
-            elif 'No data points with S/N > 5.0. Initial guessing failed.' in str(error):
-                self.params.update({'mu': {'value': -434.0, 'err': -434.0}})
-            else:
-                print(error)
-                print(f'[---] Could not fit {self.objname}!')
-                self.params.update({'mu': {'value': -404.0, 'err': -404.0}})
-            self.save_class()
-            return
-        return
     def get_zcmb(self):
         # Set up variables
         CONSTANTS = utils.get_constants()
@@ -1274,6 +1179,8 @@ def fit_subprocess(dataset: str, path: str, algo: str, rewrite: bool = False):
     if sn.params['mu']['value'] > 0:
         print(f'[+++] Finding host galaxy mass for {sn.objname} using GHOST...')
         sn.get_hostMass()
+        if sn.params['hostMass']['value'] < 0:
+            print(f"[!!!] Host mass is invalid ({sn.params['hostMass']['value']}+/-{sn.params['hostMass']['err']})")
     else:
         sn.params.update({'hostMass': {'value': np.nan, 'err': np.nan}})
 

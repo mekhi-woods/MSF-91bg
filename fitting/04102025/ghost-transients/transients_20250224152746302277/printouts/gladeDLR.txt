@@ -1,0 +1,8 @@
+
+ transient = \
+SN2015bo
+offset/DLR = \
+{'NGC 5490': 1.16, 'IC 0982': 22.24, 'NGC 5490C': 15.98}
+candidate semi-major axis = \
+{'NGC 5490': 52.05, 'IC 0982': 26.67, 'NGC 5490C': 21.69}
+Selecting GLADE host: NGC 5490

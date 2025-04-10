@@ -1248,7 +1248,7 @@ def params_v_scatter(path_snpy_91bg: str = 'results/combiend__snpy_params_cut.tx
     return
 def dust_v_scatter(path_91bg: str = 'results/old/merged_params_cut.txt',
                    path_norm: str = 'results/old/redNormSNe.txt',
-                   path_dust: str = 'results/old/global_dust_params.txt',
+                   path_dust: str = 'txts/global_dust_params.txt',
                    bin_num: int = 20, bin_bounds: list = [0.1, 6.3], hist_bins: int = 20,
                    label: bool = True, save_loc: str = ''):
     fig, axs = plt.subplots(2, 1, figsize=(16, 9), constrained_layout=True, height_ratios=[10, 2])

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024jih
+offset/DLR = \
+{'ARK 507': 0.95}
+candidate semi-major axis = \
+{'ARK 507': 9.45}
+Selecting GLADE host: ARK 507

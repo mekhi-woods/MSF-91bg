@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024ppd
+offset/DLR = \
+{'CGCG 190-030': 22.45}
+candidate semi-major axis = \
+{'CGCG 190-030': 22.77}
+No host chosen! r/DLR > 5.0.
