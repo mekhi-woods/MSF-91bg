@@ -1,0 +1,8 @@
+
+ transient = \
+SN2023epj
+offset/DLR = \
+{'NGC 4892': 18.07, 'WISEA J125918.28+265323.6': 88.02}
+candidate semi-major axis = \
+{'NGC 4892': 29.28, 'WISEA J125918.28+265323.6': 9.06}
+No host chosen! r/DLR > 5.0.

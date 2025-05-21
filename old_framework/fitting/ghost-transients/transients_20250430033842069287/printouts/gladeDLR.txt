@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020add
+offset/DLR = \
+{'SDSS J102013.92+064809.1': 368.36}
+candidate semi-major axis = \
+{'SDSS J102013.92+064809.1': 1.74}
+No host chosen! r/DLR > 5.0.

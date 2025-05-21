@@ -1,0 +1,8 @@
+
+ transient = \
+SN2005el
+offset/DLR = \
+{'NGC 1819': 1.26}
+candidate semi-major axis = \
+{'NGC 1819': 36.0}
+Selecting GLADE host: NGC 1819

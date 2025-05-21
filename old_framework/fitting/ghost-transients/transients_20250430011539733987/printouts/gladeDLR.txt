@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020swy
+offset/DLR = \
+{'NGC 0534': 38.54}
+candidate semi-major axis = \
+{'NGC 0534': 20.25}
+No host chosen! r/DLR > 5.0.

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021ydu
+offset/DLR = \
+{'ESO 415- G 026': 21.84, 'WISEA J022841.15-314959.3': 66.45}
+candidate semi-major axis = \
+{'ESO 415- G 026': 26.1, 'WISEA J022841.15-314959.3': 7.35}
+No host chosen! r/DLR > 5.0.

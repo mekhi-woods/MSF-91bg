@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021koq
+offset/DLR = \
+{'UGC 11177': 1.1}
+candidate semi-major axis = \
+{'UGC 11177': 29.94}
+Selecting GLADE host: UGC 11177

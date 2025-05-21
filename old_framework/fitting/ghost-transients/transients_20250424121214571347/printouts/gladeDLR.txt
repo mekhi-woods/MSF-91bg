@@ -1,0 +1,8 @@
+
+ transient = \
+SN2022ssh
+offset/DLR = \
+{'UGC 01496': 14.51}
+candidate semi-major axis = \
+{'UGC 01496': 38.58}
+No host chosen! r/DLR > 5.0.

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020cbo
+offset/DLR = \
+{100637273: 6.04}
+candidate semi-major axis = \
+{100637273: 3.21}
+No host chosen! r/DLR > 5.0.

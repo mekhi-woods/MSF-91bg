@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020kpx
+offset/DLR = \
+{'CGCG 050-050': 0.55}
+candidate semi-major axis = \
+{'CGCG 050-050': 15.0}
+Selecting GLADE host: CGCG 050-050

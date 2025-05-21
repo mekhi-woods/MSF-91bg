@@ -1,0 +1,8 @@
+
+ transient = \
+SN2008cf
+offset/DLR = \
+{'ESO 510- G 070': 5.51}
+candidate semi-major axis = \
+{'ESO 510- G 070': 28.59}
+No host chosen! r/DLR > 5.0.

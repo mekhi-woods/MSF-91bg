@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020uxz
+offset/DLR = \
+{'NGC 0514': 0.62}
+candidate semi-major axis = \
+{'NGC 0514': 78.75}
+Selecting GLADE host: NGC 0514

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021dov
+offset/DLR = \
+{'CGCG 005-038': 0.19, 'PGC1 1142061 GROUP': 41.22}
+candidate semi-major axis = \
+{'CGCG 005-038': 20.76, 'PGC1 1142061 GROUP': 10.17}
+Selecting GLADE host: CGCG 005-038

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2018efn
+offset/DLR = \
+{'CGCG 076-016': 0.31}
+candidate semi-major axis = \
+{'CGCG 076-016': 13.68}
+Selecting GLADE host: CGCG 076-016

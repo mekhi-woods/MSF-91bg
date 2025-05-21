@@ -1,0 +1,8 @@
+
+ transient = \
+SN2017jfw
+offset/DLR = \
+{'NGC 5150': 10.97, 'NGC 5152': 1.11, 'NGC 5153': 0.22, 'WISEA J132805.75-292530.0': 44.7}
+candidate semi-major axis = \
+{'NGC 5150': 27.96, 'NGC 5152': 43.29, 'NGC 5153': 43.29, 'WISEA J132805.75-292530.0': 17.22}
+Selecting GLADE host: NGC 5153

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019vpz
+offset/DLR = \
+{'UGC 00847': 20.85}
+candidate semi-major axis = \
+{'UGC 00847': 44.37}
+No host chosen! r/DLR > 5.0.

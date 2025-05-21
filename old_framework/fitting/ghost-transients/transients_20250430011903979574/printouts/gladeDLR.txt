@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020vex
+offset/DLR = \
+{'CGCG 462-034': 57.68}
+candidate semi-major axis = \
+{'CGCG 462-034': 12.48}
+No host chosen! r/DLR > 5.0.

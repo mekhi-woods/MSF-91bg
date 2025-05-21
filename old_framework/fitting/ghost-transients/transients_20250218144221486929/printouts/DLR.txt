@@ -1,0 +1,9 @@
+
+ transient = \
+SN2008bq
+offset/DLR = \
+{29168070: 4.54}
+candidate semi-major axis = \
+{29168070: 3.34}
+Issue with DLR. Try Gradient Descent!
+100.262895 -38.035793

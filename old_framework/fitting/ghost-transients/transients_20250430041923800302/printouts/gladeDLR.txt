@@ -1,0 +1,8 @@
+
+ transient = \
+SN2022tvz
+offset/DLR = \
+{'ESO 595- G 003': 0.52}
+candidate semi-major axis = \
+{'ESO 595- G 003': 26.13}
+Selecting GLADE host: ESO 595- G 003

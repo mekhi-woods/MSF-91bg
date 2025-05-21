@@ -108,71 +108,69 @@ def run_plotter(final_dir: str = 'plots/'):
 
 
 if __name__ == '__main__':
+    pass
     # =================================================================================================================
     ###
     # 1991bg-like SNe Ia Process
     ##
-    run_fitter('91bg', 'snpy', False)
-    run_fitter('91bg', 'salt', False)
-    dataManipulation.combine_snpy_salt(snpy_path='results/91bg_snpy_params.txt',
-                                       salt_path='results/91bg_snpy_params.txt',
-                                       save_loc='results/91bg_snpy-salt_params.txt')
-    criteria_91bg = {
-        'z_cmb':       [0.015, 999],
-        'z_err':       [-999, 999],
-        'Tmax_err':    [-999, 1.0],
-        'mu_err':      [-999, 0.1],
-        'chisquare':   [-999, 999999],
-        'EBVhost':     [-0.3, 0.3],
-        'EBVhost_err': [-999, 0.1],
-        'st':          [0.00, 1.0],
-        'st_err':      [-999, 0.1],
-        'c':           [-0.6, 0.6],
-        'c_err':       [-999, 0.1],
-        'x1':          [-3.0, 3.0],
-        'x1_err':      [-999, 0.2]
-    }
-    dataManipulation.selection_criteria(snpy_path='results/91bg_snpy_params.txt', salt_path='results/91bg_salt_params.txt',
-                                        save_loc='results/91bg_snpy-salt_params_cut.txt', criteria=criteria_91bg)
-    dataManipulation.selection_criteria(snpy_path='results/91bg_snpy_params.txt',
-                                        save_loc='results/91bg_snpy_params_cut.txt', criteria=criteria_91bg)
-    dataManipulation.selection_criteria(salt_path='results/91bg_salt_params.txt',
-                                        save_loc='results/91bg_salt_params_cut.txt', criteria=criteria_91bg)
-    run_lc_checker('91bg')
+    # run_fitter('91bg', 'snpy', False)
+    # run_fitter('91bg', 'salt', False)
+    # dataManipulation.combine_snpy_salt(snpy_path='results/91bg_snpy_params.txt',
+    #                                    salt_path='results/91bg_snpy_params.txt',
+    #                                    save_loc='results/91bg_snpy-salt_params.txt')
+    # criteria_91bg = {
+    #     'z_cmb':       [0.015, 999],
+    #     'z_err':       [-999, 999],
+    #     'Tmax_err':    [-999, 1.0],
+    #     'mu_err':      [-999, 0.1],
+    #     'chisquare':   [-999, 999999],
+    #     'EBVhost':     [-0.3, 0.3],
+    #     'EBVhost_err': [-999, 0.1],
+    #     'st':          [0.00, 1.0],
+    #     'st_err':      [-999, 0.1],
+    #     'c':           [-0.6, 0.6],
+    #     'c_err':       [-999, 0.1],
+    #     'x1':          [-3.0, 3.0],
+    #     'x1_err':      [-999, 0.2]
+    # }
+    # dataManipulation.selection_criteria(snpy_path='results/91bg_snpy_params.txt', salt_path='results/91bg_salt_params.txt',
+    #                                     save_loc='results/91bg_snpy-salt_params_cut.txt', criteria=criteria_91bg)
+    # dataManipulation.selection_criteria(snpy_path='results/91bg_snpy_params.txt',
+    #                                     save_loc='results/91bg_snpy_params_cut.txt', criteria=criteria_91bg)
+    # dataManipulation.selection_criteria(salt_path='results/91bg_salt_params.txt',
+    #                                     save_loc='results/91bg_salt_params_cut.txt', criteria=criteria_91bg)
+    # run_lc_checker('91bg')
     # =================================================================================================================
-    ###
-    # Normal SNe Ia Process
-    ###
-    run_fitter('norm', 'snpy', False)
-    run_fitter('norm', 'salt', False)
-    dataManipulation.combine_snpy_salt('results/norm_snpy_params.txt',
-                                       'results/norm_snpy_params.txt',
-                                       'results/norm_snpy-salt_params.txt')
-    criteria_norm = {
-        'z_cmb':       [.015, 999], # hold
-        'z_err':       [-999, 999],  # hold
-        'Tmax_err':    [-999, 1.0], # hold, 2.0
-        'mu_err':      [-999, 0.1], # hold
-        'chisquare':   [-999, 110000],
-        'EBVhost':     [-0.2, 0.2], #
-        'EBVhost_err': [-999, 0.1], #
-        'st':          [0.75, 1.18],# hold, given by David
-        'st_err':      [-999, 0.2], # 0.2
-        'c':           [-0.2, 0.3], #
-        'c_err':       [-999, 999], # no cut
-        'x1':          [-2.0, 2.0], #
-        'x1_err':      [-999, 1.0]  # 1.0
-    }
-    dataManipulation.selection_criteria(snpy_path='results/norm_snpy_params.txt', salt_path='results/norm_salt_params.txt',
-                                        save_loc='results/norm_snpy-salt_params_cut.txt', criteria=criteria_norm)
-    dataManipulation.selection_criteria(snpy_path='results/norm_snpy_params.txt',
-                                        save_loc='results/norm_snpy_params_cut.txt', criteria=criteria_norm)
-    dataManipulation.selection_criteria(salt_path='results/norm_salt_params.txt',
-                                        save_loc='results/norm_salt_params_cut.txt', criteria=criteria_norm)
-    run_lc_checker('norm')
+    # ###
+    # # Normal SNe Ia Process
+    # ###
+    # run_fitter('norm', 'snpy', False)
+    # run_fitter('norm', 'salt', False)
+    # dataManipulation.combine_snpy_salt('results/norm_snpy_params.txt',
+    #                                    'results/norm_snpy_params.txt',
+    #                                    'results/norm_snpy-salt_params.txt')
+    # criteria_norm = {
+    #     'z_cmb':       [.015, 999], # hold
+    #     'z_err':       [-999, 999],  # hold
+    #     'Tmax_err':    [-999, 1.0], # hold, 2.0
+    #     'mu_err':      [-999, 0.1], # hold
+    #     'chisquare':   [-999, 110000],
+    #     'EBVhost':     [-0.2, 0.2], #
+    #     'EBVhost_err': [-999, 0.1], #
+    #     'st':          [0.75, 1.18],# hold, given by David
+    #     'st_err':      [-999, 0.2], # 0.2
+    #     'c':           [-0.2, 0.3], #
+    #     'c_err':       [-999, 999], # no cut
+    #     'x1':          [-2.0, 2.0], #
+    #     'x1_err':      [-999, 1.0]  # 1.0
+    # }
+    # dataManipulation.selection_criteria(snpy_path='results/norm_snpy_params.txt', salt_path='results/norm_salt_params.txt',
+    #                                     save_loc='results/norm_snpy-salt_params_cut.txt', criteria=criteria_norm)
+    # dataManipulation.selection_criteria(snpy_path='results/norm_snpy_params.txt',
+    #                                     save_loc='results/norm_snpy_params_cut.txt', criteria=criteria_norm)
+    # dataManipulation.selection_criteria(salt_path='results/norm_salt_params.txt',
+    #                                     save_loc='results/norm_salt_params_cut.txt', criteria=criteria_norm)
+    # run_lc_checker('norm')
     # =================================================================================================================
 
-    run_plotter()
-
-
-
+    # run_plotter()

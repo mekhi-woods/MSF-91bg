@@ -1,0 +1,8 @@
+
+ transient = \
+SN2009le
+offset/DLR = \
+{'': 0.61}
+candidate semi-major axis = \
+{'': 32.1}
+Selecting GLADE host: 

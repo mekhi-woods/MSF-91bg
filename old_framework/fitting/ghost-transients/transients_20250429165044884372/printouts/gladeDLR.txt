@@ -1,0 +1,8 @@
+
+ transient = \
+SN2022fw
+offset/DLR = \
+{'NGC 4348': 0.18, 'PGC1 1070576 GROUP': 82.41}
+candidate semi-major axis = \
+{'NGC 4348': 70.2, 'PGC1 1070576 GROUP': 12.51}
+Selecting GLADE host: NGC 4348

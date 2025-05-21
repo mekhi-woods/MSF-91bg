@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024jhk
+offset/DLR = \
+{'NGC 3417': 23.28, 'NGC 3388': 1.64}
+candidate semi-major axis = \
+{'NGC 3417': 24.39, 'NGC 3388': 22.2}
+Selecting GLADE host: NGC 3388

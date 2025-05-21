@@ -1,0 +1,2 @@
+# Created by M.D. Woods -- 2025-05-03 12:54:15.507934 -- NUM TARGETS: 0
+objname, origin, subtype, algo, ra, dec, z, z_cmb, MJDs, MJDe, mu, mu_err, hostMass, hostMass_err, Tmax, Tmax_err, stretch, stretch_err, color, color_err, amplitude, amplitude_err, peak_mag, peak_mag_err

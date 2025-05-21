@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019zho
+offset/DLR = \
+{'[EKL2017] ECO 7216': inf, 'CGCG 066-035': inf, 'CGCG 066-037': inf}
+candidate semi-major axis = \
+{'[EKL2017] ECO 7216': 16.26, 'CGCG 066-035': 19.29, 'CGCG 066-037': 15.54}
+No host chosen! r/DLR > 5.0.

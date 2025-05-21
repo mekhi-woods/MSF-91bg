@@ -1,0 +1,8 @@
+
+ transient = \
+SN2023hka
+offset/DLR = \
+{'ESO 511- G 006': 18.16, 'WISEA J141058.29-270354.3': 0.76}
+candidate semi-major axis = \
+{'ESO 511- G 006': 15.0, 'WISEA J141058.29-270354.3': 17.67}
+Selecting GLADE host: WISEA J141058.29-270354.3

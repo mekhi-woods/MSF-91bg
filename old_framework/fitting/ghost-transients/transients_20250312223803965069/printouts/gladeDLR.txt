@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021abzd
+offset/DLR = \
+{'NGC 0233': 0.53}
+candidate semi-major axis = \
+{'NGC 0233': 40.41}
+Selecting GLADE host: NGC 0233

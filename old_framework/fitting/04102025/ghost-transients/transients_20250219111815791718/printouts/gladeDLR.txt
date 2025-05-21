@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024cdu
+offset/DLR = \
+{'ESO 437- G 031': 13.07}
+candidate semi-major axis = \
+{'ESO 437- G 031': 28.59}
+No host chosen! r/DLR > 5.0.

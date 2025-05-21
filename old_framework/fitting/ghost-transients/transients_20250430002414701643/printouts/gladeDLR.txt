@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020uye
+offset/DLR = \
+{'PGC1 0005998 GROUP': 22.63}
+candidate semi-major axis = \
+{'PGC1 0005998 GROUP': 16.44}
+No host chosen! r/DLR > 5.0.

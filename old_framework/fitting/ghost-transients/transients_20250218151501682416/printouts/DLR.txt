@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024acdf
+offset/DLR = \
+{499642326: 10000000000.0, 499642327: 10000000000.0, 499642329: 10000000000.0}
+candidate semi-major axis = \
+{499642326: nan, 499642327: nan, 499642329: nan}
+No host chosen! r/DLR > 5.0.

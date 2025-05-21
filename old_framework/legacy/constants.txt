@@ -1,0 +1,67 @@
+### DATA ###
+# ================================================ #
+csp_data_loc, data/CSP/
+atlas_data_loc, data/ATLAS/
+ztf_data_loc, data/ZTF/
+
+### SNPY ###
+# ================================================ #
+snpy_csp_saved_loc, saved/snpy/csp/
+snpy_atlas_saved_loc, saved/snpy/atlas/
+snpy_atlas-ztf_saved_loc, saved/snpy/atlas-ztf/
+snpy_ztf_saved_loc, saved/snpy/ztf/
+snpy_combined_saved_loc, saved/snpy/combined/
+
+### SALT ###
+# ================================================ #
+salt_csp_saved_loc, saved/salt/csp/
+salt_atlas_saved_loc, saved/salt/atlas/
+salt_atlas-ztf_saved_loc, saved/salt/atlas-ztf/
+salt_ztf_saved_loc, saved/salt/ztf/
+salt_combined_saved_loc, saved/salt/combined/
+
+### TXTS ###
+# ================================================ #
+tns_key_txt, txts/TNS_key.txt
+mass_key_txt, txts/mass_key.txt
+91bg_txt, txts/91bg_list.txt
+csp91bglike_txt, txts/csp_91bg.txt
+
+### CONSTANTS ###
+# ================================================ #
+ztf_spread, 300
+salt_alpha, 0.153
+salt_beta, 2.980
+salt_alpha_91bg, 0.060
+salt_beta_91bg, 3.284
+salt_mB_const, 10.635
+salt_absolute_mag, -19.36
+
+csp_zpts_u, 12.986
+csp_zpts_g, 15.111
+csp_zpts_r, 14.903
+csp_zpts_i, 14.545
+csp_zpts_B, 14.328
+csp_zpts_V, 14.439
+csp_zpts_V1, 14.388
+csp_zpts_V0, 14.437
+csp_zpts_Y, 13.921
+csp_zpts_Jrc1, 13.836
+csp_zpts_Jrc2, 13.836
+csp_zpts_H, 13.510
+csp_zpts_Ydw, 13.770
+csp_zpts_J, 13.866
+csp_zpts_H, 13.502
+csp_zpts_Ks, 11.968
+
+cmb_c, 299792.458
+cmb_beta, 0.43
+cmb_beta_err, 0.105
+cmb_v_helio, 371.0
+cmb_l_h, 263.85
+cmb_b_h, 48.25
+
+### GHOST ###
+# ================================================ #
+ghost_data_loc, data/GHOST/
+

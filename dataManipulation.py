@@ -10,6 +10,7 @@ from astropy.stats import sigma_clip, sigma_clipped_stats
 from scipy.stats import norm  # For inverse normal CDF (percentile function)
 
 CURRENTDATE = datetime.datetime.now()
+CURRENTDATEANDTIME = str(datetime.datetime.now())[:-10].replace('-', '').replace(' ', '').replace(':', '')
 
 def make_param_file(sne: list, subtype: str, save_loc: str):
     """

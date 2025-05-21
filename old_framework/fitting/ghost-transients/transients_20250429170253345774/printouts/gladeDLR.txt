@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020nvb
+offset/DLR = \
+{'NGC 4457': 0.16, 'PGC1 0041196 GROUP': 98.49}
+candidate semi-major axis = \
+{'NGC 4457': 59.73, 'PGC1 0041196 GROUP': 9.93}
+Selecting GLADE host: NGC 4457

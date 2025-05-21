@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021biz
+offset/DLR = \
+{'UGC 07295': 13.72, 'NGC 4227': 0.66, 'NGC 4229': 5.49, 'SDSS J121611.32+332632.8': 44.78, 'WISEA J121645.75+334156.0': 126.77}
+candidate semi-major axis = \
+{'UGC 07295': 20.28, 'NGC 4227': 36.84, 'NGC 4229': 24.9, 'SDSS J121611.32+332632.8': 12.51, 'WISEA J121645.75+334156.0': 14.04}
+Selecting GLADE host: NGC 4227

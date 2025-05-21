@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020aai
+offset/DLR = \
+{'CGCG 008-066': 46.87, '2MASX J10124115-0159517': 78.89, 'WISEA J101210.96-020803.7': 52.31}
+candidate semi-major axis = \
+{'CGCG 008-066': 15.0, '2MASX J10124115-0159517': 16.5, 'WISEA J101210.96-020803.7': 13.11}
+No host chosen! r/DLR > 5.0.

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020ulf
+offset/DLR = \
+{'WISEA J160125.80+211524.1': 38.29}
+candidate semi-major axis = \
+{'WISEA J160125.80+211524.1': 14.04}
+No host chosen! r/DLR > 5.0.

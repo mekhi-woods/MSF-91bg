@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020wgr
+offset/DLR = \
+{'CGCG 004-013': 44.0}
+candidate semi-major axis = \
+{'CGCG 004-013': 16.08}
+No host chosen! r/DLR > 5.0.

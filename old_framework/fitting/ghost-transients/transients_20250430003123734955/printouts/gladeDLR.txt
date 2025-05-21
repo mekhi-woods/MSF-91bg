@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020jol
+offset/DLR = \
+{'WISEA J102721.08+002520.3': 0.14}
+candidate semi-major axis = \
+{'WISEA J102721.08+002520.3': 7.35}
+Selecting GLADE host: WISEA J102721.08+002520.3

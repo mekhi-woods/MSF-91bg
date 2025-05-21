@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019hvv
+offset/DLR = \
+{'MCG -01-04-016': 0.73}
+candidate semi-major axis = \
+{'MCG -01-04-016': 26.73}
+Selecting GLADE host: MCG -01-04-016

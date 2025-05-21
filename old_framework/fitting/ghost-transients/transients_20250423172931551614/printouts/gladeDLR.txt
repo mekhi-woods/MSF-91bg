@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021hzo
+offset/DLR = \
+{'SDSS J120040.87+520216.7': 46.13}
+candidate semi-major axis = \
+{'SDSS J120040.87+520216.7': 15.39}
+No host chosen! r/DLR > 5.0.

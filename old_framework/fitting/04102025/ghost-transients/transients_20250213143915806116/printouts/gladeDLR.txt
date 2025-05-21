@@ -1,0 +1,8 @@
+
+ transient = \
+SN2006lu
+offset/DLR = \
+{'PGC1 0026109 GROUP': 10.85}
+candidate semi-major axis = \
+{'PGC1 0026109 GROUP': 17.64}
+No host chosen! r/DLR > 5.0.

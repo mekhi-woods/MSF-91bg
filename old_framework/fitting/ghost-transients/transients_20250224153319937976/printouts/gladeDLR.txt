@@ -1,0 +1,8 @@
+
+ transient = \
+SN2008bi
+offset/DLR = \
+{'NGC 2618': 0.08}
+candidate semi-major axis = \
+{'NGC 2618': 54.48}
+Selecting GLADE host: NGC 2618

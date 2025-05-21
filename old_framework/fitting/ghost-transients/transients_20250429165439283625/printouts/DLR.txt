@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021aaqb
+offset/DLR = \
+{9390026: 20.2, 9390038: 29.69, 9390039: 14.92}
+candidate semi-major axis = \
+{9390026: 2.52, 9390038: 1.94, 9390039: 3.06}
+No host chosen! r/DLR > 5.0.

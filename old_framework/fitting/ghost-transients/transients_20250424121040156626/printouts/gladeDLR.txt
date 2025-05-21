@@ -1,0 +1,8 @@
+
+ transient = \
+SN2022ruh
+offset/DLR = \
+{'PGC1 0011178 GROUP': 37.24}
+candidate semi-major axis = \
+{'PGC1 0011178 GROUP': 18.93}
+No host chosen! r/DLR > 5.0.

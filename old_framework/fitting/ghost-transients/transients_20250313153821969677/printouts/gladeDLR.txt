@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024stt
+offset/DLR = \
+{'AM 2220-632': 1.33}
+candidate semi-major axis = \
+{'AM 2220-632': 18.9}
+Selecting GLADE host: AM 2220-632

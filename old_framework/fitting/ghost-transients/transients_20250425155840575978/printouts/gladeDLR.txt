@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021fxy
+offset/DLR = \
+{'ESO 576- G 008': 59.22, 'NGC 5018': 0.38, 'NGC 5022': 42.25, 'WISEA J131247.95-192221.1': inf}
+candidate semi-major axis = \
+{'ESO 576- G 008': 26.67, 'NGC 5018': 76.98, 'NGC 5022': 50.85, 'WISEA J131247.95-192221.1': 14.4}
+Selecting GLADE host: NGC 5018

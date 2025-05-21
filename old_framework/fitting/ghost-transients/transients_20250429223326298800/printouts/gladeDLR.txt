@@ -1,0 +1,8 @@
+
+ transient = \
+SN2022rjj
+offset/DLR = \
+{'2MASXi J0040029-093353': inf}
+candidate semi-major axis = \
+{'2MASXi J0040029-093353': 15.48}
+No host chosen! r/DLR > 5.0.

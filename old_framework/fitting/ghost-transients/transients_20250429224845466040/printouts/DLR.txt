@@ -1,0 +1,9 @@
+
+ transient = \
+SN2019ktf
+offset/DLR = \
+{72523531256067513: 0.44}
+candidate semi-major axis = \
+{72523531256067513: 7.94}
+Issue with DLR. Try Gradient Descent!
+353.12557558 -29.56061516

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024afxa
+offset/DLR = \
+{504240293: 10000000000.0}
+candidate semi-major axis = \
+{504240293: nan}
+No host chosen! r/DLR > 5.0.

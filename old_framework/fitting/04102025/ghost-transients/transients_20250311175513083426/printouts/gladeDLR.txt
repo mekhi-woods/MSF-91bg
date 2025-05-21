@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024grb
+offset/DLR = \
+{'NGC 5235': 0.69}
+candidate semi-major axis = \
+{'NGC 5235': 26.07}
+Selecting GLADE host: NGC 5235

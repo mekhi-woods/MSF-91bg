@@ -1,0 +1,9 @@
+
+ transient = \
+SN2022abvt
+offset/DLR = \
+{10114875: 1.75, 10114942: 27.42}
+candidate semi-major axis = \
+{10114875: 1.93, 10114942: 2.4}
+Issue with DLR. Try Gradient Descent!
+22.68152 -31.513603

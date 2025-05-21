@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021j
+offset/DLR = \
+{'NGC 4414': 0.05, '2MASS J12262656+3113459': 0.29}
+candidate semi-major axis = \
+{'NGC 4414': 84.42, '2MASS J12262656+3113459': 94.86}
+Selecting GLADE host: NGC 4414

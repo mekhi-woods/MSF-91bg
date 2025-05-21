@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020jsh
+offset/DLR = \
+{'PGC1 0027997 GROUP': 18.57, 'IC 0561': 50.6, 'IC 0563': 10.31, 'IC 0564': 0.52, 'WISEA J094602.22+030803.2': 33.63}
+candidate semi-major axis = \
+{'PGC1 0027997 GROUP': 35.19, 'IC 0561': 10.14, 'IC 0563': 18.9, 'IC 0564': 37.71, 'WISEA J094602.22+030803.2': 11.16}
+Selecting GLADE host: IC 0564

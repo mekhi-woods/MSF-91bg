@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020dq
+offset/DLR = \
+{98232866: 15.26, 98232873: 13.32}
+candidate semi-major axis = \
+{98232866: 1.98, 98232873: 3.34}
+No host chosen! r/DLR > 5.0.

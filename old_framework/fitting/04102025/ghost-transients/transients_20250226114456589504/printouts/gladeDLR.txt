@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024sag
+offset/DLR = \
+{'NGC 1993 GROUP': 1.9, 'PGC1 0017494 GROUP': 11.78}
+candidate semi-major axis = \
+{'NGC 1993 GROUP': 47.55, 'PGC1 0017494 GROUP': 28.59}
+Selecting GLADE host: NGC 1993 GROUP

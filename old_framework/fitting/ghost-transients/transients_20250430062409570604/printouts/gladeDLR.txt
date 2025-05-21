@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021mid
+offset/DLR = \
+{'IC 1149': 3.64}
+candidate semi-major axis = \
+{'IC 1149': 26.7}
+Selecting GLADE host: IC 1149

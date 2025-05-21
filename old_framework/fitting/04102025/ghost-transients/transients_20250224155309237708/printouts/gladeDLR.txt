@@ -1,0 +1,8 @@
+
+ transient = \
+SN2018chl
+offset/DLR = \
+{'ESO 267- G 011': 0.39}
+candidate semi-major axis = \
+{'ESO 267- G 011': 36.0}
+Selecting GLADE host: ESO 267- G 011

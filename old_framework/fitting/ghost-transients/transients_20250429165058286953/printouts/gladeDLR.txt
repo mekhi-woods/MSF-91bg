@@ -1,0 +1,8 @@
+
+ transient = \
+SN2022shv
+offset/DLR = \
+{'IC 1279': 35.65}
+candidate semi-major axis = \
+{'IC 1279': 55.77}
+No host chosen! r/DLR > 5.0.

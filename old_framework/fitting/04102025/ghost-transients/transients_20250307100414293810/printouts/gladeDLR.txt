@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021gel
+offset/DLR = \
+{'2MASS J12262656+3113459': 8.99}
+candidate semi-major axis = \
+{'2MASS J12262656+3113459': 94.86}
+No host chosen! r/DLR > 5.0.

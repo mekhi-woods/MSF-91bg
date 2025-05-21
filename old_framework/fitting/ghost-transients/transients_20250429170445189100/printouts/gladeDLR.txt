@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019voo
+offset/DLR = \
+{'NGC 4263': 0.22}
+candidate semi-major axis = \
+{'NGC 4263': 25.47}
+Selecting GLADE host: NGC 4263

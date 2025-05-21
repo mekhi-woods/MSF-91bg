@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019ata
+offset/DLR = \
+{83296923: 15.59, 83296924: 10.68, 83296937: 25.03}
+candidate semi-major axis = \
+{83296923: 2.85, 83296924: 2.72, 83296937: 2.64}
+No host chosen! r/DLR > 5.0.

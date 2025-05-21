@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024yhg
+offset/DLR = \
+{'UGC 01591': 56.2, 'UGC 01596': 1.19}
+candidate semi-major axis = \
+{'UGC 01591': 29.94, 'UGC 01596': 26.07}
+Selecting GLADE host: UGC 01596

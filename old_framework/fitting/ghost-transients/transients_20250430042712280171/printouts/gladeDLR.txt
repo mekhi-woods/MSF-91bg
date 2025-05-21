@@ -1,0 +1,8 @@
+
+ transient = \
+SN2022zoa
+offset/DLR = \
+{'WISEA J095839.16-024448.7': 17.02}
+candidate semi-major axis = \
+{'WISEA J095839.16-024448.7': 19.38}
+No host chosen! r/DLR > 5.0.

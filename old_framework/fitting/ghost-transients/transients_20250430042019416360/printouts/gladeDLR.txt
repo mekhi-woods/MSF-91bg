@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021jvs
+offset/DLR = \
+{'UGC 09625': 0.3, 'WISEA J145808.86+064447.1': 82.14}
+candidate semi-major axis = \
+{'UGC 09625': 33.6, 'WISEA J145808.86+064447.1': 11.4}
+Selecting GLADE host: UGC 09625

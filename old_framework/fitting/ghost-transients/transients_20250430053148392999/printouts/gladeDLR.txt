@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019fma
+offset/DLR = \
+{'CGCG 240-029': 1.92}
+candidate semi-major axis = \
+{'CGCG 240-029': 17.25}
+Selecting GLADE host: CGCG 240-029

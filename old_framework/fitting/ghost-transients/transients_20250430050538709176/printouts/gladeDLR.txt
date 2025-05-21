@@ -1,0 +1,8 @@
+
+ transient = \
+SN2022mox
+offset/DLR = \
+{'WISEA J133444.74+335325.5': 0.14}
+candidate semi-major axis = \
+{'WISEA J133444.74+335325.5': 19.83}
+Selecting GLADE host: WISEA J133444.74+335325.5

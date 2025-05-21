@@ -1,0 +1,9 @@
+
+ transient = \
+SN2021adu
+offset/DLR = \
+{28740760: 4.33}
+candidate semi-major axis = \
+{28740760: 3.6}
+Issue with DLR. Try Gradient Descent!
+92.220445 -39.691283

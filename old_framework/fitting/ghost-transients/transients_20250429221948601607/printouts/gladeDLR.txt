@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021die
+offset/DLR = \
+{'CGCG 271-034': 52.11}
+candidate semi-major axis = \
+{'CGCG 271-034': 14.34}
+No host chosen! r/DLR > 5.0.

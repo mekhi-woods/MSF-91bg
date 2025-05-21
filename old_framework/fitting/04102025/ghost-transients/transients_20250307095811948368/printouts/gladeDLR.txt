@@ -1,0 +1,8 @@
+
+ transient = \
+SN2018ame
+offset/DLR = \
+{'WISEA J150925.65+252815.3': 0.23}
+candidate semi-major axis = \
+{'WISEA J150925.65+252815.3': 14.04}
+Selecting GLADE host: WISEA J150925.65+252815.3

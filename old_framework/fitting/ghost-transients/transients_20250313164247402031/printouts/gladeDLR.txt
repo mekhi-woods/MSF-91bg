@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019ahh
+offset/DLR = \
+{'CGCG 074-043': inf, 'CGCG 074-046 NED01': inf, 'NGC 5414': 25.48, 'WISEA J140214.73+094656.2': 0.43}
+candidate semi-major axis = \
+{'CGCG 074-043': 18.12, 'CGCG 074-046 NED01': 15.63, 'NGC 5414': 21.69, 'WISEA J140214.73+094656.2': 17.67}
+Selecting GLADE host: WISEA J140214.73+094656.2

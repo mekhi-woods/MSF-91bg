@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021ymf
+offset/DLR = \
+{17542260: 48.31, 17542262: 10000000000.0, 17542270: 10000000000.0}
+candidate semi-major axis = \
+{17542260: 3.56, 17542262: nan, 17542270: nan}
+No host chosen! r/DLR > 5.0.

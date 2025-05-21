@@ -1,0 +1,8 @@
+
+ transient = \
+SN2007sr
+offset/DLR = \
+{'NGC 4038': 2.95, 'NGC 4039 GROUP': 2.67}
+candidate semi-major axis = \
+{'NGC 4038': 127.74, 'NGC 4039 GROUP': 116.49}
+Selecting GLADE host: NGC 4039 GROUP

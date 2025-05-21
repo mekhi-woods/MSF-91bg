@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021wuf
+offset/DLR = \
+{'NGC 6500': 1.45, 'NGC 6501': 1.85}
+candidate semi-major axis = \
+{'NGC 6500': 47.46, 'NGC 6501': 38.58}
+Selecting GLADE host: NGC 6500

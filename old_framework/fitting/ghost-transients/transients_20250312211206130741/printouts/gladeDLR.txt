@@ -1,0 +1,8 @@
+
+ transient = \
+SN2005ke
+offset/DLR = \
+{'NGC 1371': 0.45, 'WISEA J033453.67-244727.4': 44.13}
+candidate semi-major axis = \
+{'NGC 1371': 127.74, 'WISEA J033453.67-244727.4': 18.51}
+Selecting GLADE host: NGC 1371

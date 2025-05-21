@@ -1,0 +1,8 @@
+
+ transient = \
+SN2007al
+offset/DLR = \
+{'': 6.66, 'WISEA J095926.62-193857.6': 149.26, '6dF J0959579-192917': 54.02, 'WISEA J095918.72-192823.2': inf}
+candidate semi-major axis = \
+{'': 25.5, 'WISEA J095926.62-193857.6': 7.89, '6dF J0959579-192917': 16.11, 'WISEA J095918.72-192823.2': 14.73}
+No host chosen! r/DLR > 5.0.

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019bqe
+offset/DLR = \
+{'NGC 3074': 0.38, 'SDSS J100000.54+352106.8': 34.48}
+candidate semi-major axis = \
+{'NGC 3074': 50.85, 'SDSS J100000.54+352106.8': 13.11}
+Selecting GLADE host: NGC 3074

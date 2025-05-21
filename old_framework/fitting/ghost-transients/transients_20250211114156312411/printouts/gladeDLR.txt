@@ -1,0 +1,8 @@
+
+ transient = \
+SN2007N
+offset/DLR = \
+{'MCG -01-33-012': 0.57, 'MRK 1336': 36.26, '2MFGC 10104': 35.37}
+candidate semi-major axis = \
+{'MCG -01-33-012': 32.82, 'MRK 1336': 18.03, '2MFGC 10104': 39.54}
+Selecting GLADE host: MCG -01-33-012

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024bks
+offset/DLR = \
+{'ESO 508- G 008': 4.14}
+candidate semi-major axis = \
+{'ESO 508- G 008': 29.94}
+Selecting GLADE host: ESO 508- G 008

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021ads
+offset/DLR = \
+{'ESO 383- G 024': 19.9, 'NGC 5215A': 0.92, '': 0.95, 'NGC 5220': 13.23}
+candidate semi-major axis = \
+{'ESO 383- G 024': 32.88, 'NGC 5215A': 22.71, '': 30.63, 'NGC 5220': 57.06}
+Selecting GLADE host: NGC 5215A

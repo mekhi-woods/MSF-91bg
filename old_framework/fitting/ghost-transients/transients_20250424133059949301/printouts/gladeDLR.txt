@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021pfs
+offset/DLR = \
+{'GALEXASC J140324.85-060413.9': 2.25, 'NGC 5427': 0.79}
+candidate semi-major axis = \
+{'GALEXASC J140324.85-060413.9': 64.02, 'NGC 5427': 62.55}
+Selecting GLADE host: NGC 5427

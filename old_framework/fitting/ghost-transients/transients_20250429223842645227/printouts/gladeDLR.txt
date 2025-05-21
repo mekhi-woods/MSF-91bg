@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021feg
+offset/DLR = \
+{'ESO 580- G 026': 25.86, 'ESO 580- G 027': 19.31}
+candidate semi-major axis = \
+{'ESO 580- G 026': 19.8, 'ESO 580- G 027': 38.58}
+No host chosen! r/DLR > 5.0.

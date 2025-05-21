@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020bdx
+offset/DLR = \
+{'KUG 0657+363': 52.35}
+candidate semi-major axis = \
+{'KUG 0657+363': 14.76}
+No host chosen! r/DLR > 5.0.

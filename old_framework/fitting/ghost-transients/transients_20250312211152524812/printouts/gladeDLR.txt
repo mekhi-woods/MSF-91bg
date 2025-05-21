@@ -1,0 +1,8 @@
+
+ transient = \
+SN2008bt
+offset/DLR = \
+{'NGC 3404': 0.39}
+candidate semi-major axis = \
+{'NGC 3404': 44.31}
+Selecting GLADE host: NGC 3404

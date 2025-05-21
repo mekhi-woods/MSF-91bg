@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019wqd
+offset/DLR = \
+{'PGC1 0051983 GROUP': 45.62}
+candidate semi-major axis = \
+{'PGC1 0051983 GROUP': 7.89}
+No host chosen! r/DLR > 5.0.

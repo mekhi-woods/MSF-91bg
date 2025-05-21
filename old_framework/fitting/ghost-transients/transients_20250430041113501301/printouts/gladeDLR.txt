@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020ayh
+offset/DLR = \
+{'NGC 6792': 15.21, 'UGC 11430': 0.52}
+candidate semi-major axis = \
+{'NGC 6792': 48.57, 'UGC 11430': 23.79}
+Selecting GLADE host: UGC 11430

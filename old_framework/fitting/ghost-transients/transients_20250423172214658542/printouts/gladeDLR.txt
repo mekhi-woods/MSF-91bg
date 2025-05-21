@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019iei
+offset/DLR = \
+{'NGC 5380': 15.12, 'SDSS J135559.71+372919.5': 31.34, 'SDSS J135658.54+373623.0': 23.44}
+candidate semi-major axis = \
+{'NGC 5380': 40.38, 'SDSS J135559.71+372919.5': 14.04, 'SDSS J135658.54+373623.0': 41.4}
+No host chosen! r/DLR > 5.0.

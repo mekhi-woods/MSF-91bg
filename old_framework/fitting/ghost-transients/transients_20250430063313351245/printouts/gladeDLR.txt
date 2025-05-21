@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021abmp
+offset/DLR = \
+{'LCRS B004218.1-382722': 0.65}
+candidate semi-major axis = \
+{'LCRS B004218.1-382722': 13.11}
+Selecting GLADE host: LCRS B004218.1-382722

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020xtz
+offset/DLR = \
+{'PGC1 0061536 GROUP': 0.15, '2MASX J18115942+1509372': inf}
+candidate semi-major axis = \
+{'PGC1 0061536 GROUP': 31.35, '2MASX J18115942+1509372': 15.09}
+Selecting GLADE host: PGC1 0061536 GROUP

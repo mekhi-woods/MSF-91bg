@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024apt
+offset/DLR = \
+{'IC 0609': 1.18}
+candidate semi-major axis = \
+{'IC 0609': 32.85}
+Selecting GLADE host: IC 0609

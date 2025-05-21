@@ -1,0 +1,9 @@
+
+ transient = \
+SN2021xfo
+offset/DLR = \
+{10813378: 26.43, 10813380: 2.42}
+candidate semi-major axis = \
+{10813378: 1.75, 10813380: 2.13}
+Issue with DLR. Try Gradient Descent!
+41.97373 -32.571419

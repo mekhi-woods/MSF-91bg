@@ -1,0 +1,11 @@
+
+ transient = \
+SN2019kpv
+offset/DLR = \
+{2774142: 4.26, 2774143: 2.85}
+candidate semi-major axis = \
+{2774142: 2.16, 2774143: 1.78}
+Choosing the galaxy with the smallest DLR - nearest source had DLR > 1!
+Chosen SIMBAD host!
+Issue with DLR. Try Gradient Descent!
+356.771875 -34.711795

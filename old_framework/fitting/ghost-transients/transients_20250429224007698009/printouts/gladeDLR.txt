@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021dsi
+offset/DLR = \
+{'CGCG 013-027': 9.85, 'WISEA J115923.95-010915.3': 23.59}
+candidate semi-major axis = \
+{'CGCG 013-027': 20.28, 'WISEA J115923.95-010915.3': 9.27}
+No host chosen! r/DLR > 5.0.

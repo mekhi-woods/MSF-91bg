@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020kbw
+offset/DLR = \
+{'[EKL2017] ECO 4941': 45.96}
+candidate semi-major axis = \
+{'[EKL2017] ECO 4941': 30.0}
+No host chosen! r/DLR > 5.0.

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2006bh
+offset/DLR = \
+{'NGC 7329': 0.65}
+candidate semi-major axis = \
+{'NGC 7329': 88.38}
+Selecting GLADE host: NGC 7329

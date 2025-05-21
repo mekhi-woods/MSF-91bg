@@ -1,0 +1,8 @@
+
+ transient = \
+SN2023jah
+offset/DLR = \
+{'NGC 6919': 13.16}
+candidate semi-major axis = \
+{'NGC 6919': 34.38}
+No host chosen! r/DLR > 5.0.

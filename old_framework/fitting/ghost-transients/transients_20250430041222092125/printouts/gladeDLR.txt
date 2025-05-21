@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020jge
+offset/DLR = \
+{'NGC 6606': 42.66}
+candidate semi-major axis = \
+{'NGC 6606': 19.35}
+No host chosen! r/DLR > 5.0.

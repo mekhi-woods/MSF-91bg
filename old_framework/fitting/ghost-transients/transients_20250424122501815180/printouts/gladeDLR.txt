@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021nya
+offset/DLR = \
+{'IC 3119': 10.95}
+candidate semi-major axis = \
+{'IC 3119': 13.68}
+No host chosen! r/DLR > 5.0.

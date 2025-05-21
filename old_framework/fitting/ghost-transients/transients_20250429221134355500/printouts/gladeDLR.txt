@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020zfu
+offset/DLR = \
+{'UGC 01331': 8.69}
+candidate semi-major axis = \
+{'UGC 01331': 20.25}
+No host chosen! r/DLR > 5.0.

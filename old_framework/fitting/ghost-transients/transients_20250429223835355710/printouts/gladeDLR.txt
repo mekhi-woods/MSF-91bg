@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020ywy
+offset/DLR = \
+{'': 4.81}
+candidate semi-major axis = \
+{'': 17.64}
+Selecting GLADE host: 

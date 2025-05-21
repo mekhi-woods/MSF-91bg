@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021dlb
+offset/DLR = \
+{'NGC 5774': 9.21, 'IC 1070': 60.45}
+candidate semi-major axis = \
+{'NGC 5774': 68.61, 'IC 1070': 13.98}
+No host chosen! r/DLR > 5.0.

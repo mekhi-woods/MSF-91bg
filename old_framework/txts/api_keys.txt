@@ -1,0 +1,7 @@
+tns_bot_id, 73181
+tns_bot_name, YSE_Bot1
+tns_bot_api_key, 0d771345fa6b876a5bb99cd5042ab8b5ae91fc67
+atlas_key, 9f57f61e510459775763afe88a2ebfdf2aa37163
+ztf_user, mekhidw@hawaii.edu
+ztf_pass, wxdk286
+ztf_email, mekhidw@hawaii.edu

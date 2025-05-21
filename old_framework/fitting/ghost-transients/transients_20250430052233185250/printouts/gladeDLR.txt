@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020dko
+offset/DLR = \
+{'2MASS J13395273+0050247': 3.16, 'NGC 5258': 0.52}
+candidate semi-major axis = \
+{'2MASS J13395273+0050247': 33.6, 'NGC 5258': 32.1}
+Selecting GLADE host: NGC 5258

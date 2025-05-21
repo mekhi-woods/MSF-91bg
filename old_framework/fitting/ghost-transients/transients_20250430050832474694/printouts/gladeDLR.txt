@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021dch
+offset/DLR = \
+{'[EKL2017] ECO 6429': 77.31, 'WISEA J130523.61+293037.2': 0.42}
+candidate semi-major axis = \
+{'[EKL2017] ECO 6429': 8.46, 'WISEA J130523.61+293037.2': 11.16}
+Selecting GLADE host: WISEA J130523.61+293037.2

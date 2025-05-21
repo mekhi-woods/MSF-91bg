@@ -1,0 +1,8 @@
+
+ transient = \
+SN2024luo
+offset/DLR = \
+{'NGC 0208': 0.19, 'CGCG 383-067': 34.7}
+candidate semi-major axis = \
+{'NGC 0208': 16.08, 'CGCG 383-067': 18.9}
+Selecting GLADE host: NGC 0208

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2022yye
+offset/DLR = \
+{'CGCG 500-042': 41.04, 'CGCG 500-043': inf}
+candidate semi-major axis = \
+{'CGCG 500-042': 24.9, 'CGCG 500-043': 18.99}
+No host chosen! r/DLR > 5.0.

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2023hjq
+offset/DLR = \
+{'MCG -03-35-003': 0.13, 'MCG -03-35-004': 1.84, 'WISEA J133301.80-161441.8': 36.39}
+candidate semi-major axis = \
+{'MCG -03-35-003': 48.57, 'MCG -03-35-004': 65.64, 'WISEA J133301.80-161441.8': 12.21}
+Selecting GLADE host: MCG -03-35-003

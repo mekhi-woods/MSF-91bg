@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019luv
+offset/DLR = \
+{'MCG -02-55-008': 34.62}
+candidate semi-major axis = \
+{'MCG -02-55-008': 14.34}
+No host chosen! r/DLR > 5.0.

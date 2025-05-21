@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020clq
+offset/DLR = \
+{'NGC 1609': 25.7, 'MCG -01-12-028': 39.43, 'NGC 1611': 14.28, 'NGC 1612': 14.35, 'NGC 1613': 0.21, 'WISEA J043334.72-041146.3': 28.32}
+candidate semi-major axis = \
+{'NGC 1609': 36.9, 'MCG -01-12-028': 33.6, 'NGC 1611': 42.3, 'NGC 1612': 27.3, 'NGC 1613': 34.44, 'WISEA J043334.72-041146.3': 13.11}
+Selecting GLADE host: NGC 1613

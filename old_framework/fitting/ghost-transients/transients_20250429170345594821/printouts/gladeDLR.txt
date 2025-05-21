@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020uzw
+offset/DLR = \
+{'2MASX J01490255+1255394': 51.92, 'WISEA J014803.63+125604.1': 26.55}
+candidate semi-major axis = \
+{'2MASX J01490255+1255394': 11.4, 'WISEA J014803.63+125604.1': 19.38}
+No host chosen! r/DLR > 5.0.

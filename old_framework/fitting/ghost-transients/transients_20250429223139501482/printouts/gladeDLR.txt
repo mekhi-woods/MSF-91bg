@@ -1,0 +1,8 @@
+
+ transient = \
+SN2022ubg
+offset/DLR = \
+{'WISEA J025058.21+410342.4': inf, '2MASX J02511302+4059360': inf, '2MASX J02511780+4109180': inf}
+candidate semi-major axis = \
+{'WISEA J025058.21+410342.4': 10.11, '2MASX J02511302+4059360': 17.37, '2MASX J02511780+4109180': 9.75}
+No host chosen! r/DLR > 5.0.

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020ais
+offset/DLR = \
+{'NGC 3839': 23.42, 'IC 0727': 0.23, 'CGCG 068-052': 5.63, 'WISEA J114503.96+105440.1': 44.83}
+candidate semi-major axis = \
+{'NGC 3839': 21.69, 'IC 0727': 34.38, 'CGCG 068-052': 22.23, 'WISEA J114503.96+105440.1': 15.75}
+Selecting GLADE host: IC 0727

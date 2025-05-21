@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021bjb
+offset/DLR = \
+{'ESO 384- G 037': 34.62, 'ESO 384- G 042': 36.27, 'ABELL S0753': 0.28, 'PGC1 0088955 GROUP': 42.31}
+candidate semi-major axis = \
+{'ESO 384- G 037': 21.18, 'ESO 384- G 042': 31.41, 'ABELL S0753': 18.09, 'PGC1 0088955 GROUP': 18.51}
+Selecting GLADE host: ABELL S0753

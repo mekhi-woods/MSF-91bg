@@ -1,0 +1,9 @@
+
+ transient = \
+SN2016gkd
+offset/DLR = \
+{504962705: 17.18, 504962706: 1.86}
+candidate semi-major axis = \
+{504962705: 2.56, 504962706: 2.98}
+Issue with DLR. Try Gradient Descent!
+35.341084 -42.344131

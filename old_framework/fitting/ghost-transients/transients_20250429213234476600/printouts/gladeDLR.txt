@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019cth
+offset/DLR = \
+{'IC 1056': 0.65}
+candidate semi-major axis = \
+{'IC 1056': 36.0}
+Selecting GLADE host: IC 1056

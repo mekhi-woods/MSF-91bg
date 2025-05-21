@@ -1,0 +1,8 @@
+
+ transient = \
+SN2023hrn
+offset/DLR = \
+{'NGC 3535': 3.05, '[EKL2017] ECO 4295': 37.12}
+candidate semi-major axis = \
+{'NGC 3535': 23.79, '[EKL2017] ECO 4295': 12.81}
+Selecting GLADE host: NGC 3535

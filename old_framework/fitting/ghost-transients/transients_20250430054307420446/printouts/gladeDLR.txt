@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021xjs
+offset/DLR = \
+{'UGC 11219 NED02': 47.85}
+candidate semi-major axis = \
+{'UGC 11219 NED02': 18.9}
+No host chosen! r/DLR > 5.0.

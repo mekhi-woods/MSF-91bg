@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021bsf
+offset/DLR = \
+{'NGC 4095': inf, 'NGC 4089': 22.09, 'NGC 4091': 48.33, 'NGC 4093': inf, 'NGC 4092': 12.86, 'NGC 4098': 16.79, '2MASX J12053677+2028377': 48.49}
+candidate semi-major axis = \
+{'NGC 4095': 24.6, 'NGC 4089': 17.22, 'NGC 4091': 20.73, 'NGC 4093': 17.31, 'NGC 4092': 22.71, 'NGC 4098': 16.83, '2MASX J12053677+2028377': 16.11}
+No host chosen! r/DLR > 5.0.

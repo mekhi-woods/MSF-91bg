@@ -1,0 +1,8 @@
+
+ transient = \
+SN2016brx
+offset/DLR = \
+{'NGC 7391': 0.84}
+candidate semi-major axis = \
+{'NGC 7391': 37.71}
+Selecting GLADE host: NGC 7391

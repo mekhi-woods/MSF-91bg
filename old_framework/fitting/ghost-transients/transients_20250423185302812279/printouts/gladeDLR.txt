@@ -1,0 +1,8 @@
+
+ transient = \
+SN2021abza
+offset/DLR = \
+{'PGC1 0061984 GROUP': 30.59, 'UGC 11264': 49.39, 'CGCG 173-003': 63.92}
+candidate semi-major axis = \
+{'PGC1 0061984 GROUP': 13.44, 'UGC 11264': 26.07, 'CGCG 173-003': 9.48}
+No host chosen! r/DLR > 5.0.

@@ -1,0 +1,8 @@
+
+ transient = \
+SN2020uea
+offset/DLR = \
+{'UGC 01984': 233.01, 'UGC 01987': 23.32, 'CGCG 539-037': 0.78, 'UGC 01997': 40.33, 'WISEA J023112.76+432130.0': 46.87}
+candidate semi-major axis = \
+{'UGC 01984': 24.3, 'UGC 01987': 19.8, 'CGCG 539-037': 53.25, 'UGC 01997': 29.28, 'WISEA J023112.76+432130.0': 19.38}
+Selecting GLADE host: CGCG 539-037

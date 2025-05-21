@@ -1,0 +1,8 @@
+
+ transient = \
+SN2019vju
+offset/DLR = \
+{'NGC 3514': 0.76}
+candidate semi-major axis = \
+{'NGC 3514': 23.79}
+Selecting GLADE host: NGC 3514
