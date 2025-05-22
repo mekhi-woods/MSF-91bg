@@ -1,0 +1,2 @@
+# Combination of '2024jih' data from 'ATLAS', 'ZTF'
+filter, zp, ra, dec, mjd, mag, dmag, flux, dflux, source
