@@ -10,7 +10,6 @@ from astropy.stats import sigma_clip, sigma_clipped_stats
 from scipy.stats import norm  # For inverse normal CDF (percentile function)
 
 CURRENTDATE = datetime.datetime.now()
-CURRENTDATEANDTIME = str(datetime.datetime.now())[:-10].replace('-', '').replace(' ', '').replace(':', '')
 
 def make_param_file(sne: list, subtype: str, save_loc: str):
     """
@@ -33,7 +32,7 @@ def make_param_file(sne: list, subtype: str, save_loc: str):
               "z_cmb, "
               "MJDs, "
               "MJDe, "
-              "chisquare, chisquare_err, "
+              # "chisquare, chisquare_err, "
               "mu, mu_err, "
               "hostMass, hostMass_err, "
               "Tmax, Tmax_err, "
@@ -61,7 +60,7 @@ def make_param_file(sne: list, subtype: str, save_loc: str):
                   f"{sn.z_cmb}, "
                   f"{min(sn.mjd)}, "
                   f"{max(sn.mjd)}, "
-                  f"{sn.params['chisquare']['value']}, {sn.params['chisquare']['err']}, "
+                  # f"{sn.params['chisquare']['value']}, {sn.params['chisquare']['err']}, "
                   f"{sn.params['mu']['value']}, {sn.params['mu']['err']}, "
                   f"{sn.params['hostMass']['value']}, {sn.params['hostMass']['err']}, "
                   f"{sn.params[param_dict['t_max']]['value']}, {sn.params[param_dict['t_max']]['err']}, "
@@ -159,12 +158,19 @@ def combine_snpy_salt(snpy_path: str, salt_path: str, save_loc: str = ''):
 
             # Reduced Chi2 Comparision
             # Take SNooPy data, remove SALT
-            if tb_snpy[tb_snpy["objname"] == name]["chisquare"] < tb_salt[tb_salt["objname"] == name]["chisquare"]:
+            # if tb_snpy[tb_snpy["objname"] == name]["chisquare"] < tb_salt[tb_salt["objname"] == name]["chisquare"]:
+            #     tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
+            # # Take SALT data, remove SNooPy
+            # else:
+            #     tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
+
+            # MU_err Comparision
+            # Take SNooPy data, remove SALT
+            if tb_snpy[tb_snpy["objname"] == name]["mu_err"] < tb_salt[tb_salt["objname"] == name]["mu_err"]:
                 tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
             # Take SALT data, remove SNooPy
             else:
                 tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
-
 
     if len(tb_snpy) > len(tb_salt):
         tb_combined = tb_snpy.copy()
@@ -202,9 +208,6 @@ def selection_criteria(snpy_path: str = '', salt_path: str = '', save_loc: str =
         tb_salt = utils.default_open(salt_path, True)
         tb_snpy = Table(names=tb_salt.colnames)
 
-    # tb_snpy = utils.default_open(snpy_path, True)
-    # tb_salt = utils.default_open(salt_path, True)
-
     if criteria == None:
         criteria = {
             'z_cmb': [0.015, 999],
@@ -223,22 +226,24 @@ def selection_criteria(snpy_path: str = '', salt_path: str = '', save_loc: str =
         }
 
     # Base Cuts
-    for c in ['z_cmb', 'mu_err', 'Tmax_err', 'z_err', 'chisquare']:
+    for c in ['z_cmb', 'mu_err', 'Tmax_err']: # 'z_err', 'chisquare'
         print(f"[{criteria[c][0]} < {c} < {criteria[c][1]}]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
         tb_snpy = tb_snpy[(tb_snpy[c] > criteria[c][0]) & (tb_snpy[c] < criteria[c][1])]
         tb_salt = tb_salt[(tb_salt[c] > criteria[c][0]) & (tb_salt[c] < criteria[c][1])]
         # print(len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname']))))
         print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SNooPy: {len(list(tb_snpy['objname']))}| SALT: {len(list(tb_salt['objname']))}]")
 
-    # # Visual Inspection
+    # Visual Inspection
     # bad_snpy_sne = "2008bd, 2019ahh, 2019ecx, 2022ubt, 2022vse, 2022vse, 2022xhh, 2023jah, 2023mkp, 2024yhg".split(', ')
     # bad_salt_sne = "2006bd, 2006gt, 2007N, 2008bd, 2008bt, 2021mab, 2022vse, 2022vxf, 2023dk, 2025nn".split(', ')
-    # print(f"[Visual Cuts]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
-    # for name in bad_snpy_sne:
-    #     if name in tb_snpy['objname']: tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
-    # for name in bad_salt_sne:
-    #     if name in tb_salt['objname']: tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
-    # print(len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname']))))
+    bad_snpy_sne = "2008bd,2007ba,2022vse,2023jah,2023mkp,2024yhg,2019ecx,2006bd,2007N,2025nn,2021mab,2023dk,2022vxf".split(',') # 2022zsp,2019ahh,2024zaj
+    bad_salt_sne = "2008bd,2007ba,2022vse,2023jah,2023mkp,2024yhg,2019ecx,2006bd,2007N,2025nn,2021mab,2023dk,2022vxf".split(',')
+    print(f"[Visual Cuts]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
+    for name in bad_snpy_sne:
+        if name in tb_snpy['objname']: tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
+    for name in bad_salt_sne:
+        if name in tb_salt['objname']: tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
+    print(len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname']))))
 
     # SNooPy Cuts
     for c1, c2 in zip(['color', 'color_err', 'stretch', 'stretch_err'], ['EBVhost', 'EBVhost_err', 'st', 'st_err']):
@@ -254,18 +259,6 @@ def selection_criteria(snpy_path: str = '', salt_path: str = '', save_loc: str =
         # print(len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname']))))
         print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SALT: {len(list(tb_salt['objname']))}]")
 
-    # Visual Inspection
-    bad_snpy_sne = "2024abwg, 2007ba, 2020vae, 2022ubt".split(', ')
-    bad_salt_sne = "2024jih, 2025nn".split(', ')
-    print(f"[Visual Cuts]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
-    for name in bad_snpy_sne:
-        if name in tb_snpy['objname']: tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
-    for name in bad_salt_sne:
-        if name in tb_salt['objname']: tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
-    # print(len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname']))))
-    print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SNooPy: {len(list(tb_snpy['objname']))}| SALT: {len(list(tb_salt['objname']))}]")
-
-
     # Combine on mu
     if all(save_toggle) == True:
         for name in np.unique(list(tb_snpy["objname"])+list(tb_salt["objname"])):
@@ -273,21 +266,21 @@ def selection_criteria(snpy_path: str = '', salt_path: str = '', save_loc: str =
                 # # Prefer SNooPy MU's
                 # tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
 
-                # # MU_err Comparision
-                # # Take SNooPy data, remove SALT
-                # if tb_snpy[tb_snpy["objname"] == name]["mu_err"] < tb_salt[tb_salt["objname"] == name]["mu_err"]:
-                #     tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
-                # # Take SALT data, remove SNooPy
-                # else:
-                #     tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
-
-                # Reduced Chi2 Comparision
+                # MU_err Comparision
                 # Take SNooPy data, remove SALT
-                if tb_snpy[tb_snpy["objname"] == name]["chisquare"] < tb_salt[tb_salt["objname"] == name]["chisquare"]:
+                if tb_snpy[tb_snpy["objname"] == name]["mu_err"] < tb_salt[tb_salt["objname"] == name]["mu_err"]:
                     tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
                 # Take SALT data, remove SNooPy
                 else:
                     tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
+
+                # # Reduced Chi2 Comparision
+                # # Take SNooPy data, remove SALT
+                # if tb_snpy[tb_snpy["objname"] == name]["chisquare"] < tb_salt[tb_salt["objname"] == name]["chisquare"]:
+                #     tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
+                # # Take SALT data, remove SNooPy
+                # else:
+                #     tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
     print(f"Combining on MU [SNooPy: {len(list(tb_snpy['objname']))}| SALT: {len(list(tb_salt['objname']))}]")
 
     # Combine data

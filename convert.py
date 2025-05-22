@@ -72,11 +72,11 @@ def covert_file_format(file_loc, origin, save_loc):
             var_table[h_old].name = h_new
         var_table['zp'] = np.full(var_table['mag'].shape, 23.9) # Recreate Zero-Points using ZP = m + 2.5log_10(flux)
 
-        # Filter on 5-sigma magnitudes (mag5sig)
-        var_table = var_table[var_table['mag'] < var_table['mag5sig']]
-
-        # Filter out chi/N > 2
-        var_table = var_table[var_table['chi/N'] < 3.0]
+        # # Filter on 5-sigma magnitudes (mag5sig)
+        # var_table = var_table[var_table['mag'] < var_table['mag5sig']]
+        #
+        # # Filter out chi/N > 2
+        # var_table = var_table[var_table['chi/N'] < 3.0]
 
         # Filter out unresonable mags
         var_table = var_table[var_table['mag'] > 0.0]
@@ -136,8 +136,8 @@ def covert_file_format(file_loc, origin, save_loc):
                                 ['zp', 'mjd', 'flux', 'dflux']):
             var_table[h_old].name = h_new
 
-        # Filter on by magnitude limit (diffmaglim)
-        var_table = var_table[var_table['mag'] < var_table['diffmaglim']]
+        # # Filter on by magnitude limit (diffmaglim)
+        # var_table = var_table[var_table['mag'] < var_table['diffmaglim']]
 
         # # Filter out by reduced chi2 > 3.0 -- Might remove too many filters
         # var_table = var_table[var_table['forcediffimchisq'] < 3.0]
@@ -248,9 +248,9 @@ def combine_atlas_ztf(subtype: str = '91bg'):
     return
 def add_z_and_discdate(subtype: str = '91bg'):
     if subtype == '91bg':
-        tarlist = np.genfromtxt('../txts/target_files/new_sn1991bglike_tarlist.csv', delimiter=',', dtype=str, skip_header=2)
+        tarlist = np.genfromtxt('txts/target_files/new_sn1991bglike_tarlist.csv', delimiter=',', dtype=str, skip_header=2)
     elif subtype == 'norm':
-        tarlist = np.genfromtxt('../txts/target_files/new_normal_tarlist.csv', delimiter=',', dtype=str, skip_header=2)
+        tarlist = np.genfromtxt('txts/target_files/new_normal_tarlist.csv', delimiter=',', dtype=str, skip_header=2)
 
     tarlist_hdr = "Name,RA,DEC,Redshift,Redshift Error,Discovery Date (UT),Data Source(s)".split(',')
 
@@ -379,7 +379,7 @@ def run():
     # =================================================================================================================
 
     # Convert CSP 1991bgs
-    csp_files = glob.glob('../data/CSP-91bg/*')
+    csp_files = glob.glob('old_data/CSP-91bg/*')
     n_csp = 0
     for file in csp_files:
         s = covert_file_format(file, 'CSP', f"data/91BG_CSP_{file.split('/')[-1][3:]}")
@@ -387,7 +387,7 @@ def run():
     print(f"{n_csp}/{len(csp_files)}... CSP")
 
     # Convert ATLAS 1991bgs
-    atlas_files = glob.glob('../data/ATLAS-91bg/*')
+    atlas_files = glob.glob('old_data/ATLAS-91bg/*')
     n_atlas = 0
     for file in atlas_files:
         s = covert_file_format(file, 'ATLAS', f"data/91BG_ATLAS_{file.split('/')[-1][5:]}")
@@ -395,7 +395,7 @@ def run():
     print(f"{n_atlas}/{len(atlas_files)}... ATLAS")
 
     # Convert ZTF 1991bgs
-    ztf_files = glob.glob('../data/ZTF-91bg/*')
+    ztf_files = glob.glob('old_data/ZTF-91bg/*')
     n_ztf = 0
     for file in ztf_files:
         s = covert_file_format(file, 'ZTF', f"data/91BG_ZTF_{file.split('/')[-1][3:]}")
