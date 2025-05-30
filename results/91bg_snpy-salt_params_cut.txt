@@ -1,4 +1,4 @@
-# Created by M.D. Woods -- 2025-05-22 13:08:51.707744 -- NUM TARGETS: 49
+# Created by M.D. Woods -- 2025-05-30 11:40:28.910099 -- NUM TARGETS: 49
 # Scatter: 0.2359, MASS_STEP: 0.0069+/-0.0588
 # WARNING: For files with SNPY & SALT, the 'stretch' and 'color' are NOT identical.
 objname, origin, subtype, algo, ra, dec, z, z_cmb, MJDs, MJDe, mu, mu_err, hostMass, hostMass_err, Tmax, Tmax_err, stretch, stretch_err, color, color_err, amplitude, amplitude_err, peak_mag, peak_mag_err

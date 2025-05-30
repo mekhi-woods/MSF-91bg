@@ -1,4 +1,4 @@
-# Created by M.D. Woods -- 2025-05-29 12:47:08.089407 -- NUM TARGETS: 756
+# Created by M.D. Woods -- 2025-05-29 12:45:51.699054 -- NUM TARGETS: 756
 # WARNING: For files with SNPY & SALT, the 'stretch' and 'color' are NOT identical.
 objname, origin, subtype, algo, ra, dec, z, z_err, z_cmb, MJDs, MJDe, chisquare, chisquare_err, mu, mu_err, hostMass, hostMass_err, Tmax, Tmax_err, stretch, stretch_err, color, color_err, amplitude, amplitude_err, peak_mag, peak_mag_err
 2004ey, CSP, 91bg, SALT, 327.282542, 0.44422200000000006, 0.0158, 0.0, 0.013947643306485378, 53295.53, 53352.55, 3495.052314262685, 0.0, 33.90441769286892, 0.0028992340295705293, 10.56345194549921, 0.0015268614043546201, 53304.96483345356, 0.008878940898284782, 0.26006439805504544, 0.007766815008988237, 0.10829161850239483, 0.0008124263527781956, 0.013070395315291836, 1.2808515511558537e-05, 15.361755555555556, 0.006444444444444445

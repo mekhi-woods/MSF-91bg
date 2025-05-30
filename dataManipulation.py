@@ -1,5 +1,7 @@
 import os
 import glob
+import sys
+
 import utils  # Import of utils.py
 import shutil
 import datetime
@@ -151,27 +153,30 @@ def combine_like_data(target_file: str, combined_loc: str, subtype: str, clear_o
 def combine_snpy_salt(snpy_path: str, salt_path: str, save_loc: str = ''):
     tb_snpy = utils.default_open(snpy_path, True)
     tb_salt = utils.default_open(salt_path, True)
-    for name in np.unique(list(tb_snpy["objname"])+list(tb_salt["objname"])):
+
+    # Get distance modulus residuals
+    dmu = np.array([])
+    for name in tb_salt["objname"]:
         if (name in list(tb_snpy["objname"])) & (name in list(tb_salt["objname"])):
-            # # Prefer SNooPy MU's
-            # tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
+            dmu = np.append(dmu, tb_snpy[tb_snpy["objname"] == name]['mu'] - tb_salt[tb_salt["objname"] == name]['mu'])
+        else:
+            dmu = np.append(dmu, np.nan)
+    tb_salt["dmu"] = dmu
 
-            # Reduced Chi2 Comparision
-            # Take SNooPy data, remove SALT
-            # if tb_snpy[tb_snpy["objname"] == name]["chisquare"] < tb_salt[tb_salt["objname"] == name]["chisquare"]:
-            #     tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
-            # # Take SALT data, remove SNooPy
-            # else:
-            #     tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
+    # Correct for average distnace modulus
+    avg_dmu = np.average(np.abs(tb_salt['dmu'][~np.isnan(tb_salt['dmu'])]))
+    new_salt = np.array([])
+    for row in tb_salt:
+        if row['dmu'] < 0:
+            new_salt = np.append(new_salt, row['mu'] - avg_dmu)
+        elif row['dmu'] >= 0:
+            new_salt = np.append(new_salt, row['mu'] + avg_dmu)
+        elif np.isnan(row['dmu']):
+            new_salt = np.append(new_salt, row['mu'])
+    # tb_salt["mu"] = new_salt # Disable correction
+    tb_salt.remove_column('dmu')
 
-            # MU_err Comparision
-            # Take SNooPy data, remove SALT
-            if tb_snpy[tb_snpy["objname"] == name]["mu_err"] < tb_salt[tb_salt["objname"] == name]["mu_err"]:
-                tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
-            # Take SALT data, remove SNooPy
-            else:
-                tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
-
+    # Combine SNPY & SALT
     if len(tb_snpy) > len(tb_salt):
         tb_combined = tb_snpy.copy()
         for row in tb_salt:
@@ -194,7 +199,54 @@ def combine_snpy_salt(snpy_path: str, salt_path: str, save_loc: str = ''):
             print(line[:-2], file=f)
     print(f"[+++] Saved data to {save_loc}...")
     return
-def selection_criteria(snpy_path: str = '', salt_path: str = '', save_loc: str = '', criteria: dict or None = None):
+def selection_criteria_count(snpy_path: str = '', salt_path: str = '', criteria: dict or None = None):
+    if len(snpy_path) > 0 and len(salt_path) > 0:
+        tb_snpy = utils.default_open(snpy_path, True)
+        tb_salt = utils.default_open(salt_path, True)
+    elif len(snpy_path) > 0:
+        save_toggle = [False, True, False]
+        tb_snpy = utils.default_open(snpy_path, True)
+        tb_salt = Table(names=tb_snpy.colnames)
+    elif len(salt_path) > 0:
+        save_toggle = [False, False, True]
+        tb_salt = utils.default_open(salt_path, True)
+        tb_snpy = Table(names=tb_salt.colnames)
+
+    # SNooPy Cuts
+    for c1, c2 in zip(['color' , 'color_err', 'stretch', 'stretch_err'], ['EBVhost', 'EBVhost_err', 'st', 'st_err']):
+        if criteria[c2][0] == -999 and criteria[c2][1] == 999: continue
+        print(f"[{criteria[c2][0]} < {c2} < {criteria[c2][1]}]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
+        tb_snpy = tb_snpy[(tb_snpy[c1] > criteria[c2][0]) & (tb_snpy[c1] < criteria[c2][1])]
+        print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SNooPy: {len(list(tb_snpy['objname']))}]")
+
+    # SALT Cuts
+    for c1, c2 in zip(['color', 'color_err', 'stretch', 'stretch_err'], ['c', 'c_err', 'x1', 'x1_err']):
+        if criteria[c2][0] == -999 and criteria[c2][1] == 999: continue
+        print(f"[{criteria[c2][0]} < {c2} < {criteria[c2][1]}]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
+        tb_salt = tb_salt[(tb_salt[c1] > criteria[c2][0]) & (tb_salt[c1] < criteria[c2][1])]
+        print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SALT: {len(list(tb_salt['objname']))}]")
+
+    # Combine on mu
+    dmu = []
+    print(f"Combining on MU [SNooPy: {len(list(tb_snpy['objname']))} | SALT: {len(list(tb_salt['objname']))}]", end=' ---> ')
+    for name in np.unique(list(tb_snpy["objname"]) + list(tb_salt["objname"])):
+        if (name in list(tb_snpy["objname"])) & (name in list(tb_salt["objname"])):
+            dmu.append(np.abs(tb_snpy[tb_snpy["objname"] == name]["mu"] - tb_salt[tb_salt["objname"] == name]["mu"]))
+            if tb_snpy[tb_snpy["objname"] == name]["mu_err"] < tb_salt[tb_salt["objname"] == name]["mu_err"]:
+                tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
+            else:
+                tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
+    print(f"[SNooPy: {len(list(tb_snpy['objname']))} | SALT: {len(list(tb_salt['objname']))}]")
+
+    # Base Cuts
+    for c in ['z_cmb', 'mu_err', 'Tmax_err', 'z_err', 'chisquare']:
+        print(f"[{criteria[c][0]} < {c} < {criteria[c][1]}]: {len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))}", end=' ---> ')
+        tb_snpy = tb_snpy[(tb_snpy[c] > criteria[c][0]) & (tb_snpy[c] < criteria[c][1])]
+        tb_salt = tb_salt[(tb_salt[c] > criteria[c][0]) & (tb_salt[c] < criteria[c][1])]
+        print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SNooPy: {len(list(tb_snpy['objname']))} | SALT: {len(list(tb_salt['objname']))}]")
+
+    return
+def old_selection_criteria(snpy_path: str = '', salt_path: str = '', save_loc: str = '', criteria: dict or None = None):
     save_toggle = [True, True, True]
     if len(snpy_path) > 0 and len(salt_path) > 0:
         tb_snpy = utils.default_open(snpy_path, True)
@@ -208,34 +260,7 @@ def selection_criteria(snpy_path: str = '', salt_path: str = '', save_loc: str =
         tb_salt = utils.default_open(salt_path, True)
         tb_snpy = Table(names=tb_salt.colnames)
 
-    if criteria == None:
-        criteria = {
-            'z_cmb': [0.015, 999],
-            'z_err': [-999, 999],
-            'Tmax_err': [-999, 1.0],
-            'mu_err': [-999, 0.2],
-            'chisquare': [-999, 999],
-            'EBVhost': [-0.3, 0.3],
-            'EBVhost_err': [-999, 0.1],
-            'st': [-999, 1.0],
-            'st_err': [-999, 0.1],
-            'c': [-0.6, 0.6],
-            'c_err': [-999, 0.1],
-            'x1': [-3.2, 3.2],
-            'x1_err': [-999, 1.0]
-        }
-
-    # Base Cuts
-    for c in ['z_cmb', 'mu_err', 'Tmax_err']: # 'z_err', 'chisquare'
-        print(f"[{criteria[c][0]} < {c} < {criteria[c][1]}]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
-        tb_snpy = tb_snpy[(tb_snpy[c] > criteria[c][0]) & (tb_snpy[c] < criteria[c][1])]
-        tb_salt = tb_salt[(tb_salt[c] > criteria[c][0]) & (tb_salt[c] < criteria[c][1])]
-        # print(len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname']))))
-        print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SNooPy: {len(list(tb_snpy['objname']))}| SALT: {len(list(tb_salt['objname']))}]")
-
     # Visual Inspection
-    # bad_snpy_sne = "2008bd, 2019ahh, 2019ecx, 2022ubt, 2022vse, 2022vse, 2022xhh, 2023jah, 2023mkp, 2024yhg".split(', ')
-    # bad_salt_sne = "2006bd, 2006gt, 2007N, 2008bd, 2008bt, 2021mab, 2022vse, 2022vxf, 2023dk, 2025nn".split(', ')
     bad_snpy_sne = "2008bd,2007ba,2022vse,2023jah,2023mkp,2024yhg,2019ecx,2006bd,2007N,2025nn,2021mab,2023dk,2022vxf".split(',') # 2022zsp,2019ahh,2024zaj
     bad_salt_sne = "2008bd,2007ba,2022vse,2023jah,2023mkp,2024yhg,2019ecx,2006bd,2007N,2025nn,2021mab,2023dk,2022vxf".split(',')
     print(f"[Visual Cuts]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
@@ -249,7 +274,6 @@ def selection_criteria(snpy_path: str = '', salt_path: str = '', save_loc: str =
     for c1, c2 in zip(['color', 'color_err', 'stretch', 'stretch_err'], ['EBVhost', 'EBVhost_err', 'st', 'st_err']):
         print(f"[{criteria[c2][0]} < {c2} < {criteria[c2][1]}]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
         tb_snpy = tb_snpy[(tb_snpy[c1] > criteria[c2][0]) & (tb_snpy[c1] < criteria[c2][1])]
-        # print(len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname']))))
         print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SNooPy: {len(list(tb_snpy['objname']))}]")
 
     # SALT Cuts
@@ -282,6 +306,14 @@ def selection_criteria(snpy_path: str = '', salt_path: str = '', save_loc: str =
                 # else:
                 #     tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
     print(f"Combining on MU [SNooPy: {len(list(tb_snpy['objname']))}| SALT: {len(list(tb_salt['objname']))}]")
+
+    # Base Cuts
+    for c in ['z_cmb', 'mu_err', 'Tmax_err', 'z_err', 'chisquare']:
+        print(f"[{criteria[c][0]} < {c} < {criteria[c][1]}]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
+        tb_snpy = tb_snpy[(tb_snpy[c] > criteria[c][0]) & (tb_snpy[c] < criteria[c][1])]
+        tb_salt = tb_salt[(tb_salt[c] > criteria[c][0]) & (tb_salt[c] < criteria[c][1])]
+        # print(len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname']))))
+        print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SNooPy: {len(list(tb_snpy['objname']))}| SALT: {len(list(tb_salt['objname']))}]")
 
     # Combine data
     if len(tb_snpy) > len(tb_salt):
@@ -354,6 +386,152 @@ def selection_criteria(snpy_path: str = '', salt_path: str = '', save_loc: str =
                     print(line[:-2], file=f)
             print(f"[+++] Saved data to {save_loc}...")
     return chuv_lim, chuv_lim_num
+def selection_criteria(data_path: str = '', save_loc: str = '', selection: str ='snpy+salt', criteria: dict or None = None):
+    if selection == "snpy+salt":
+        tb_combined = utils.default_open(data_path, True)
+        tb_snpy = tb_combined[tb_combined['algo'] == 'SNPY']
+        tb_salt = tb_combined[tb_combined['algo'] == 'SALT']
+    elif selection == "snpy":
+        tb_combined = utils.default_open(data_path, True)
+        tb_snpy = tb_combined[tb_combined['algo'] == 'SNPY']
+        tb_salt = Table(names=tb_snpy.colnames)
+    elif selection == "salt":
+        tb_combined = utils.default_open(data_path, True)
+        tb_salt = tb_combined[tb_combined['algo'] == 'SALT']
+        tb_snpy = Table(names=tb_salt.colnames)
+
+    # Visual Inspection
+    bad_snpy_sne = "2008bd,2007ba,2022vse,2023jah,2023mkp,2024yhg,2019ecx,2006bd,2007N,2025nn,2021mab,2023dk,2022vxf".split(',') # 2022zsp,2019ahh,2024zaj
+    bad_salt_sne = "2008bd,2007ba,2022vse,2023jah,2023mkp,2024yhg,2019ecx,2006bd,2007N,2025nn,2021mab,2023dk,2022vxf".split(',')
+    print(f"[Visual Cuts]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
+    for name in bad_snpy_sne:
+        if name in tb_snpy['objname']: tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
+    for name in bad_salt_sne:
+        if name in tb_salt['objname']: tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
+    print(len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname']))))
+
+    # SNooPy Cuts
+    if selection == "snpy+salt" or selection == "snpy":
+        for c1, c2 in zip(['color', 'color_err', 'stretch', 'stretch_err'], ['EBVhost', 'EBVhost_err', 'st', 'st_err']):
+            if criteria[c2][0] == -999 and criteria[c2][1] == 999: continue
+            print(f"[{criteria[c2][0]} < {c2} < {criteria[c2][1]}]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
+            tb_snpy = tb_snpy[(tb_snpy[c1] > criteria[c2][0]) & (tb_snpy[c1] < criteria[c2][1])]
+            print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SNooPy: {len(list(tb_snpy['objname']))}]")
+
+    # SALT Cuts
+    if selection == "snpy+salt" or selection == "salt":
+        for c1, c2 in zip(['color', 'color_err', 'stretch', 'stretch_err'], ['c', 'c_err', 'x1', 'x1_err']):
+            if criteria[c2][0] == -999 and criteria[c2][1] == 999: continue
+            print(f"[{criteria[c2][0]} < {c2} < {criteria[c2][1]}]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
+            tb_salt = tb_salt[(tb_salt[c1] > criteria[c2][0]) & (tb_salt[c1] < criteria[c2][1])]
+            print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SALT: {len(list(tb_salt['objname']))}]")
+
+    # Combine on mu
+    if selection == "snpy+salt":
+        print(f"Combining on MU [SNooPy: {len(list(tb_snpy['objname']))}| SALT: {len(list(tb_salt['objname']))}]", end=' ---> ')
+        for name in np.unique(list(tb_snpy["objname"])+list(tb_salt["objname"])):
+            if (name in list(tb_snpy["objname"])) & (name in list(tb_salt["objname"])):
+                # Take SNooPy data, remove SALT
+                if tb_snpy[tb_snpy["objname"] == name]["mu_err"] < tb_salt[tb_salt["objname"] == name]["mu_err"]:
+                    tb_salt.remove_row(np.where(tb_salt["objname"] == name)[0][0])
+                # Take SALT data, remove SNooPy
+                else:
+                    tb_snpy.remove_row(np.where(tb_snpy["objname"] == name)[0][0])
+        print(f"[SNooPy: {len(list(tb_snpy['objname']))} | SALT: {len(list(tb_salt['objname']))}]")
+
+    # Base Cuts
+    for c in ['z_cmb', 'mu_err', 'Tmax_err', 'z_err', 'chisquare']:
+        if criteria[c][0] == -999 and criteria[c][1] == 999: continue
+        print(f"[{criteria[c][0]} < {c} < {criteria[c][1]}]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
+        tb_snpy = tb_snpy[(tb_snpy[c] > criteria[c][0]) & (tb_snpy[c] < criteria[c][1])]
+        tb_salt = tb_salt[(tb_salt[c] > criteria[c][0]) & (tb_salt[c] < criteria[c][1])]
+        print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SNooPy: {len(list(tb_snpy['objname']))}| SALT: {len(list(tb_salt['objname']))}]")
+
+    # Combine data
+    if len(tb_snpy) > len(tb_salt):
+        tb_combined = tb_snpy.copy()
+        for row in tb_salt:
+            tb_combined.add_row(row)
+    else:
+        tb_combined = tb_salt.copy()
+        for row in tb_snpy:
+            tb_combined.add_row(row)
+
+    # Chauvenet’s Criterion
+    resid = tb_combined['mu'].astype(float) - utils.current_cosmo().distmod(tb_combined['z_cmb'].astype(float)).value
+    limit = norm.ppf(1 - (1.0 / (4 * len(resid))))
+    tb_combined = tb_combined[np.abs((resid - np.average(resid, weights=(1/(tb_combined['mu_err'].astype(float)**2)))) / np.std(resid)) < limit]
+    og_len = len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))
+    print(f"[Chauvenet: {limit:.2f}]: {len(np.unique(list(tb_snpy['objname'])+list(tb_salt['objname'])))}", end=' ---> ')
+    tb_snpy = tb_combined[tb_combined['algo'] == 'SNPY']
+    tb_salt = tb_combined[tb_combined['algo'] == 'SALT']
+    print(f"{len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))} [SNooPy: {len(list(tb_snpy['objname']))}| SALT: {len(list(tb_salt['objname']))}]")
+
+    chuv_lim, chuv_lim_num = limit, og_len-len(np.unique(list(tb_snpy['objname']) + list(tb_salt['objname'])))
+
+    # Adding intrinsic dispersion (0.1 mag) in quadrature for mass (taylor+11) & mu
+    tb_combined['mu_err'] = np.sqrt(tb_combined['mu_err'] ** 2.0 + 0.1 ** 2.0)
+    tb_snpy['mu_err'] = np.sqrt(tb_snpy['mu_err'] ** 2.0 + 0.1 ** 2.0)
+    tb_salt['mu_err'] = np.sqrt(tb_salt['mu_err'] ** 2.0 + 0.1 ** 2.0)
+    tb_combined['hostMass_err'] = np.sqrt(tb_combined['hostMass_err'] ** 2.0 + 0.1 ** 2.0)
+    tb_snpy['hostMass_err'] = np.sqrt(tb_snpy['hostMass_err'] ** 2.0 + 0.1 ** 2.0)
+    tb_salt['hostMass_err'] = np.sqrt(tb_salt['hostMass_err'] ** 2.0 + 0.1 ** 2.0)
+
+    # Get Mass Step
+    tb_low = tb_combined[tb_combined['hostMass'] < 10]
+    tb_high = tb_combined[tb_combined['hostMass'] > 10]
+    resid = tb_combined['mu'].astype(float) - utils.current_cosmo().distmod(tb_combined['z_cmb'].astype(float)).value
+    resid_high = tb_high['mu'].astype(float) - utils.current_cosmo().distmod(tb_high['z_cmb'].astype(float)).value
+    resid_low = tb_low['mu'].astype(float) - utils.current_cosmo().distmod(tb_low['z_cmb'].astype(float)).value
+    mass_step = (np.average(resid_high, weights=(1/(tb_high['mu_err']**2))) -
+                 np.average(resid_low,  weights=(1/(tb_low['mu_err']**2))))
+    mass_step_err = np.sqrt(((np.std(resid_low) / np.sqrt(len(resid_low))) ** 2) +
+                            ((np.std(resid_high) / len(resid_high))) ** 2) # (sigma/N)**2
+
+    # Scatter
+    print(f"[Scatter]: {np.std(resid):.3f}")
+
+    # Nums
+    print(f"[# SNooPy]: {len(tb_snpy)}")
+    print(f"[# SALT3]: {len(tb_salt)}")
+
+    # Write data to files
+    if selection == "snpy+salt":
+        with open(save_loc, 'w') as f:
+                print(f"# Created by M.D. Woods -- {CURRENTDATE} -- NUM TARGETS: {len(tb_combined)}\n"
+                      f"# Scatter: {np.std(resid):.4f}, MASS_STEP: {mass_step:.4f}+/-{mass_step_err:.4f}\n"
+                      f"# WARNING: For files with SNPY & SALT, the 'stretch' and 'color' are NOT identical.", file=f)
+                hdr = list(tb_combined.columns)
+                print(str(str(hdr).replace("'", "")[1:-1]), file=f)
+                for row in tb_combined:
+                    line = ""
+                    for c in hdr:
+                        line += f"{row[c]}, "
+                    print(line[:-2], file=f)
+    elif selection == "snpy":
+        with open(save_loc, 'w') as f:
+            print(f"# Created by M.D. Woods -- {CURRENTDATE} -- NUM TARGETS: {len(tb_snpy)}\n"
+                  f"# Scatter: {np.std(resid):.4f}, MASS_STEP: {mass_step:.4f}+/-{mass_step_err:.4f}", file=f)
+            hdr = list(tb_snpy.columns)
+            print(str(str(hdr).replace("'", "")[1:-1]), file=f)
+            for row in tb_snpy:
+                line = ""
+                for c in hdr:
+                    line += f"{row[c]}, "
+                print(line[:-2], file=f)
+    elif selection == "salt":
+        with open(save_loc, 'w') as f:
+            print(f"# Created by M.D. Woods -- {CURRENTDATE} -- NUM TARGETS: {len(tb_salt)}\n"
+                  f"# Scatter: {np.std(resid):.4f}, MASS_STEP: {mass_step:.4f}+/-{mass_step_err:.4f}", file=f)
+            hdr = list(tb_salt.columns)
+            print(str(str(hdr).replace("'", "")[1:-1]), file=f)
+            for row in tb_salt:
+                line = ""
+                for c in hdr:
+                    line += f"{row[c]}, "
+                print(line[:-2], file=f)
+    print(f"[+++] Saved data to {save_loc}...")
+    return
 def visual_inspection(path: str, save_loc: str = ''):
     print(f"[+++] Visual inspection for '{path}'...")
 
@@ -418,6 +596,100 @@ def check_peak(sne: object, tol: float = 10.0, limit: int = 10):
           f"Missing: {invalid_sne}\n"
           f"===========================================")
     return
+def correct_average_dist_mod(snpy_path: str = '', salt_path: str = ''):
+    tb_snpy = utils.default_open(snpy_path, True)
+    tb_salt = utils.default_open(salt_path, True)
+
+    # Get distance modulus residuals
+    dmu = np.array([])
+    for name in tb_salt["objname"]:
+        if (name in list(tb_snpy["objname"])) & (name in list(tb_salt["objname"])):
+            dmu = np.append(dmu, tb_snpy[tb_snpy["objname"] == name]['mu'] - tb_salt[tb_salt["objname"] == name]['mu'])
+        else:
+            dmu = np.append(dmu, np.nan)
+    tb_salt["dmu"] = dmu
+
+    # Correct for average distnace modulus
+    avg_dmu = np.average(np.abs(tb_salt['dmu'][~np.isnan(tb_salt['dmu'])]))
+    new_salt = np.array([])
+    for row in tb_salt:
+        if row['dmu'] < 0:
+            new_salt = np.append(new_salt, row['mu'] - avg_dmu)
+        elif row['dmu'] >= 0:
+            new_salt = np.append(new_salt, row['mu'] + avg_dmu)
+        elif np.isnan(row['dmu']):
+            new_salt = np.append(new_salt, row['mu'])
+    tb_salt["mu"] = new_salt # Disable correction
+    tb_salt.remove_column('dmu')
+
+    # Combine SNPY & SALT
+    if len(tb_snpy) > len(tb_salt):
+        tb_combined = tb_snpy.copy()
+        for row in tb_salt:
+            tb_combined.add_row(row)
+    else:
+        tb_combined = tb_salt.copy()
+        for row in tb_snpy:
+            tb_combined.add_row(row)
+
+    resid = tb_combined['mu'].astype(float) - utils.current_cosmo().distmod(tb_combined['z_cmb'].astype(float)).value
+    print(np.std(resid))
+
+    # Save data
+    with open('results/norm_snpy-salt_params_cut.txt', 'w') as f:
+        print(f"# Created by M.D. Woods -- {CURRENTDATE} -- NUM TARGETS: {len(tb_combined)}\n"
+              f"# Scatter: {np.std(resid):.4f}\n"
+              f"# WARNING: For files with SNPY & SALT, the 'stretch' and 'color' are NOT identical.", file=f)
+        hdr = list(tb_combined.colnames)
+        print(str(str(hdr).replace("'", "")[1:-1]), file=f)
+        for row in tb_combined:
+            line = ""
+            for c in hdr:
+                line += f"{row[c]}, "
+            print(line[:-2], file=f)
+    print(f"[+++] Updated data at 'results/norm_snpy-salt_params_cut.txt'...")
+    with open(snpy_path, 'w') as f:
+        print(f"# Created by M.D. Woods -- {CURRENTDATE} -- NUM TARGETS: {len(tb_snpy)}", file=f)
+        hdr = list(tb_snpy.colnames)
+        print(str(str(hdr).replace("'", "")[1:-1]), file=f)
+        for row in tb_snpy:
+            line = ""
+            for c in hdr:
+                line += f"{row[c]}, "
+            print(line[:-2], file=f)
+    print(f"[+++] Updated data at {snpy_path}...")
+    with open(salt_path, 'w') as f:
+        print(f"# Created by M.D. Woods -- {CURRENTDATE} -- NUM TARGETS: {len(tb_salt)}", file=f)
+        hdr = list(tb_salt.colnames)
+        print(str(str(hdr).replace("'", "")[1:-1]), file=f)
+        for row in tb_salt:
+            line = ""
+            for c in hdr:
+                line += f"{row[c]}, "
+            print(line[:-2], file=f)
+    print(f"[+++] Saved data to {salt_path}...")
+
+    return
+def find_average_snpy_salt_difference(snpy_path: str = '', salt_path: str = ''):
+    tb_snpy = utils.default_open(snpy_path, True)
+    tb_salt = utils.default_open(salt_path, True)
+
+    # Get distance modulus residuals
+    dmu = np.array([])
+    for name in tb_salt["objname"]:
+        if (name in list(tb_snpy["objname"])) & (name in list(tb_salt["objname"])):
+            mu_err_combined = np.sqrt((tb_snpy[tb_snpy["objname"] == name]["mu_err"][0]**2)+
+                                      (tb_salt[tb_salt["objname"] == name]["mu_err"][0]**2))
+            if mu_err_combined < 0.5:
+                dmu = np.append(dmu, tb_snpy[tb_snpy["objname"] == name]['mu'] - tb_salt[tb_salt["objname"] == name]['mu'])
+            else:
+                dmu = np.append(dmu, np.nan)
+        else:
+            dmu = np.append(dmu, np.nan)
+
+    avg_dmu = np.average(np.abs(dmu[~np.isnan(dmu)]))
+    print(f"[---] Average difference between SNooPy and SALT3 Dist. Mod.: {avg_dmu} [{len(dmu[~np.isnan(dmu)])}]")
+    return avg_dmu
 
 if __name__ == '__main__':
     start = systime.time()  # Runtime tracker

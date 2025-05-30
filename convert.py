@@ -1,7 +1,7 @@
 import os
-import glob
 import sys
-
+import glob
+import datetime
 import numpy as np
 from astropy.table import Table
 
@@ -23,6 +23,7 @@ CSP_CONSTANTS = {
     'csp_zpts_H':    13.502,
     'csp_zpts_Ks':   11.968
 }
+CURRENTDATE = datetime.datetime.now()
 
 def covert_file_format(file_loc, origin, save_loc):
     if origin == 'CSP':
@@ -303,11 +304,11 @@ def data_stats(subtype: str = '91bg'):
     print("======================================================")
 
     return
-def  convert_dust():
+def convert_dust(data_loc: str = 'txts/global_dust.txt', save_loc: str = 'txts/global_dust_params.txt'):
     # Clean dust files
-    data = np.genfromtxt('txts/global_dust.txt', delimiter=' ', skip_header=1, dtype=str)
-    with open('txts/global_dust_params.txt', 'w') as f:
-        print(f"# Created by M.D. Woods -- 2025-05-18 -- NUM TARGETS: {len(data[:, 0])}", file=f)
+    data = np.genfromtxt(data_loc, delimiter=' ', skip_header=1, dtype=str)
+    with open(save_loc, 'w') as f:
+        print(f"# Created by M.D. Woods -- {CURRENTDATE} -- NUM TARGETS: {len(data[:, 0])}", file=f)
         print(f"# Avg. 'av_16': {data[:, 1].astype(float).mean():.4f}", file=f)
         print(f"# Avg. 'av_50': {data[:, 2].astype(float).mean():.4f}", file=f)
         print(f"# Avg. 'av_84': {data[:, 3].astype(float).mean():.4f}", file=f)
